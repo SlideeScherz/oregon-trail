@@ -1,0 +1,49 @@
+body{
+  background: linear-gradient(#e66465, #9198e5);
+}
+
+#fade {
+  font-size:32px;
+  color: white;
+  text-shadow: 8px 8px 12px rgb(1, 80, 133);
+  font-family: 'Stencil Std', fantasy;
+  opacity: 1;
+  transition: 1s opacity;
+  text-align: center;
+}
+
+a:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 8px 8px 12px rgb(255, 0, 0);
+}
+
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+  text-align: center;
+}
+
+a:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+  text-align: center;
+}
+
+h2{
+  text-align: left;
+  font-family: 'Stencil Std', fantasy;
+  color: white;
+  text-shadow: 8px 8px 12px rgb(1, 80, 133);
+}
+
+p{
+  text-align: left;
+  font-family: 'Stencil Std', fantasy;
+  color: white;
+  text-shadow: 8px 8px 12px rgb(1, 80, 133);
+}

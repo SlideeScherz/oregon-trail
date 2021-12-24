@@ -1,0 +1,41 @@
+body{
+    background-color: bisque;
+}
+
+#fade {
+    font-size: 32px;
+    color: rgb(255, 153, 0);
+    text-shadow: 2px 2px 4px rgb(253, 0, 0);
+    opacity: 1;
+    transition: 1s opacity;
+    text-align: center;
+    font-family: 'Stencil Std', fantasy;
+}
+  
+a:link {
+    color: rgb(255, 153, 0);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: rgb(255, 153, 0);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:active {
+    color: rgb(255, 153, 0);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a.actions{
+    color: white;
+    font-size:20px;
+    text-shadow: 1px 1px 2px rgb(253, 0, 0);
+    font-family: 'Stencil Std', fantasy;
+}
+
+
+
