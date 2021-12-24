@@ -1,9 +1,0 @@
-  <img  src="/images/wagon1.jpeg"> 
-    
-    <h1>Chose your profession:</h1>
-    <p>1. Be a banker from Boston</p><br>
-    <p>2. Be a carpenter from Ohio</p><br>
-    <p>3. Be a farmer from Illinois</p><br>
-    <p>4. Find out the differences between the choices</p>
-    
-    <div id="fade"> <a href="http://localhost:1337/mainmenu" style="text-decoration: none"> Press spacebare to return to menu</a></div>   

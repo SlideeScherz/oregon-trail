@@ -10,7 +10,6 @@ function resetGame (){
 }
 
 
-
 //if the user presses space redirect to mainmenu
 window.addEventListener("keydown", function pressSpace(e){
   if (e.key == ' ') {

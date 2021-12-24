@@ -1,40 +1,47 @@
-body{
-    background-color: bisque;
+body {
+  background: #f46b45;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #eea849, #f46b45);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #eea849, #f46b45); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
 }
 
 #fade {
-    font-size: 32px;
-    color: rgb(255, 153, 0);
-    text-shadow: 2px 2px 4px rgb(253, 0, 0);
-    opacity: 1;
-    transition: 1s opacity;
-    text-align: center;
-    font-family: 'Stencil Std', fantasy;
-}
-  
-a:link {
-    color: rgb(255, 153, 0);
-    background-color: transparent;
-    text-decoration: none;
+  font-size: 32px;
+  color: rgb(255, 153, 0);
+  text-shadow: 2px 2px 4px #ff1111;
+  opacity: 1;
+  transition: 1s opacity;
+  text-align: left;
+  font-family: 'Stencil Std', fantasy;
 }
 
-a:visited {
-    color: rgb(255, 153, 0);
-    background-color: transparent;
-    text-decoration: none;
+
+a.actions {
+  font-size: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px #ff1111;
+  font-family: 'Stencil Std', fantasy;
+  text-align: left;
+  outline: none;
+  text-decoration: none;
+  padding-left: 50px;
 }
 
+
+/* mouse over link */
+a:hover {
+  background: #ff1111;
+  transition: 0.3s ease-in;
+  cursor: pointer;
+}
+
+/* selected link */
 a:active {
-    color: rgb(255, 153, 0);
-    background-color: transparent;
-    text-decoration: none;
+  color: #ffffff;
 }
 
-a.actions{
-    color: white;
-    font-size:20px;
-    text-shadow: 1px 1px 2px rgb(253, 0, 0);
-    font-family: 'Stencil Std', fantasy;
+a:focus {
+  background: #ff1111;
 }
 
 

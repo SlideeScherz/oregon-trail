@@ -1,8 +1,8 @@
 //function to return the pace
 function gamePace(Name, Health, Mileage) {
-    this.paceName = Name;
-    this.paceHealth = Health;
-    this.paceMileage = Mileage; 
+  this.paceName = Name;
+  this.paceHealth = Health;
+  this.paceMileage = Mileage;
 }
 
 //list of logic for pace
@@ -14,7 +14,7 @@ allPaces.push(new gamePace("Grueling", -8, 35));
 allPaces.push(new gamePace("Resting", +5, 0));
 
 exports.paceOptions = function () {
-  return (allPaces);
+  return allPaces;
 }
 
 

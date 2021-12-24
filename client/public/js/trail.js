@@ -23,12 +23,7 @@ var trailStats = function(){
     document.getElementById('terrain').innerHTML = data.currentTerrain.terrainName;
     document.getElementById('members').innerHTML = data.playerStatus;
 
-    //star wars easter egg at day 20
-    if(data.daysOntrail == 20){
-      window.location.href = "/obi-wanApproaches";
-      console.log("Easter egg")
-    }
-
+   
     if(data.messeges == null || data.messeges == undefined){
       document.getElementById('messeges').innerHTML = "";
       console.log("undefined msg!")
@@ -101,10 +96,6 @@ window.addEventListener("keydown", function userPaceChange(e){
   //if user presses 4 change pace to resting
   }else if (e.key == "4"){
     changePace(3);
-
-  //press 5 for easter egg!
-  }else if(e.key == "5"){
-    window.location.href = "/obi-wanApproaches";
 
   //if the user presses space advance the day  
   }else if (e.key == " "){

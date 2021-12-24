@@ -9,34 +9,43 @@ var isSoundOn = sessionStorage.getItem("audio");
 var audio = new Audio();
 
 //assign the audio its path
-audio.src = "/music/mw2music.mp3";
+audio.src = "/music/BO3-Sarah.mp3";
 
 //create function to control audio which will later be acessed with keypress event
 //FIX WHERE MUSIC STARTS ON TRAIL IF MUTED
-function toggleAudio(){
+function toggleAudio() {
 
-    //if sound is on (true) turn it off
-    if (isSoundOn){
-        sessionStorage.setItem("audio","false");
-        audio.pause();
-        isSoundOn = false;
+  //if sound is on (true) turn it off
+  if (isSoundOn) {
+    sessionStorage.setItem("audio", "false");
+    audio.pause();
+    isSoundOn = false;
+  } 
+  
+  //if sound is off turn it on!
+  else if (!isSoundOn) {
+    sessionStorage.setItem("audio", "true");
+    audio.play();
+    isSoundOn = true;
+  }
 
-    //if sound is off turn it on!
-    }else{
-        sessionStorage.setItem("audio","true");
-        audio.play();
-        isSoundOn = true;
-    }
+  else{
+    console.log("Audio err!");
+  }
 }
 
 //reset seconds to 0
 sessionStorage.setItem("seconds", 0);
 
+//Default audio to play
+sessionStorage.setItem("audio", "true");
+audio.play();
+
 
 //global method for a fading text
 //if the user presses space redirect to mainmenu
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-  
+

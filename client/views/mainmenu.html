@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Menu</title>
 
-    <!--these provide path to css-->
-    <link rel="stylesheet" href="/css/mainmenu.css">
-    <link rel="stylesheet" href="/css/global.css">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Menu</title>
+
+  <!--these provide path to css-->
+  <link rel="stylesheet" href="/css/mainmenu.css">
+  <link rel="stylesheet" href="/css/global.css">
 
 </head>
-<body>
-    <div id="fade"> Main Menu</div> 
 
-    <p><a class = "actions" href="http://localhost:1337/setup">1. Travel the trail</a></p>
-    <br>
-    <p><a class = "actions" href="http://localhost:1337/setup">2. Learn about the trail</a></p>
-    <br>
-    <p><a class = "actions" href="http://localhost:1337/topTen">3. See the Oregon top 10</a</p>
-    <br>
-    <br>
-    <br>
-    <span class = "actions" id = "audioText"> 4. Turn Sound (Off/On)</span>
-    <br>
-    <br>
-    
-    <img  src="/images/wagon1.jpeg"> 
-  
+<body>
+  <div id="MainMenuContainer">
+    <div id="fade">
+      <h1>Main Menu</h1>
     </div>
 
-    <script src="/js/global.js"> </script>
-    <script src="/js/mainmenu.js"> </script>
-  
+    <div class=actions_container>
+      <p><a class=actions href="http://localhost:1337/setup">1. Travel the trail</a></p>
+
+      <p><a class=actions href="http://localhost:1337/setup">2. Learn about the trail</a></p>
+
+      <p><a class=actions href="http://localhost:1337/topTen">3. See the Oregon top 10</a></p>
+
+      <p><span class=actions id="audioText"> 4. Turn Sound (Off/On)</span></p>
+
+    </div>
+
+    <div id=img_container>
+      <img src="/images/wagon1.jpeg">
+    </div>
+
+  </div>
+
+  <script src="/js/global.js"> </script>
+  <script src="/js/mainmenu.js"> </script>
+
+
+
 </body>
+
 </html>

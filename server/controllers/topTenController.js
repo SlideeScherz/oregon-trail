@@ -1,3 +1,4 @@
+/*
 var mysql = require('../models/topTen');
 
 var con = mysql.createConnection({
@@ -15,6 +16,7 @@ con.connect((err) => {
 	if(err) throw err;
 	})
 });
+
 
 
 // get users
@@ -50,3 +52,5 @@ con.query(sql, (err, result) => {
 	res.send(result);
 })
 }
+
+*/
