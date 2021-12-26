@@ -1,12 +1,15 @@
-function gameWeather(Id, Name, Health, Miles, Probability) {
-  this.weatherIdentification = Id;
-  this.weatherName = Name;
-  this.weatherHealth = Health;
-  this.weatherMiles = Miles;
-  this.weatherProbability = Probability;
+class gameWeather {
+  constructor(Id, Name, Health, Miles, Probability) {
+    this.weatherIdentification = Id;
+    this.weatherName = Name;
+    this.weatherHealth = Health;
+    this.weatherMiles = Miles;
+    this.weatherProbability = Probability;
+  }
 }
 
-defaultWeather = new gameWeather(0, "default", 0, 0, 0);
+
+exports.defaultWeather = new gameWeather(0, "default", 0, 0, 0);
 
 
 //populate weather data
@@ -40,8 +43,6 @@ exports.simulateWeather = function () {
     }
   }
 }
-
-
 
 
 exports.weatherOptions = function () {

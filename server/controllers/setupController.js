@@ -53,6 +53,8 @@ var startGame5 = "<p>Congratulations! You are ready to start the mission</p>"
     + "<h2 id=\"pressSpace\">Press the space to go to trail.</h2>"
     + "</div>";
 
+    
+//possibly add all to array then push array
 exports.startGameScreens.push(startGame1);
 exports.startGameScreens.push(startGame2);
 exports.startGameScreens.push(startGame3);

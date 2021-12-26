@@ -3,39 +3,17 @@
 //use api to return day reset, and change of gameStats.currentPace
 
 //may need these lol
-var terrainImport = require('../models/terrain');
+var terrain = require('../models/terrain');
 var gameStatsImport = require('../models/gameData');
 var topTen = require('../models/topTen');
 var paceImport = require('../models/pace');
 var weatherImport = require('../models/weather');
 
 //create gamestats object 
-var gameStats = gameStatsImport.gameInfo({}, {}, {}, [], [], [], "", 0, "", 0, 100, 0);
+var gameStats = gameStatsImport.gameInfo(0, weatherImport.defaultWeather, terrain.defaultTerrain, [], [], [], "", 0, "", 0, 100, 0);
 
 
-//error handeling if something loads null upon game start 
-if (gameStats.groupHealth == null || gameStats.groupHealth == undefined) {
-  gameStats.groupHealth = 100
-}
-
-if (gameStats.milesTraveled == null || gameStats.milesTraveled == undefined) {
-  gameStats.milesTraveled = 0;
-}
-
-if (gameStats.currentTerrain.terrainMilesEffect == undefined) {
-  gameStats.currentTerrain.terrainMilesEffect = 0.5;
-  console.log("terrainMilesEffect was undef! Fixed")
-}
-
-
-//function to get a random int
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
-
-
-//exported vis method above
+//exported via method above
 //grouphealth is created in the gamedata object. we simply manipulate it here
 function updateHealth() {
 
@@ -74,7 +52,7 @@ function distance() {
 
     return miles;
   }
-  
+
 }
 
 //check status of players and add messeges
@@ -88,8 +66,7 @@ function updateMesseges() {
     gameStats.messages.unshift("");
   }
 
-
-  if (gameStats.groupHealth > 80) {
+  else if (gameStats.groupHealth > 80) {
 
     gameStats.messages.unshift("Your team is healthy! Proceed on!");
   }
@@ -98,13 +75,17 @@ function updateMesseges() {
     gameStats.playerStatus[randomInt] = false;
     gameStats.messages.unshift(randomPlayer + " has died");
 
-  } else if ((gameStats.groupHealth > 0) && (gameStats.groupHealth < 20)) {
+  } 
+  
+  else if ((gameStats.groupHealth > 0) && (gameStats.groupHealth < 20)) {
     gameStats.playerStatus[randomInt] = false;
     gameStats.messages.unshift("player " + randomPlayer + " has died");
   }
+  
   else if (gameStats.groupHealth <= 0) {
     gameStats.messages.unshift("all players have died. Game Over");
   }
+  
   else {
     gameStats.messages.unshift("Press Space to advance day!");
 
@@ -115,13 +96,9 @@ function updateMesseges() {
 //we may not need this now that we have a better constuctos for most values
 exports.resetGame = function (req, res) {
 
-  //we dont need start month to reset the game. The user will establish it in setup.js
-  //create a default value for each obj
-  //set all to default values here 
-  //gameStats.currentPace = ;
   gameStats.startMonth = 'default month';
   gameStats.currentWeather = weatherImport.defaultWeather;
-  gameStats.currentTerrain = defaultTerrain;
+  gameStats.currentTerrain = terrain.defaultTerrain;
   gameStats.playerProfession = "default profession"
   gameStats.groupHealth = 100;
   gameStats.milesTraveled = 0;

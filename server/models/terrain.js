@@ -7,14 +7,14 @@ const defaultImg = "<img src=\"/images/goodLuckMsg.png\" width=\"200px\" height=
 
 //create a function for a terrian obj 
 //each time the terrian changes change the img on the page
-function gameTerrain(Name, Image, milesEffect) {
-  this.terrainName = Name;
-  this.terrainImage = Image;
-  this.terrainMilesEffect = milesEffect;
+class gameTerrain {
+  constructor(Name, Image, milesEffect) {
+    this.terrainName = Name;
+    this.terrainImage = Image;
+    this.terrainMilesEffect = milesEffect;
+  }
 }
 
-
-//make images a const variable
 
 var terrainArray = [];
 
@@ -35,7 +35,7 @@ exports.simulateTerrain = function() {
   var len = terrainArray.length;
 
   //select a random item from array of weathers
-  var i = getRandomInt(len);
+  var i = Math.floor(Math.random() * len);
 
   //gameStats.currentTerrain = terrainArray[i];
   return terrainArray[i];

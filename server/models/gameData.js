@@ -2,30 +2,34 @@
 //this is where the gameStats object is birthed
 //gameData here, converted to gamestats
 
+
+//import models
+var pace = require('../models/pace');
+var weather = require('../models/weather');
+var terrain = require('../models/terrain');
+
 //create a gamedata class
 //pace, weather and terrain are not 'read' yet but will be upon export below in the gameInfo object
-function gameData(currentPace, currentWeather, currentTerrain, messages, playerNames, playerStatus,
-  playerProfession, playerMoney, startMonth,
-  milesTraveled, groupHealth, daysOnTrail) {
+class gameData {
+  constructor(currentPace, currentWeather, currentTerrain, messages, playerNames, playerStatus,
+    playerProfession, playerMoney, startMonth,
+    milesTraveled, groupHealth, daysOnTrail) {
 
-  //import models
-  var paceImport = require('../models/pace');
-  var weatherImport = require('../models/weather');
-  var terrainImport = require('../models/terrain');
 
-  //populate instances with DEFAULT values
-  this.currentPace = {};
-  this.currentWeather = {};
-  this.currentTerrain = {};
-  this.messages = [];
-  this.playerNames = ["", "", "", "", ""];
-  this.playerStatus = [true, true, true, true];
-  this.playerProfession = "";
-  this.playerMoney = 0;
-  this.startMonth = "";
-  this.milesTraveled = 0;
-  this.groupHealth = 100;
-  this.daysOnTrail = 0;
+    //populate instances with DEFAULT values
+    this.currentPace = currentPace;
+    this.currentWeather = currentWeather;
+    this.currentTerrain = currentTerrain;
+    this.messages = messages;
+    this.playerNames = playerNames
+    this.playerStatus = playerStatus
+    this.playerProfession = playerProfession;
+    this.playerMoney = playerMoney;
+    this.startMonth = startMonth;
+    this.milesTraveled = milesTraveled
+    this.groupHealth = groupHealth;
+    this.daysOnTrail = daysOnTrail;
+  }
 }
 
 
