@@ -7,10 +7,11 @@ var terrain = require('../models/terrain');
 var gameStatsImport = require('../models/gameData');
 var topTen = require('../models/topTen');
 var paceImport = require('../models/pace');
-var weatherImport = require('../models/weather');
+var weather = require('../models/weather');
 
 //create gamestats object 
-var gameStats = gameStatsImport.gameInfo(0, weatherImport.defaultWeather, terrain.defaultTerrain, [], [], [], "", 0, "", 0, 100, 0);
+//Shouldnt be here. Should update the main gamestats object in that model
+var gameStats = gameStatsImport.gameInfo(0, weather.defaultWeather, terrain.defaultTerrain, [], [], [], "", 0, "", 0, 100, 0);
 
 
 //exported via method above
@@ -97,7 +98,7 @@ function updateMesseges() {
 exports.resetGame = function (req, res) {
 
   gameStats.startMonth = 'default month';
-  gameStats.currentWeather = weatherImport.defaultWeather;
+  gameStats.currentWeather = weather.defaultWeather;
   gameStats.currentTerrain = terrain.defaultTerrain;
   gameStats.playerProfession = "default profession"
   gameStats.groupHealth = 100;
@@ -106,7 +107,6 @@ exports.resetGame = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats);
   console.log("Restting Game");
-  console.log(gameStats);
 }
 
 //gameStats.milesTraveled export with express
@@ -133,6 +133,8 @@ exports.getCurrentTerrains = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats.currentTerrain);
 }
+
+//this should be in setup controller!
 
 //===setup data=======//
 exports.pickProfession = function (req, res) {
@@ -193,8 +195,8 @@ exports.updateGameData = function (req, res) {
   //call all local methods above and send them to oregontrail.js
   //we must call weather and terrain options first before we call anything else
   gameStats.daysOnTrail++;
-  gameStats.currentWeather = simulateWeather();
-  gameStats.currentTerrain = simulateTerrain();
+  gameStats.currentWeather = weather.simulateWeather();
+  gameStats.currentTerrain = terrain.simulateTerrain();
   gameStats.milesTraveled = distance();
   gameStats.groupHealth = updateHealth();
   updateMesseges();
