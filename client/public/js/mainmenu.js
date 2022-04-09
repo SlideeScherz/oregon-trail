@@ -8,11 +8,6 @@ window.addEventListener("keydown", function navigateMainMenu(e) {
     window.location.href = "/setup";
   }
 
-  //navigate to top ten if we press 3
-  else if (e.key == '3') {
-    window.location.href = "/topten";
-  }
-
   //press 4 for audio off, switch html to turn sound on
   else if ((e.key == '4') && (sessionStorage.getItem("audio") == "true")) {
     var text = document.getElementById("audioText");

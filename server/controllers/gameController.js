@@ -5,7 +5,6 @@
 //may need these lol
 var terrain = require('../models/terrain');
 var gameStatsImport = require('../models/gameData');
-var topTen = require('../models/topTen');
 var paceImport = require('../models/pace');
 var weather = require('../models/weather');
 
@@ -13,9 +12,8 @@ var weather = require('../models/weather');
 //Shouldnt be here. Should update the main gamestats object in that model
 var gameStats = gameStatsImport.gameInfo(0, weather.defaultWeather, terrain.defaultTerrain, [], [], [], "", 0, "", 0, 100, 0);
 
-
-//exported via method above
-//grouphealth is created in the gamedata object. we simply manipulate it here
+// exported via method above
+// grouphealth is created in the gamedata object. we simply manipulate it here
 function updateHealth() {
 
   var health = gameStats.groupHealth;

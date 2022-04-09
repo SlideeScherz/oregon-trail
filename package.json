@@ -11,9 +11,12 @@
     "url": "git+https://github.com/SlideeScherz/oregon-trail.git"
   },
   "author": "Scott Scherzer",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/SlideeScherz/oregon-trail/issues"
   },
-  "homepage": "https://github.com/SlideeScherz/oregon-trail#readme"
+  "homepage": "https://github.com/SlideeScherz/oregon-trail#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
