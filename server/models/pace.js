@@ -1,4 +1,5 @@
 //function to return the pace
+//TODO: explore other containers
 function gamePace(Name, Health, Mileage) {
   this.paceName = Name;
   this.paceHealth = Health;

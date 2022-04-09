@@ -1,4 +1,11 @@
-//init stepCpunt to zero, Inc every time user advances in menu
+/**
+ * init stepCpunt to zero, Inc every time user advances in menu
+ * 0: profession
+ * 1: leader
+ * 2: members
+ * 3: start month
+ * 4: show selections
+ */
 var stepCount = 0;
 
 // Send to gameData
@@ -14,46 +21,44 @@ else if (!audioPlaying) {
 // load first screen by default
 getScreen(0);
 
+
 function getScreen(screenId) {
   fetch('/api/setup/screen/' + screenId).then(function (response) {
     if (response.status !== 200) {
-      console.log('pick setup screen' + response.status + "msg: " + response.value);
+      console.error(`getScreen => ${response.status}`);
       return;
     }
 
+    console.log(`getScreen => ${response.status}`);
+    console.log(response);
+    console.log(`step = ${stepCount}`);
+
     response.text().then(function (data) {
       gameContainer.innerHTML = data;
-      if (screenId == 5) {
+      if (screenId === 5) {
         returnStats();
       }
     })
   });
 }
 
-// TODO: Match styling with index.js
-window.addEventListener("keypress", pressProfession, false);
-function pressProfession(e) {
+window.addEventListener("keypress", function pressProfession(event) {
 
-  if (stepCount == 0) {
+  if (stepCount === 0) {
 
-    if (e.key == "1") {
+    if (event.code === 'Digit1' || event.code === 'Numpad1') {
       saveProfession("Banker");
-      stepCount++;
     }
 
-    else if (e.key == "2") {
+    else if (event.code === 'Digit2' || event.code === 'Numpad2') {
       saveProfession("Carpenter");
-      stepCount++;
     }
 
-    else if (e.key == "3") {
-
+    else if (event.code === 'Digit3' || event.code === 'Numpad3') {
       saveProfession("Farmer");
-      stepCount++;
     }
   }
-}
-
+});
 
 function saveProfession(playerProfession) {
 
@@ -66,17 +71,17 @@ function saveProfession(playerProfession) {
   }).then(function (response) {
 
     if (response.status !== 200) {
-      console.log('ok' + response.status + "msg: " + response.value);
+      console.error(`saveProfession => ${response.status}`);
       return;
-    } else {
-      getScreen(stepCount);
     }
-
-    console.log("profession" + playerProfession + " saved! ");
-
+    console.log(`saveProfession => ${response.status}`);
+    console.log(response);
+    stepCount++;
+    getScreen(stepCount);
   });
 }
 
+// TODO: make all on the same page
 // TODO: May be incorrect. check players
 function saveWagonLeader() {
   var name1 = document.getElementById("player0").value
@@ -89,14 +94,13 @@ function saveWagonLeader() {
     body: '{"name1": "' + name1 + '"}'
   }).then(function (response) {
     if (response.status !== 200) {
-      console.log('ok' + response.status + "msg: " + response.value);
+      console.error(`saveWagonLeader => ${response.status}`);
       return;
     }
-    else {
-      stepCount++;
-      getScreen(stepCount);
-    }
-    console.log("wagon leader " + name1 + " is saved");
+    console.log(`saveWagonLeader => ${response.status}`);
+    console.log(response);
+    stepCount++;
+    getScreen(stepCount);
   });
 }
 
@@ -112,16 +116,16 @@ function saveWagonMembers() {
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       }
-
-    }).then(function (response) {
+    })
+    .then(function (response) {
       if (response.status !== 200) {
-        console.log('ok' + response.status + "msg: " + response.value);
+        console.error(`saveWagonMembers => ${response.status}`);
         return;
-      } else {
-        stepCount++;
-        getScreen(stepCount);
       }
-      console.log("wagon members saved");
+      console.log(`saveWagonMembers => ${response.status}`);
+      console.log(response);
+      stepCount++;
+      getScreen(stepCount);
     });
 }
 
@@ -137,70 +141,58 @@ function saveMonth(startMonth) {
   }).then(function (response) {
 
     if (response.status !== 200) {
-      console.log('ok' + response.status + "msg: " + response.value);
+      console.error(`saveMonth => ${response.status}`);
       return;
     }
-    else {
-      getScreen(4);
-      returnStats();
-    }
-
-    console.log("month" + startMonth + " saved! ");
+    console.log(`saveMonth => ${response.status}`);
+    console.log(response);
+    stepCount++;
+    getScreen(stepCount);
   });
 }
 
-window.addEventListener("keypress", pickMonth, false);
-function pickMonth(e) {
-  if (e.key == "1") {
-    if (stepCount == 3) {
+window.addEventListener("keypress", function pickMonth(event) {
+
+  if (stepCount === 3) {
+
+    if (event.code === 'Digit1' || event.code === 'Numpad1') {
       saveMonth("March");
-      stepCount++;
     }
-  }
 
-  else if (e.key == "2") {
-    if (stepCount == 3) {
+    else if (event.code === 'Digit2' || event.code === 'Numpad2') {
       saveMonth("April");
-      stepCount++;
     }
-  }
-  else if (e.key == "3") {
-    if (stepCount == 3) {
+    else if (event.code === 'Digit3' || event.code === 'Numpad3') {
       saveMonth("May");
-      stepCount++;
     }
-  }
 
-  else if (e.key == "4") {
-    if (stepCount == 3) {
+    else if (event.code === 'Digit4' || event.code === 'Numpad4') {
       saveMonth("June");
-      stepCount++;
     }
-  }
 
-  else if (e.key == "5") {
-    if (stepCount == 3) {
+    else if (event.code === 'Digit5' || event.code === 'Numpad5') {
       saveMonth("July");
-      stepCount++;
     }
   }
+});
 
-  else if (e.key == " ") {
-
-    if (stepCount == 5) {
-      window.location.href = "/trail"
-    }
+window.addEventListener("keypress", function gotoTrail(event) {
+  if (stepCount === 4 && event.code == "Space") {
+    window.location.href = "/trail"
   }
-}
+});
 
-var returnStats = function () {
-  stepCount++;
+function returnStats() {
   fetch('/api/game/data/')
     .then(function (response) {
       if (response.status !== 200) {
-        console.error(response);
+        console.error(`returnStats => ${response.status}`);
         return;
       }
+
+      //no screen to show. call the event listener
+      console.log(`returnStats => ${response.status}`);
+      console.log(response);
 
       //display the data the user has entered
       response.json().then(function (data) {
@@ -211,9 +203,6 @@ var returnStats = function () {
         document.getElementById('rPlayer3Name').innerHTML = "<p> Wagon Member 2: </p>" + data.playerNames[2];
         document.getElementById('rPlayer4Name').innerHTML = "<p> Wagon Member 3: </p>" + data.playerNames[3];
         document.getElementById('rMonth').innerHTML = "<p> Start Month: </p>" + data.startMonth;
-
-        console.log('data saved. proceeding');
-        console.log(data);
       })
     })
 }
