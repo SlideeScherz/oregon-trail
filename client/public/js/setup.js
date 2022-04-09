@@ -8,19 +8,8 @@
  */
 var stepCount = 0;
 
-// Send to gameData
-const audioPlaying = sessionStorage.getItem("audio");
-
-if (audioPlaying) {
-  audio.play();
-}
-else if (!audioPlaying) {
-  audio.pause();
-}
-
 // load first screen by default
 getScreen(0);
-
 
 function getScreen(screenId) {
   fetch('/api/setup/screen/' + screenId).then(function (response) {
@@ -31,11 +20,11 @@ function getScreen(screenId) {
 
     console.log(`getScreen => ${response.status}`);
     console.log(response);
-    console.log(`step = ${stepCount}`);
+    //console.log(`step = ${stepCount}`);
 
     response.text().then(function (data) {
       gameContainer.innerHTML = data;
-      if (screenId === 5) {
+      if (screenId === 4) {
         returnStats();
       }
     })

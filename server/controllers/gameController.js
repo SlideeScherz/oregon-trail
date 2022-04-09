@@ -1,15 +1,10 @@
-//require is the javascript version of import or include in cpp
-//use require to add the correct data to the gane controller 
-//use api to return day reset, and change of gameStats.currentPace
-
-//may need these lol
-var terrainImport = require('../models/terrain');
-var gameStatsImport = require('../models/gameData');
-var paceImport = require('../models/pace');
-var weatherImport = require('../models/weather');
+const terrainImport = require('../models/terrain');
+const stats = require('../models/gameData');
+const paceImport = require('../models/pace');
+const weatherImport = require('../models/weather');
 
 //create gamestats object 
-var gameStats = gameStatsImport.gameInfo({}, {}, {}, [], [], [], "", 0, "", 0, 100, 0);
+var gameStats = stats.gameInfo({}, {}, {}, [], [], [], "", 0, "", 0, 100, 0);
 
 //TODO: move to weather
 //populate weather data
@@ -52,9 +47,6 @@ terrainArray.push(currentTerrain2);
 terrainArray.push(currentTerrain3);
 terrainArray.push(currentTerrain4);
 terrainArray.push(currentTerrain5);
-
-
-
 
 //error handeling if something loads null upon game start 
 if (gameStats.groupHealth == null || gameStats.groupHealth == undefined) {
@@ -222,7 +214,7 @@ exports.getCurrentTerrains = function (req, res) {
   res.send(gameStats.currentTerrain);
 }
 
-//===setup data=======//
+// TODO: move to setup controller
 exports.pickProfession = function (req, res) {
   gameStats.playerProfession = req.params.profession;
   if (gameStats.playerProfession == "Banker") {
@@ -239,7 +231,7 @@ exports.pickProfession = function (req, res) {
   res.send(gameStats.playerProfession);
 }
 
-
+// TODO: move to setup controller
 exports.setMembers = function (req, res) {
   gameStats.playerNames[1] = req.params.name2;
   gameStats.playerNames[2] = req.params.name3;
@@ -249,14 +241,15 @@ exports.setMembers = function (req, res) {
   res.send(gameStats.playerNames);
 }
 
-
+// TODO: move to setup controller
 exports.setLeader = function (req, res) {
   gameStats.playerNames[0] = req.params.name1;
   res.setHeader('Content-Type', 'text/plain');
   res.send(gameStats.playerNames);
 }
 
-//not working
+// BUG ===========================================
+// TODO: move to setup controller
 exports.setMonth = function (req, res) {
   gameStats.startMonth = req.params.startMonth;
   res.setHeader('Content-Type', 'text/plain');
@@ -270,36 +263,29 @@ exports.setPace = function (req, res) {
   res.send(gameStats.currentPace);
 }
 
-//add gameStats.milesTraveled to this?
-//THIS IS THE BUG
+exports.updateGameData = function (res) {
 
-//add terrain list 
-//THIS IS THE BUG THIS API DOESNT WORK
-//=================================================================
-exports.updateGameData = function (req, res) {
-
-  //call all local methods above and send them to oregontrail.js
-  //we must call weather and terrain options first before we call anything else
+  // call all local methods above and send them to oregontrail.js
+  // we must call weather and terrain options first before we call anything else
   gameStats.daysOnTrail++;
   gameStats.currentWeather = simulateWeather();
   gameStats.currentTerrain = simulateTerrain();
   gameStats.milesTraveled = distance();
   gameStats.groupHealth = updateHealth();
   updateMesseges();
-  //gameStats.playerStatus = updatePlayerStatus();
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats)
 }
 
-//send gameStats to oregonTrail.js
+// send gameStats to oregonTrail.js
 exports.getGameData = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats);
-  return (gameStats);
 }
 
-//send game data to setup controller
-//not a json might ba an issue
+// TODO: ???
+// send game data to setup controller
+// not a json might ba an issue
 exports.getData = function () {
   return gameStats;
 }

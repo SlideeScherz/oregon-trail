@@ -8,7 +8,6 @@ function gameTerrain(Name, Image, milesEffect) {
 
 //export the terrain
 exports.terrainOptions = function(Name, Image, milesEffect) {
-
   var terrain = new gameTerrain(Name, Image, milesEffect);
   return terrain;
 }

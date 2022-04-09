@@ -47,7 +47,7 @@ app.route('/api/setup/profession/:profession')
   .post(gameController.pickProfession);
 
 app.route('/api/setup/month/:month')
-  .post(gameController.setMonth);
+  .post(gameController.setMonth)
 
 app.route('/api/setup/screen/:id')
   .get(setupController.getGameScreen);

@@ -56,6 +56,5 @@ exports.getGameScreen = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(gameScreen);
 
-  console.log('getGameScreen: ');
-  console.log(gameScreen);
+  console.log(`getGameScreen => ${req.params.id}`);
 };
