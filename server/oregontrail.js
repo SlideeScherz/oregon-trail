@@ -1,17 +1,21 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 app.use(express.static('./client/public'));
-const port = 1337
+const port = 1337;
 
 //include views
-app.get('/', function (req, res) { res.sendFile('index.html', {root: './client/views' })
-})
-app.get('/mainmenu', function (req, res) { res.sendFile('mainmenu.html', {root: './client/views' })
-})
-app.get('/setup', function (req, res) { res.sendFile('setup.html', {root: './client/views' })
-})
-app.get('/trail', function (req, res) { res.sendFile('trail.html', {root: './client/views' })
-})
+app.get('/', function (req, res) {
+  res.sendFile('index.html', { root: './client/views' })
+});
+app.get('/mainmenu', function (req, res) {
+  res.sendFile('mainmenu.html', { root: './client/views' })
+});
+app.get('/setup', function (req, res) {
+  res.sendFile('setup.html', { root: './client/views' })
+});
+app.get('/trail', function (req, res) {
+  res.sendFile('trail.html', { root: './client/views' })
+});
 
 // import data for controllers
 var setupController = require('./controllers/setupController');
@@ -20,7 +24,7 @@ var gameController = require('./controllers/gameController');
 //api routes
 app.route('/api/pace/:paceid?')
   .get(gameController.getCurrentPaces)
-  .post(gameController.setPace)
+  .post(gameController.setPace);
 
 //pull game data from game controller
 //for setup and trail
@@ -53,4 +57,4 @@ app.route('/api/setup/screen/:id')
 //port should be 1337 
 app.listen(port, () => {
   console.log(`Oregon Trail listening at http://localhost:${port}`)
-})
+});
