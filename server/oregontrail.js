@@ -4,7 +4,7 @@ const setupController = require('./controllers/setupController');
 const gameController = require('./controllers/gameController');
 
 app.use(express.static('./client/public'));
-const port = 1337;
+const PORT = 1337;
 
 // HTML pages
 app.get('/', function (req, res) {
@@ -20,10 +20,16 @@ app.get('/trail', function (req, res) {
   res.sendFile('trail.html', { root: './client/views' })
 });
 
+//TODO: setupController use POST to create new
+
 //api routes
 app.route('/api/pace/:paceid?')
-  .get(gameController.getCurrentPaces)
-  .post(gameController.setPace);
+  .get((req, res) => {
+    res.send(gameController.getCurrentPace)
+  })
+  .put((req, res) => {
+    res.send(gameController.setCurrentPace)
+  })
 
 //pull game data from game controller
 //for setup and trail
@@ -53,6 +59,6 @@ app.route('/api/setup/screen/:id')
   .get(setupController.getGameScreen);
 
 // deploy server
-app.listen(port, () => {
-  console.log(`Oregon Trail listening at http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Oregon Trail listening at http://localhost:${PORT}`)
 });

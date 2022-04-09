@@ -196,7 +196,7 @@ exports.getTraveledMiles = function (req, res) {
 }
 
 //gameStats.currentPace export with express
-exports.getCurrentPaces = function (req, res) {
+exports.getCurrentPace = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats.currentPace);
 }
@@ -256,14 +256,14 @@ exports.setMonth = function (req, res) {
   res.send(gameStats.startMonth);
 }
 
-exports.setPace = function (req, res) {
+exports.setCurrentPace = function (req, res) {
   var allPaces = paceImport.paceOptions();
   gameStats.currentPace = allPaces[req.params.paceid];
   res.setHeader('Content-Type', 'text/plain');
   res.send(gameStats.currentPace);
 }
 
-exports.updateGameData = function (res) {
+exports.updateGameData = function (req, res) {
 
   // call all local methods above and send them to oregontrail.js
   // we must call weather and terrain options first before we call anything else
@@ -281,11 +281,4 @@ exports.updateGameData = function (res) {
 exports.getGameData = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats);
-}
-
-// TODO: ???
-// send game data to setup controller
-// not a json might ba an issue
-exports.getData = function () {
-  return gameStats;
 }
