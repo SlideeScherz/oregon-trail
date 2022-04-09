@@ -11,7 +11,7 @@ var trailStats = function(){
     var wagon = data.milesTraveled / 5; 
 
    
-    //move this back to bottom later
+    // move this back to bottom later
     document.getElementById('pace').innerHTML = data.currentPace.paceName;
     document.getElementById('days').innerHTML = data.daysOnTrail;
     document.getElementById('terrainImage').innerHTML = data.currentTerrain.terrainImage; 
@@ -24,7 +24,7 @@ var trailStats = function(){
     document.getElementById('members').innerHTML = data.playerStatus;
 
    
-    if(data.messeges == null || data.messeges == undefined){
+    if(data.messeges === null || data.messeges === undefined){
       document.getElementById('messeges').innerHTML = "";
       console.log("undefined msg!")
     }else{
@@ -35,8 +35,6 @@ var trailStats = function(){
   })
   })
 }
-
-
 
 function nextDay(){
   fetch('/api/game/updateGame')
