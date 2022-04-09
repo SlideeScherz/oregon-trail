@@ -1,12 +1,6 @@
-//here is all the js to control the main menu
+// main menu controlls 
 
-//first thing i want to load is audio data
-//this must be first in the stack to execute or one of the if statements below will, then the music will load
-//set item to true here, but after this page global will hold the data for sound
-
-
-
-//function to navigate the mainmenu
+// function to navigate the mainmenu
 window.addEventListener("keydown", function navigateMainMenu(e) {
 
   //navigate to setup if we press 1 (travel the trail)
@@ -34,6 +28,7 @@ window.addEventListener("keydown", function navigateMainMenu(e) {
   }
 });
 
+// TODO: redundtant
 //create the visual fade 
 async function fadeout() {
   document.getElementById('fade').style.opacity = '0';

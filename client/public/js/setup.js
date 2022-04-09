@@ -6,9 +6,9 @@ var stepCount = 0;
 sessionStorage.setItem("audio", "true");
 audio.play();
 
+getScreen(0);
 
 function getScreen(screenId) {
-  //console.log(screenId);
   fetch('/api/setup/screen/' + screenId).then(function (response) {
     if (response.status !== 200) {
       console.log('pick setup screen' + response.status + "msg: " + response.value);
@@ -16,8 +16,6 @@ function getScreen(screenId) {
     }
 
     response.text().then(function (data) {
-      // send the html returned back to the
-      // cosole.log("recieved back: " + " data);
       gameContainer.innerHTML = data;
       if (screenId == 5) {
         returnStats();
@@ -25,8 +23,6 @@ function getScreen(screenId) {
     })
   });
 }
-
-getScreen(0);
 
 window.addEventListener("keypress", pressProfession, false);
 function pressProfession(e) {
