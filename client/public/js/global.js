@@ -31,15 +31,8 @@ function toggleAudio() {
 // reset seconds to 0
 sessionStorage.setItem("seconds", 0);
 
-// default audio to play
-sessionStorage.setItem("audio", "true");
-audio.play();
-
-
 //global method for a fading text
 //if the user presses space redirect to mainmenu
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-

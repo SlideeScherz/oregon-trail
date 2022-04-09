@@ -1,3 +1,7 @@
+// default audio to play
+sessionStorage.setItem("audio", "true");
+audio.play();
+
 // fetch api to reset the game   
 function resetGame() {
   fetch('/api/game/reset').then(function (response) {

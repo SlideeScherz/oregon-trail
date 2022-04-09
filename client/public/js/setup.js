@@ -1,11 +1,17 @@
-//start 
-
 //init stepCpunt to zero, Inc every time user advances in menu
 var stepCount = 0;
 
-sessionStorage.setItem("audio", "true");
-audio.play();
+// Send to gameData
+const audioPlaying = sessionStorage.getItem("audio");
 
+if (audioPlaying) {
+  audio.play();
+}
+else if (!audioPlaying) {
+  audio.pause();
+}
+
+// load first screen by default
 getScreen(0);
 
 function getScreen(screenId) {
@@ -24,6 +30,7 @@ function getScreen(screenId) {
   });
 }
 
+// TODO: Match styling with index.js
 window.addEventListener("keypress", pressProfession, false);
 function pressProfession(e) {
 
@@ -70,7 +77,7 @@ function saveProfession(playerProfession) {
   });
 }
 
-
+// TODO: May be incorrect. check players
 function saveWagonLeader() {
   var name1 = document.getElementById("player0").value
 
@@ -191,6 +198,7 @@ var returnStats = function () {
   fetch('/api/game/data/')
     .then(function (response) {
       if (response.status !== 200) {
+        console.error(response);
         return;
       }
 
@@ -209,6 +217,3 @@ var returnStats = function () {
       })
     })
 }
-
-
-

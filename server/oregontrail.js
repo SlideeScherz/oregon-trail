@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
+const setupController = require('./controllers/setupController');
+const gameController = require('./controllers/gameController');
+
 app.use(express.static('./client/public'));
 const port = 1337;
 
-//include views
+// HTML pages
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: './client/views' })
 });
@@ -16,10 +19,6 @@ app.get('/setup', function (req, res) {
 app.get('/trail', function (req, res) {
   res.sendFile('trail.html', { root: './client/views' })
 });
-
-// import data for controllers
-var setupController = require('./controllers/setupController');
-var gameController = require('./controllers/gameController');
 
 //api routes
 app.route('/api/pace/:paceid?')
@@ -53,8 +52,7 @@ app.route('/api/setup/month/:month')
 app.route('/api/setup/screen/:id')
   .get(setupController.getGameScreen);
 
-//deploy server
-//port should be 1337 
+// deploy server
 app.listen(port, () => {
   console.log(`Oregon Trail listening at http://localhost:${port}`)
 });
