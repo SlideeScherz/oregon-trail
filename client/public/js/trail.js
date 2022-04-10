@@ -29,6 +29,7 @@ var trailStats = function () {
     })
 }
 
+// calls update game
 function nextDay() {
   fetch('/api/game/updateGame')
     .then(function (response) {

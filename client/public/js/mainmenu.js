@@ -1,18 +1,7 @@
 // main menu controlls 
 
-// Send to gameData
-const audioPlaying = sessionStorage.getItem("audio");
-
 window.onload = async function () {
-  
   fadeout();
-  
-  if (audioPlaying) {
-    audio.play();
-  }
-  else if (!audioPlaying) {
-    audio.pause();
-  }
 }
 
 // function to navigate the mainmenu

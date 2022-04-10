@@ -143,22 +143,18 @@ function saveMonth(startMonth) {
 window.addEventListener("keypress", function pickMonth(event) {
 
   if (stepCount === 3) {
-
     if (event.code === 'Digit1' || event.code === 'Numpad1') {
       saveMonth("March");
     }
-
     else if (event.code === 'Digit2' || event.code === 'Numpad2') {
       saveMonth("April");
     }
     else if (event.code === 'Digit3' || event.code === 'Numpad3') {
       saveMonth("May");
     }
-
     else if (event.code === 'Digit4' || event.code === 'Numpad4') {
       saveMonth("June");
     }
-
     else if (event.code === 'Digit5' || event.code === 'Numpad5') {
       saveMonth("July");
     }

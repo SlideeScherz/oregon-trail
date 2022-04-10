@@ -25,6 +25,7 @@ app.get('/trail', function (req, res) {
 app.route('/api/game/data')
   .get(gameController.getGameData);
 
+  //TODO: this is next day
 app.route('/api/game/updateGame')
   .get(gameController.updateGameData);
 

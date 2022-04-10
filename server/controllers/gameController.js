@@ -4,7 +4,7 @@ const paceModel = require('../models/pace');
 const weatherModel = require('../models/weather');
 
 //create gamestats object 
-var gameStats = gameDataModel.gameInfo({}, {}, {}, [], [], [], "", 0, "", 0, 100, 0);
+var gameStats = gameDataModel.getGameDataModel();
 const paces = paceModel.getPaces();
 const terrains = terrainModel.getTerrain();
 const weathers = weatherModel.getWeather();
