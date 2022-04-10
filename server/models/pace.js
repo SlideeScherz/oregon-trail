@@ -1,5 +1,4 @@
 //function to return the pace
-//TODO: explore other containers
 const paces = [
   { name: "Steady", healthEffect: 0, mileage: 20 },
   { name: "Strenuous", healthEffect: -3, mileage: 30 },

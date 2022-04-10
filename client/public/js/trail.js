@@ -13,13 +13,13 @@ var trailStats = function () {
         // move this back to bottom later
         document.getElementById('pace').innerHTML = data.currentPace.name;
         document.getElementById('days').innerHTML = data.daysOnTrail;
-        document.getElementById('terrainImage').innerHTML = data.currentTerrain.terrainImage;
+        document.getElementById('terrainImage').innerHTML = data.currentTerrain.image;
         document.getElementById('money').innerHTML = data.playerMoney;
         document.getElementById('profession').innerHTML = data.playerProfession;
         document.getElementById('miles').innerHTML = data.milesTraveled;
-        document.getElementById('weather').innerHTML = data.currentWeather.weatherName;
+        document.getElementById('weather').innerHTML = data.currentWeather.name;
         document.getElementById('health').innerHTML = data.groupHealth;
-        document.getElementById('terrain').innerHTML = data.currentTerrain.terrainName;
+        document.getElementById('terrain').innerHTML = data.currentTerrain.name;
         document.getElementById('members').innerHTML = data.playerStatus;
         document.getElementById('messeges').innerHTML = data.messeges;
 
