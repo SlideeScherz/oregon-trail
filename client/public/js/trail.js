@@ -1,6 +1,3 @@
-const express = require('express');
-const trail = express();
-
 var trailStats = function () {
   fetch('/api/game/data')
     .then(function (response) {
@@ -13,9 +10,8 @@ var trailStats = function () {
       response.json().then(function (data) {
         var wagon = data.milesTraveled / 5;
 
-
         // move this back to bottom later
-        document.getElementById('pace').innerHTML = data.currentPace.paceName;
+        document.getElementById('pace').innerHTML = data.currentPace.name;
         document.getElementById('days').innerHTML = data.daysOnTrail;
         document.getElementById('terrainImage').innerHTML = data.currentTerrain.terrainImage;
         document.getElementById('money').innerHTML = data.playerMoney;
@@ -45,25 +41,6 @@ function nextDay() {
     });
 }
 
-function changePace(id) {
-  fetch(`/api/pace/${id}`,
-    {
-      method: 'put',
-      headers:
-      {
-        "Content-type": "application/json; charset=UTF-8"
-      },
-    }).then(function (response) {
-      if (response.status !== 200) {
-        console.error(`changePace => ${response.status}`);
-        return;
-      }
-      response.json().then(function (data) {
-        document.getElementById('pace').innerHtml = data.name
-      });
-    });
-}
-
 // in game user control
 window.addEventListener("keydown", function trailInput(event) {
 
@@ -71,7 +48,7 @@ window.addEventListener("keydown", function trailInput(event) {
     window.location.href = "/mainmenu"
   }
   else if (event.code === 'Digit1' || event.code === 'Numpad1') {
-    changePace(0);
+    changePace(0)
   }
   else if (event.code === 'Digit2' || event.code === 'Numpad2') {
     changePace(1);
@@ -87,3 +64,20 @@ window.addEventListener("keydown", function trailInput(event) {
     trailStats();
   }
 });
+
+// all we need to export is the number pressed.
+function changePace(id) {
+  fetch(`/api/game/data/pace/${id}`,
+    {
+      method: 'post',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: id
+    }).then(function (response) {
+      if (response.status !== 200) {
+        console.log('problem with ajax call! ' + response.status + " msg: " + response.value);
+        return;
+      }
+    });
+}

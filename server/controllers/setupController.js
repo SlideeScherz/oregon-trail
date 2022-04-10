@@ -1,3 +1,5 @@
+const gameController = require('./gameController');
+
 startGameScreens = [];
 
 const startGame1 = "<p>Many kinds of people made the trip trip to Oregon.</p>"
@@ -52,9 +54,6 @@ startGameScreens.push(startGame4);
 startGameScreens.push(startGame5);
 
 exports.getGameScreen = function (req, res) {
-  var gameScreen = startGameScreens[req.params.id];
   res.setHeader('Content-Type', 'application/json');
-  res.send(gameScreen);
-
-  console.log(`getGameScreen => ${req.params.id}`);
+  res.send(startGameScreens[req.params.id]);
 };

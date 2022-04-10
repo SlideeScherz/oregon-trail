@@ -1,20 +1,12 @@
 //function to return the pace
 //TODO: explore other containers
-function gamePace(Name, Health, Mileage) {
-  this.paceName = Name;
-  this.paceHealth = Health;
-  this.paceMileage = Mileage;
+const paces = [
+  { name: "Steady", healthEffect: 0, mileage: 20 },
+  { name: "Strenuous", healthEffect: -3, mileage: 30 },
+  { name: "Grueling", healthEffect: -8, mileage: 35 },
+  { name: "Resting", healthEffect: +5, mileage: 0 }
+]
+
+exports.getPaces = () => {
+  return paces;
 }
-
-//list of logic for pace
-//add each pace to the list with the correct data type
-var allPaces = []; 
-allPaces.push(new gamePace("Steady", 0, 20));
-allPaces.push(new gamePace("Strenuous", -3, 30));
-allPaces.push(new gamePace("Grueling", -8, 35));
-allPaces.push(new gamePace("Resting", +5, 0));
-
-exports.paceOptions = function () {
-  return (allPaces);
-}
-

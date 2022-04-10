@@ -1,10 +1,11 @@
 const terrainImport = require('../models/terrain');
 const stats = require('../models/gameData');
-const paceImport = require('../models/pace');
+const paceModel = require('../models/pace');
 const weatherImport = require('../models/weather');
 
 //create gamestats object 
 var gameStats = stats.gameInfo({}, {}, {}, [], [], [], "", 0, "", 0, 100, 0);
+const paces = paceModel.getPaces();
 
 //TODO: move to weather
 //populate weather data
@@ -116,14 +117,12 @@ function updateHealth() {
 function distance() {
 
   //if gameStats.currentPace is resting, you didnt travel anywhere.
-  if (gameStats.currentPace.paceMileage == 0) {
-    console.log("speed = 0");
+  if (gameStats.currentPace.mileage == 0) {
     return gameStats.milesTraveled;
   }
   else {
-
     //adjust mileage for other vars
-    var speed = gameStats.currentPace.paceMileage;
+    var speed = gameStats.currentPace.mileage;
     var miles = gameStats.milesTraveled;
 
     speed += (gameStats.currentTerrain.terrainMilesEffect + gameStats.currentWeather.weatherMiles);
@@ -177,28 +176,29 @@ exports.resetGame = function (req, res) {
   //create a default value for each obj
   //set all to default values here 
   //gameStats.currentPace = ;
-  gameStats.startMonth = 'default month';
+  gameStats.startMonth = '';
   gameStats.currentWeather = defaultWeather;
   gameStats.currentTerrain = defaultTerrain;
-  gameStats.playerProfession = "default profession"
+  gameStats.playerProfession = '';
   gameStats.groupHealth = 100;
   gameStats.milesTraveled = 0;
-  gameStats.currentPace = paceImport.paceOptions()[0];
+  gameStats.currentPace = paces[3];
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats);
-  console.log(gameStats);
+
+  console.log(`Game Reset`);
+}
+
+exports.setCurrentPace = function (req, res){
+  gameStats.currentPace = paces[req.params.id];
+  res.setHeader('Content-Type', 'application/json');
+  res.send(gameStats.currentPace);
 }
 
 //gameStats.milesTraveled export with express
 exports.getTraveledMiles = function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(gameStats.milesTraveled);
-}
-
-//gameStats.currentPace export with express
-exports.getCurrentPace = function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(gameStats.currentPace);
 }
 
 //export weather
@@ -215,18 +215,18 @@ exports.getCurrentTerrains = function (req, res) {
 }
 
 // TODO: move to setup controller
+// Also this is wrong. this sets the player money
 exports.pickProfession = function (req, res) {
   gameStats.playerProfession = req.params.profession;
-  if (gameStats.playerProfession == "Banker") {
+  if (gameStats.playerProfession === "Banker") {
     gameStats.playerMoney = 2000;
   }
-  else if (gameStats.playerProfession == "Carpenter") {
+  else if (gameStats.playerProfession === "Carpenter") {
     gameStats.playerMoney = 1800;
   }
-  else if (gameStats.playerProfession == "Farmer") {
+  else if (gameStats.playerProfession === "Farmer") {
     gameStats.playerMoney = 1500;
   }
-
   res.setHeader('Content-Type', 'text/plain');
   res.send(gameStats.playerProfession);
 }
@@ -254,13 +254,6 @@ exports.setMonth = function (req, res) {
   gameStats.startMonth = req.params.startMonth;
   res.setHeader('Content-Type', 'text/plain');
   res.send(gameStats.startMonth);
-}
-
-exports.setCurrentPace = function (req, res) {
-  var allPaces = paceImport.paceOptions();
-  gameStats.currentPace = allPaces[req.params.paceid];
-  res.setHeader('Content-Type', 'text/plain');
-  res.send(gameStats.currentPace);
 }
 
 exports.updateGameData = function (req, res) {

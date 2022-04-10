@@ -20,17 +20,6 @@ app.get('/trail', function (req, res) {
   res.sendFile('trail.html', { root: './client/views' })
 });
 
-//TODO: setupController use POST to create new
-
-//api routes
-app.route('/api/pace/:paceid?')
-  .get((req, res) => {
-    res.send(gameController.getCurrentPace)
-  })
-  .put((req, res) => {
-    res.send(gameController.setCurrentPace)
-  })
-
 //pull game data from game controller
 //for setup and trail
 app.route('/api/game/data')
@@ -38,6 +27,9 @@ app.route('/api/game/data')
 
 app.route('/api/game/updateGame')
   .get(gameController.updateGameData);
+
+  app.route('/api/game/data/pace/:id')
+  .post(gameController.setCurrentPace);
 
 app.route('/api/game/reset')
   .get(gameController.resetGame);
@@ -59,6 +51,7 @@ app.route('/api/setup/screen/:id')
   .get(setupController.getGameScreen);
 
 // deploy server
-app.listen(PORT, () => {
-  console.log(`Oregon Trail listening at http://localhost:${PORT}`)
+app.listen(PORT, err => {
+  if (err) return console.log(`Cannot Listen on PORT: ${PORT}`);
+  console.log(`Server is Listening on: http://localhost:${PORT}/`);
 });
