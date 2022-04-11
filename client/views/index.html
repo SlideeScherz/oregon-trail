@@ -8,16 +8,39 @@
   <title>Welcome to the Oregon Trail</title>
 
 </head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">The Oregon Trail</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+      aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Main Menu<span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">High Scores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <body>
 
   <!--these provide path to css-->
-  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="/style.css">
 
-  <img src="/images/oregon-trail-banner.png" alt="banner" class="BannerImage">
+  <img src="/images/oregon-trail-banner.png" alt="banner" class="index-banner">
 
-  <div id="fade">Press spacebare to continue</div>
-
+  <h1 id="fade">Press spacebare to continue</h1>
+  
   <script src="/js/global.js"> </script>
   <script src="/js/index.js"> </script>
 

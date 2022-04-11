@@ -25,7 +25,7 @@ function getScreen(screenId) {
       console.log(`getScreen => ${response.status} step: ${stepCount}`);
 
       // change the DOM with new JSON data
-      gameContainer.innerHTML = data;
+      game_container.innerHTML = data;
       if (screenId === 4) {
         confirmSetup();
       }
