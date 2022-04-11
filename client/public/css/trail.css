@@ -1,14 +1,14 @@
 body {
-    background-color: bisque;
-    width: 100%;
-    height: 100%;
+  background-color: bisque;
+  width: 100%;
+  height: 100%;
 }
 
-h1{
-color: black;
-font-family: serif;
-font-size: 24px;
-text-align: left;
+h1 {
+  color: black;
+  font-family: serif;
+  font-size: 24px;
+  text-align: left;
 }
 
 p {
@@ -18,33 +18,20 @@ p {
   text-align: left;
 }
 
-h2{
-    color: black;
-    font-family: serif;
-    font-size: 14px;
-    text-align: left;
+h2 {
+  color: black;
+  font-family: serif;
+  font-size: 14px;
+  text-align: left;
 }
 
-h3{
-    color: black;
-    font-family: serif;
-    font-size: 14px;
-    text-align: left;
-    }
-
-#wagon {
-right: 0px;
-position: absolute;
-bottom: 0;
+h3 {
+  color: black;
+  font-family: serif;
+  font-size: 14px;
+  text-align: left;
 }
 
-#terrainImage{
-    position: relative;
+#terrainImage {
+  position: relative;
 }
-
-#terrainImage img{
-    float: left;
-    width: 300px;
-    height: 200px;
-}
-

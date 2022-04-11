@@ -1,3 +1,4 @@
+
 var trailStats = function () {
   fetch('/api/game/data')
     .then(function (response) {
@@ -8,9 +9,6 @@ var trailStats = function () {
 
       //this trailstats is struggling to fetch miles traveled and health
       response.json().then(function (data) {
-        var wagon = data.milesTraveled / 5;
-
-        console.log(data);
 
         // move this back to bottom later
         document.getElementById('pace').innerHTML = data.currentPace.name;
@@ -24,9 +22,6 @@ var trailStats = function () {
         document.getElementById('terrain').innerHTML = data.currentTerrain.name;
         document.getElementById('members').innerHTML = data.playerStatus;
         document.getElementById('messeges').innerHTML = data.messeges;
-
-        //move the wagon
-        //document.getElementById("movingwagon").style.right="\"data.milesTraveled\"" + 'px';
       })
     })
 }
@@ -39,8 +34,7 @@ function nextDay() {
         console.error(`nextDay => ${response.status}`);
         return;
       }
-      response.json().then(function (data) {
-      });
+      console.log(`nextDay => ${response.status}`);
     });
 }
 

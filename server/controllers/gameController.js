@@ -152,7 +152,7 @@ exports.pickProfession = function (req, res) {
   res.send(gameStats.playerProfession);
 }
 
-// TODO: move to setup controller
+// receive gamedata from setup.js
 exports.setMembers = function (req, res) {
   gameStats.playerNames[1] = req.params.name2;
   gameStats.playerNames[2] = req.params.name3;
@@ -162,15 +162,14 @@ exports.setMembers = function (req, res) {
   res.send(gameStats.playerNames);
 }
 
-// TODO: move to setup controller
+// receive gamedata from setup.js
 exports.setLeader = function (req, res) {
   gameStats.playerNames[0] = req.params.name1;
   res.setHeader('Content-Type', 'text/plain');
   res.send(gameStats.playerNames);
 }
 
-// BUG ===========================================
-// TODO: move to setup controller
+// receive gamedata from setup.js
 exports.setMonth = function (req, res) {
 
   gameStats.startMonth = req.params.month;
@@ -179,7 +178,7 @@ exports.setMonth = function (req, res) {
 }
 
 /**
- * Called by trail.js. Simulate 1 day on the trail
+ * call all local methods above and send them to oregontrail.js
  * @param {*} req null 
  * @param {json} res gameStats object
  */
@@ -188,8 +187,7 @@ exports.advanceDay = function (req, res) {
   console.log(`sending: `);
   console.log(gameStats);
 
-  // call all local methods above and send them to oregontrail.js
-  // we must call weather and terrain options first before we call anything else
+  // call weather and terrain options first!
   gameStats.daysOnTrail++;
   gameStats.currentWeather = simulateWeather();
   gameStats.currentTerrain = simulateTerrain();
@@ -197,7 +195,7 @@ exports.advanceDay = function (req, res) {
   gameStats.groupHealth = updateHealth();
   updateMesseges();
   res.setHeader('Content-Type', 'application/json');
-  res.send(gameStats)
+  res.sendStatus(200);
 }
 
 // send gameStats to oregonTrail.js

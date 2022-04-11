@@ -1,10 +1,10 @@
 /*must specify 100vh or gradient will look gross*/
-body{
+body {
   height: 100vh;
-  background: linear-gradient(black 50%,rgb(1, 80, 133));
+  background: linear-gradient(black 50%, rgb(1, 80, 133));
 }
 
-.BannerImage{
+.BannerImage {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -12,10 +12,10 @@ body{
 }
 
 #fade {
-  font-size:32px;
+  font-size: 32px;
   color: white;
   text-shadow: 8px 8px 12px rgb(1, 80, 133);
-  font-family: 'Stencil Std', fantasy;
+  font-family: "Stencil Std", fantasy;
   opacity: 1;
   transition: 1s opacity;
   text-align: center;
