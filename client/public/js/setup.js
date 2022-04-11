@@ -11,27 +11,29 @@ var stepCount = 0;
 // load first screen by default
 getScreen(0);
 
+/**
+ * API Manager for getting screen data from setupController
+ * @param {string} screenId number (1-5)
+ */
 function getScreen(screenId) {
   fetch('/api/setup/screen/' + screenId).then(function (response) {
     if (response.status !== 200) {
       console.error(`getScreen => ${response.status}`);
       return;
     }
-
-    console.log(`getScreen => ${response.status}`);
-    console.log(response);
-    //console.log(`step = ${stepCount}`);
-
     response.text().then(function (data) {
+      console.log(`getScreen => ${response.status} step: ${stepCount}`);
+
+      // change the DOM with new JSON data
       gameContainer.innerHTML = data;
       if (screenId === 4) {
-        returnStats();
+        confirmSetup();
       }
     })
   });
 }
 
-window.addEventListener("keypress", function pressProfession(event) {
+window.addEventListener("keypress", function setupListener(event) {
 
   if (stepCount === 0) {
 
@@ -47,8 +49,34 @@ window.addEventListener("keypress", function pressProfession(event) {
       saveProfession("Farmer");
     }
   }
+
+  else if (stepCount === 3) {
+    if (event.code === 'Digit1' || event.code === 'Numpad1') {
+      saveMonth("March");
+    }
+    else if (event.code === 'Digit2' || event.code === 'Numpad2') {
+      saveMonth("April");
+    }
+    else if (event.code === 'Digit3' || event.code === 'Numpad3') {
+      saveMonth("May");
+    }
+    else if (event.code === 'Digit4' || event.code === 'Numpad4') {
+      saveMonth("June");
+    }
+    else if (event.code === 'Digit5' || event.code === 'Numpad5') {
+      saveMonth("July");
+    }
+  }
+
+  else if (stepCount === 4 && event.code == "Space") {
+    window.location.href = "/trail"
+  }
 });
 
+/**
+ * Read html input and send to gameData
+ * @param {string} playerProfession value from HTML field 
+ */
 function saveProfession(playerProfession) {
 
   fetch('/api/setup/profession/' + playerProfession, {
@@ -64,14 +92,12 @@ function saveProfession(playerProfession) {
       return;
     }
     console.log(`saveProfession => ${response.status}`);
-    console.log(response);
     stepCount++;
     getScreen(stepCount);
   });
 }
 
-// TODO: make all on the same page
-// TODO: May be incorrect. check players
+// read html input and send to gameData
 function saveWagonLeader() {
   var name1 = document.getElementById("player0").value
 
@@ -87,12 +113,12 @@ function saveWagonLeader() {
       return;
     }
     console.log(`saveWagonLeader => ${response.status}`);
-    console.log(response);
     stepCount++;
     getScreen(stepCount);
   });
 }
 
+// read html input and send to gameData
 function saveWagonMembers() {
   var name1 = document.getElementById("player1").value
   var name2 = document.getElementById("player2").value
@@ -112,7 +138,6 @@ function saveWagonMembers() {
         return;
       }
       console.log(`saveWagonMembers => ${response.status}`);
-      console.log(response);
       stepCount++;
       getScreen(stepCount);
     });
@@ -126,61 +151,34 @@ function saveMonth(startMonth) {
     headers: {
       "Content-type": "application/json; charset=UTF-8"
     },
-    body: '{"month": "' + startMonth + '"}'
-  }).then(function (response) {
+    body: startMonth
+  })
+  .then(function (response) {
 
     if (response.status !== 200) {
       console.error(`saveMonth => ${response.status}`);
       return;
     }
+
     console.log(`saveMonth => ${response.status}`);
-    console.log(response);
     stepCount++;
     getScreen(stepCount);
   });
 }
 
-window.addEventListener("keypress", function pickMonth(event) {
-
-  if (stepCount === 3) {
-    if (event.code === 'Digit1' || event.code === 'Numpad1') {
-      saveMonth("March");
-    }
-    else if (event.code === 'Digit2' || event.code === 'Numpad2') {
-      saveMonth("April");
-    }
-    else if (event.code === 'Digit3' || event.code === 'Numpad3') {
-      saveMonth("May");
-    }
-    else if (event.code === 'Digit4' || event.code === 'Numpad4') {
-      saveMonth("June");
-    }
-    else if (event.code === 'Digit5' || event.code === 'Numpad5') {
-      saveMonth("July");
-    }
-  }
-});
-
-window.addEventListener("keypress", function gotoTrail(event) {
-  if (stepCount === 4 && event.code == "Space") {
-    window.location.href = "/trail"
-  }
-});
-
-function returnStats() {
+function confirmSetup() {
   fetch('/api/game/data/')
     .then(function (response) {
       if (response.status !== 200) {
-        console.error(`returnStats => ${response.status}`);
+        console.error(`confirmSetup => ${response.status}`);
         return;
       }
 
-      //no screen to show. call the event listener
-      console.log(`returnStats => ${response.status}`);
-      console.log(response);
+      console.log(`confirmSetup => ${response.status}`);
 
       //display the data the user has entered
       response.json().then(function (data) {
+
         document.getElementById('rProfession').innerHTML = "<p> Your Profession: </p>" + data.playerProfession;
         document.getElementById('rMoney').innerHTML = "<p> Bank Account: </p>" + data.playerMoney;
         document.getElementById('rPlayer1Name').innerHTML = "<p> Wagon Leader: </p>" + data.playerNames[0];

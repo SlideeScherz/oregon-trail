@@ -19,7 +19,7 @@ window.addEventListener("keydown", function navigateMainMenu(event) {
   //toggle audio
   else if (event.code === 'Digit3' || event.code === 'Numpad3') {
     if(sessionStorage.getItem("audio") === "true") {
-      var text = document.getElementById("audioText"); //TODO: redundant
+      var text = document.getElementById("audioText"); 
       toggleAudio();
       text.innerHTML = "3. Turn Sound (On)"
     }

@@ -172,7 +172,8 @@ exports.setLeader = function (req, res) {
 // BUG ===========================================
 // TODO: move to setup controller
 exports.setMonth = function (req, res) {
-  gameStats.startMonth = req.params.startMonth;
+
+  gameStats.startMonth = req.params.month;
   res.setHeader('Content-Type', 'text/plain');
   res.send(gameStats.startMonth);
 }
@@ -183,6 +184,9 @@ exports.setMonth = function (req, res) {
  * @param {json} res gameStats object
  */
 exports.advanceDay = function (req, res) {
+
+  console.log(`sending: `);
+  console.log(gameStats);
 
   // call all local methods above and send them to oregontrail.js
   // we must call weather and terrain options first before we call anything else

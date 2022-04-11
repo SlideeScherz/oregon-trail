@@ -32,8 +32,7 @@ app.route('/api/setup/screen/:id')
 
 /** game routes */
 
-//pull game data from game controller
-//for setup and trail
+// fetch gameData from server
 app.route('/api/game/data')
   .get(gameController.getGameData);
 
@@ -44,6 +43,7 @@ app.route('/api/game/advanceDay')
 app.route('/api/game/data/pace/:id')
   .post(gameController.setCurrentPace);
 
+// reset game from client
 app.route('/api/game/reset')
   .get(gameController.resetGame);
 

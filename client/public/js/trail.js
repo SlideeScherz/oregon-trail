@@ -10,6 +10,8 @@ var trailStats = function () {
       response.json().then(function (data) {
         var wagon = data.milesTraveled / 5;
 
+        console.log(data);
+
         // move this back to bottom later
         document.getElementById('pace').innerHTML = data.currentPace.name;
         document.getElementById('days').innerHTML = data.daysOnTrail;
