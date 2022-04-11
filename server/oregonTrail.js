@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 const setupController = require('./controllers/setupController');
 const gameController = require('./controllers/gameController');
+//const bodyParser = require('body-parser');
 
+// required to parse the body of a post request
+//app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static('./client/public'));
+
 const PORT = 1337;
 
-//remove me! this is so i get pushed
-
-// HTML pages
+// serve HTML pages
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: './client/views' })
 });
@@ -22,16 +24,24 @@ app.get('/trail', function (req, res) {
   res.sendFile('trail.html', { root: './client/views' })
 });
 
+/** setup routes */
+
+// send json data from setupController to setup.js
+app.route('/api/setup/screen/:id')
+  .get(setupController.getGameScreen);
+
+/** game routes */
+
 //pull game data from game controller
 //for setup and trail
 app.route('/api/game/data')
   .get(gameController.getGameData);
 
-  //TODO: this is next day
-app.route('/api/game/updateGame')
-  .get(gameController.updateGameData);
+// simulate all game components and send updates data to trail.js
+app.route('/api/game/advanceDay')
+  .get(gameController.advanceDay);
 
-  app.route('/api/game/data/pace/:id')
+app.route('/api/game/data/pace/:id')
   .post(gameController.setCurrentPace);
 
 app.route('/api/game/reset')
@@ -50,11 +60,8 @@ app.route('/api/setup/profession/:profession')
 app.route('/api/setup/month/:month')
   .post(gameController.setMonth)
 
-app.route('/api/setup/screen/:id')
-  .get(setupController.getGameScreen);
-
 // deploy server
 app.listen(PORT, err => {
-  if (err) return console.log(`Cannot Listen on PORT: ${PORT}`);
+  if (err) return console.log(`${err} Cannot Listen on PORT: ${PORT}`);
   console.log(`Server is Listening on: http://localhost:${PORT}/`);
 });

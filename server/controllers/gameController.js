@@ -102,6 +102,11 @@ exports.resetGame = function (req, res) {
   console.log(`Game Reset`);
 }
 
+/**
+ * update the pace from trail.js via POST
+ * @param {string} req name of pace 
+ * @param {json} res currentPace
+ */
 exports.setCurrentPace = function (req, res){
   gameStats.currentPace = paces[req.params.id];
   res.setHeader('Content-Type', 'application/json');
@@ -172,7 +177,12 @@ exports.setMonth = function (req, res) {
   res.send(gameStats.startMonth);
 }
 
-exports.updateGameData = function (req, res) {
+/**
+ * Called by trail.js. Simulate 1 day on the trail
+ * @param {*} req null 
+ * @param {json} res gameStats object
+ */
+exports.advanceDay = function (req, res) {
 
   // call all local methods above and send them to oregontrail.js
   // we must call weather and terrain options first before we call anything else

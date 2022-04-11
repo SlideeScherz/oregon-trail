@@ -31,7 +31,7 @@ var trailStats = function () {
 
 // calls update game
 function nextDay() {
-  fetch('/api/game/updateGame')
+  fetch('/api/game/advanceDay')
     .then(function (response) {
       if (response.status !== 200) {
         console.error(`nextDay => ${response.status}`);
