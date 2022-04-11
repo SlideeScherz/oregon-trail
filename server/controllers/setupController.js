@@ -1,5 +1,3 @@
-const gameController = require('./gameController');
-
 startGameScreens = [];
 
 const startGame1 = "<p>Many kinds of people made the trip trip to Oregon.</p>"

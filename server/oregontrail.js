@@ -6,6 +6,8 @@ const gameController = require('./controllers/gameController');
 app.use(express.static('./client/public'));
 const PORT = 1337;
 
+//remove me! this is so i get pushed
+
 // HTML pages
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: './client/views' })
