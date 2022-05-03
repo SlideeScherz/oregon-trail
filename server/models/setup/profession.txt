@@ -1,13 +1,12 @@
 <div id="setup-content">
-  <p>Many kinds of people made the trip trip to Oregon.</p>
+  <p>Many kinds of people made the trip trip to Oregon</p>
   <p>You may:</p>
 
-  <ol id=\"profession-content\">
-    <li id=\"bankerMenuItem\">Be a banker from Boston</li>
-    <li id=\"carpenterMenuItem\">Be a carpenter from Ohio</li>
-    <li id=\"farmerMenuItem\">Be a farmer from Illinois</li>
-    <li id=\"differencesMenuItem\">Find out the differences between the choices</li>
+  <ol id="profession-content">
+    <li id="bankerMenuItem">Be a banker from Boston</li>
+    <li id="carpenterMenuItem">Be a carpenter from Ohio</li>
+    <li id="farmerMenuItem">Be a farmer from Illinois</li>
+    <li id="differencesMenuItem">Find out the differences between the choices</li>
   </ol>
-
-  <div id=\"selectedOption\">What is your choice?</div>
+  <div id="selectedOption">What is your choice?</div>
 </div>  
