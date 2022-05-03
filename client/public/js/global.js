@@ -1,8 +1,16 @@
-const audioURL = "/music/menu.mp3";
+const audioURL = "/music/trail.mp3";
 var audio = new Audio(audioURL);
+audio.autoplay = true;
 
-audio.addEventListener(
-  "ended",
+window.onload = async function () {
+  fadeout();
+};
+
+audio.onpause = (event) => {
+  console.log(`paused at ${audio.currentTime}`);
+};
+
+audio.addEventListener("ended",
   function () {
     this.currentTime = 0;
     this.play();
@@ -13,12 +21,10 @@ audio.addEventListener(
 
 // access music obj externally
 const musicPlaying = () => audio.paused;
-const playMusic = () => audio.play();
 
 /**
  * global.js
- * function to control audio which will later be acessed with keypress event
- * @param {boolean} state
+ * control audio which will later be acessed with keypress event
  */
 function toggleAudio() {
   // music element to reference DOM
@@ -48,7 +54,6 @@ async function fadein() {
   });
 }
 
-// create the visual fade
 async function fadeout() {
   document.getElementById("fade").style.opacity = "0";
   sleep(1000).then(() => {

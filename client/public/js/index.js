@@ -1,9 +1,3 @@
-window.onload = async function () {
-  // global.js
-  fadeout();
-  playMusic();
-};
-
 // fetch api to reset the game
 function resetGame() {
   fetch("/api/game/reset").then(function (response) {

@@ -1,7 +1,3 @@
-window.onload = async function () {
-  fadeout();
-};
-
 // function to navigate the mainmenu
 window.addEventListener("keydown", function (event) {
   //navigate to setup if we press 1 (travel the trail)
