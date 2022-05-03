@@ -1,43 +1,42 @@
-/**
- * have music play here rather than html so it does not skip when we navigate pages
- * commented out music because it annoys me while i work. will uncomment when i make final commit
- * set audio to true in mainmenu, but keep retreive it and store it here and keep it on in all tabs
- */
+const audioURL = "/music/menu.mp3";
+var audio = new Audio(audioURL);
 
-const menuAudioSrc = "/music/menu.mp3";
+audio.addEventListener(
+  "ended",
+  function () {
+    this.currentTime = 0;
+    this.play();
+    console.log(`music looping`);
+  },
+  false
+);
 
-// possible bug
-let audio = new Audio(menuAudioSrc);
-
-// create only one audio instance
-audio.play();
-
-sessionStorage.setItem("audio", "true");
-
-// store state of seconds elapsed
-sessionStorage.setItem("seconds", 0);
+// access music obj externally
+const musicPlaying = () => audio.paused;
+const playMusic = () => audio.play();
 
 /**
+ * global.js
  * function to control audio which will later be acessed with keypress event
- * @param {boolean} audioState 
+ * @param {boolean} state
  */
-function toggleAudio(audioState) {
-
-  console.log(`toggleAudio => ${audioState}`);
+function toggleAudio() {
+  // music element to reference DOM
+  const audioText = document.getElementById("audioText");
 
   //if sound is on (true) turn it off
-  if (audioState) {
+  if (!audio.paused) {
     audio.pause();
+    audioText.innerHTML = "3. Turn Sound (On)";
   }
   //if sound is off turn it on!
-  else if (!audioState) {
+  else if (audio.paused) {
     audio.play();
+    audioText.innerHTML = "3. Turn Sound (Off)";
   }
-
-  sessionStorage.setItem("audio", !audioState);
 }
 
-//global method for a fading text
+// global.js method for a fading text
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -57,5 +56,5 @@ async function fadeout() {
   });
 }
 
-const keyOnePressed = (keyCode) => (keyCode === "Digit1" || keyCode === "Numpad1");
-const keyTwoPressed = (keyCode) => (keyCode === "Digit2" || keyCode === "Numpad2");
+const keyOnePressed = (k) => k === "Digit1" || k === "Numpad1";
+const keyTwoPressed = (k) => k === "Digit2" || k === "Numpad2";

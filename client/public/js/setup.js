@@ -11,7 +11,7 @@ var stepCount = 0;
 window.onload = function () {
   // load first screen by default
   getScreen(0);
-}
+};
 
 /**
  * API Manager for getting screen data from setupController
@@ -43,7 +43,7 @@ function updateDiv(strData) {
   setupDiv.innerHTML = strData;
 }
 
-window.addEventListener("keypress", function setupListener(event) {
+window.addEventListener("keydown", function (event) {
   if (stepCount === 0) {
     if (event.code === "Digit1" || event.code === "Numpad1") {
       saveProfession("Banker");
