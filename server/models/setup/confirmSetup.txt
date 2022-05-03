@@ -1,6 +1,6 @@
 <div id="setup-content">  
-  <p>Congratulations! You are ready to start the mission</p> 
-  <p>Here are settings you selected for the game</p> 
+  <h1>Congratulations! You are ready to start the mission</h1> 
+  <h2>Here are settings you selected for the game</h2> 
   <div id="returnData"> 
     <span id="rPlayer1Name"></span> 
     <span id="rPlayer2Name"></span> 
@@ -11,5 +11,6 @@
     <span id="rMoney"></span> 
     <span id="rMonth"></span><br /> 
     <h2 id="pressSpace">Press the space to go to trail.</h2> 
+    <input type="button" class="button-1" id="setup-submit" value="next" onclick = startGame() />
   </div>
 </div>  

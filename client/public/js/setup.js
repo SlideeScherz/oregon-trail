@@ -8,8 +8,10 @@
  */
 var stepCount = 0;
 
-// load first screen by default
-getScreen(0);
+window.onload = function () {
+  // load first screen by default
+  getScreen(0);
+}
 
 /**
  * API Manager for getting screen data from setupController
@@ -63,7 +65,7 @@ window.addEventListener("keypress", function setupListener(event) {
       saveMonth("July");
     }
   } else if (stepCount === 4 && event.code == "Space") {
-    window.location.href = "/trail";
+    startGame();
   }
 });
 
@@ -156,6 +158,10 @@ function saveMonth(startMonth) {
   });
 }
 
+function startGame() {
+  window.location.href = "/trail";
+}
+
 function confirmSetup() {
   fetch("/api/game/data/").then(function (response) {
     if (response.status !== 200) {
@@ -167,20 +173,27 @@ function confirmSetup() {
 
     //display the data the user has entered
     response.json().then(function (data) {
-      document.getElementById("rProfession").innerHTML =
-        "<p> Your Profession: </p>" + data.playerProfession;
-      document.getElementById("rMoney").innerHTML =
-        "<p> Bank Account: </p>" + data.playerMoney;
-      document.getElementById("rPlayer1Name").innerHTML =
-        "<p> Wagon Leader: </p>" + data.playerNames[0];
-      document.getElementById("rPlayer2Name").innerHTML =
-        "<p> Wagon Member 1: </p>" + data.playerNames[1];
-      document.getElementById("rPlayer3Name").innerHTML =
-        "<p> Wagon Member 2: </p>" + data.playerNames[2];
-      document.getElementById("rPlayer4Name").innerHTML =
-        "<p> Wagon Member 3: </p>" + data.playerNames[3];
-      document.getElementById("rMonth").innerHTML =
-        "<p> Start Month: </p>" + data.startMonth;
+      document.getElementById(
+        "rProfession"
+      ).innerHTML = `<p> Your Profession: </p>${data.playerProfession}`;
+      document.getElementById(
+        "rMoney"
+      ).innerHTML = `<p> Bank Account: </p>${data.playerMoney}`;
+      document.getElementById(
+        "rPlayer1Name"
+      ).innerHTML = `<p> Wagon Leader: </p>${data.playerNames[0]}`;
+      document.getElementById(
+        "rPlayer2Name"
+      ).innerHTML = `<p> Wagon Member 1: </p>${data.playerNames[1]}`;
+      document.getElementById(
+        "rPlayer3Name"
+      ).innerHTML = `<p> Wagon Member 2: </p>${data.playerNames[2]}`;
+      document.getElementById(
+        "rPlayer4Name"
+      ).innerHTML = `<p> Wagon Member 3: </p>${data.playerNames[3]}`;
+      document.getElementById(
+        "rMonth"
+      ).innerHTML = `<p> Start Month: </p>${data.startMonth}`;
     });
   });
 }

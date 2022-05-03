@@ -1,11 +1,13 @@
 var trailStats = function () {
-  fetch("/api/game/data").then(function (response) {
-    if (response.status !== 200) {
-      console.error(`trailStats => ${response.status}`);
+  fetch("/api/game/data").then(function (res) {
+    if (res.status !== 200) {
+      console.error(`${res.url} => ${res.status}`);
       return;
     }
 
-    response.json().then(function (data) {
+    console.log(`${res.url} => ${res.status}`);
+
+    res.json().then(function (data) {
       document.getElementById("pace").innerHTML = data.currentPace.name;
       document.getElementById("days").innerHTML = data.daysOnTrail;
       document.getElementById("terrainImage").innerHTML =
@@ -24,12 +26,12 @@ var trailStats = function () {
 
 // calls update game
 function nextDay() {
-  fetch("/api/game/advanceDay").then(function (response) {
-    if (response.status !== 200) {
-      console.error(`nextDay => ${response.status}`);
+  fetch("/api/game/advanceDay").then(function (res) {
+    if (res.status !== 200) {
+      console.error(`nextDay => ${res.status}`);
       return;
     }
-    console.log(`nextDay => ${response.status}`);
+    console.log(`nextDay => ${res.status}`);
   });
 }
 
@@ -59,9 +61,9 @@ function changePace(id) {
       "Content-type": "application/json; charset=UTF-8",
     },
     body: id,
-  }).then(function (response) {
-    if (response.status !== 200) {
-      console.error(`changePace => ${response.status}`);
+  }).then(function (res) {
+    if (res.status !== 200) {
+      console.error(`${res.url} => ${res.status}`);
       return;
     }
   });
