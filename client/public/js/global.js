@@ -56,3 +56,6 @@ async function fadeout() {
     fadein();
   });
 }
+
+const keyOnePressed = (keyCode) => (keyCode === "Digit1" || keyCode === "Numpad1");
+const keyTwoPressed = (keyCode) => (keyCode === "Digit2" || keyCode === "Numpad2");
