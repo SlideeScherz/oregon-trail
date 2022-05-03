@@ -1,5 +1,6 @@
 // fetch api to reset the game   
 function resetGame() {
+
   fetch('/api/game/reset').then(function (response) {
     if (response.status != 200) {
       return;
@@ -15,17 +16,7 @@ window.addEventListener("keydown", function pressSpace(e) {
   }
 });
 
-// create the visual fade 
-async function fadeout() {
-  document.getElementById('fade').style.opacity = '0';
-  sleep(1000).then(() => { fadein(); });
-}
-
-async function fadein() {
-  document.getElementById('fade').style.opacity = '1';
-  sleep(1000).then(() => { fadeout(); });
-}
-
 window.onload = async function () {
+  // global.js
   fadeout();
 }

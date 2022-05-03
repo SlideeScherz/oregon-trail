@@ -1,45 +1,27 @@
-// main menu controlls 
-
 window.onload = async function () {
   fadeout();
-}
+};
 
 // function to navigate the mainmenu
 window.addEventListener("keydown", function navigateMainMenu(event) {
-
   //navigate to setup if we press 1 (travel the trail)
-  if (event.code === 'Digit1' || event.code === 'Numpad1') {
+  if (event.code === "Digit1" || event.code === "Numpad1") {
     window.location.href = "/setup";
-  }
-
-  else if (event.code === 'Digit2' || event.code === 'Numpad2') {
-    console.log('Coming soon');
+  } else if (event.code === "Digit2" || event.code === "Numpad2") {
+    console.log("Coming soon");
   }
 
   //toggle audio
-  else if (event.code === 'Digit3' || event.code === 'Numpad3') {
-    if(sessionStorage.getItem("audio") === "true") {
-      var text = document.getElementById("audioText"); 
-      toggleAudio();
-      text.innerHTML = "3. Turn Sound (On)"
-    }
+  else if (event.code === "Digit3" || event.code === "Numpad3") {
     
-    else if (sessionStorage.getItem("audio") == "false") {
-      var text = document.getElementById("audioText");
-      toggleAudio();
-      text.innerHTML = "3. Turn Sound (Off)"
+    const audioText = document.getElementById("audioText");
+    const audioPlaying = sessionStorage.getItem("audio");
+
+    if (audioPlaying) {
+      audioText.innerHTML = "3. Turn Sound (Off)";
+    } else if (!audioPlaying) {
+      audioText.innerHTML = "3. Turn Sound (On)";
     }
+    toggleAudio(audioPlaying);
   }
 });
-
-// TODO: redundtant
-//create the visual fade 
-async function fadeout() {
-  document.getElementById('fade').style.opacity = '0';
-  sleep(1000).then(() => { fadein(); });
-}
-
-async function fadein() {
-  document.getElementById('fade').style.opacity = '1';
-  sleep(1000).then(() => { fadeout(); });
-}

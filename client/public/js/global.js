@@ -1,38 +1,58 @@
-/** 
+/**
  * have music play here rather than html so it does not skip when we navigate pages
  * commented out music because it annoys me while i work. will uncomment when i make final commit
  * set audio to true in mainmenu, but keep retreive it and store it here and keep it on in all tabs
  */
 
-// retreive data from other javascript files to store music playing or not
-var isSoundOn = sessionStorage.getItem("audio");
+const menuAudioSrc = "/music/menu.mp3";
 
-var audio = new Audio();
-audio.src = "/music/menu.mp3";
+// possible bug
+let audio = new Audio(menuAudioSrc);
 
-// create function to control audio which will later be acessed with keypress event
-function toggleAudio() {
+// create only one audio instance
+audio.play();
+
+sessionStorage.setItem("audio", "true");
+
+// store state of seconds elapsed
+sessionStorage.setItem("seconds", 0);
+
+/**
+ * function to control audio which will later be acessed with keypress event
+ * @param {boolean} audioState 
+ */
+function toggleAudio(audioState) {
+
+  console.log(`toggleAudio => ${audioState}`);
 
   //if sound is on (true) turn it off
-  if (isSoundOn) {
-    sessionStorage.setItem("audio", "false");
+  if (audioState) {
     audio.pause();
-  } 
-  
+  }
   //if sound is off turn it on!
-  else if (!isSoundOn) {
-    sessionStorage.setItem("audio", "true");
+  else if (!audioState) {
     audio.play();
   }
 
-  isSoundOn = !isSoundOn;
+  sessionStorage.setItem("audio", !audioState);
 }
 
-// reset seconds to 0
-sessionStorage.setItem("seconds", 0);
-
 //global method for a fading text
-//if the user presses space redirect to mainmenu
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fadein() {
+  document.getElementById("fade").style.opacity = "1";
+  sleep(1000).then(() => {
+    fadeout();
+  });
+}
+
+// create the visual fade
+async function fadeout() {
+  document.getElementById("fade").style.opacity = "0";
+  sleep(1000).then(() => {
+    fadein();
+  });
 }
