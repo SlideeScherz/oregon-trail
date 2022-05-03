@@ -1,4 +1,4 @@
-var gameData = {
+const gameData = {
   currentPace: {},
   currentWeather: {},
   currentTerrain: {},
