@@ -16,16 +16,23 @@ getScreen(0);
  * @param {string} screenId number (1-5)
  */
 function getScreen(screenId) {
+  
+  console.log(`fetching => ${screenId}`);
+  
   fetch("/api/setup/screen/" + screenId).then(function (response) {
     if (response.status !== 200) {
       console.error(`getScreen => ${response.status}`);
       return;
     }
     response.text().then(function (data) {
-      console.log(`getScreen => ${response.status} step: ${stepCount}`);
+      // console.log(`getScreen => ${response.status} step: ${stepCount}`);
 
-      // change the DOM with new JSON data
-      setup_container.innerHTML = data;
+      updateDiv(data);
+      
+      console.log(`getScreen => ${response.status}`);
+      console.log(`${data}`);
+      console.log(`${data.screenId}`);
+      
       if (screenId === 4) {
         confirmSetup();
       }
@@ -33,12 +40,10 @@ function getScreen(screenId) {
   });
 }
 
-function getStringDOM(fileName) {
-  fetch(fileName)
-    .then((response) => response.text())
-    .then((textString) => {
-      console.log(textString);
-    });
+// change the DOM with new data
+function updateDiv(strData){
+  const setupDiv = document.getElementById("setup-content");
+  setupDiv.innerHTML = strData;
 }
 
 window.addEventListener("keypress", function setupListener(event) {

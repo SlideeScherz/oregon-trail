@@ -1,0 +1,15 @@
+<div id="setup-content">  
+  <p>Congratulations! You are ready to start the mission</p> 
+  <p>Here are settings you selected for the game</p> 
+  <div id="returnData"> 
+    <span id="rPlayer1Name"></span> 
+    <span id="rPlayer2Name"></span> 
+    <span id="rPlayer3Name"></span> 
+    <span id="rPlayer4Name"></span> 
+    <span id="rPlayer5Name"></span> 
+    <span id="rProfession"></span> 
+    <span id="rMoney"></span> 
+    <span id="rMonth"></span><br /> 
+    <h2 id="pressSpace">Press the space to go to trail.</h2> 
+  </div>
+</div>  

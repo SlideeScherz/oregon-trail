@@ -2,7 +2,7 @@
   <p>Many kinds of people made the trip trip to Oregon.</p>
   <p>You may:</p>
 
-  <ol id=\"setupQuestions1\" >
+  <ol id=\"profession-content\">
     <li id=\"bankerMenuItem\">Be a banker from Boston</li>
     <li id=\"carpenterMenuItem\">Be a carpenter from Ohio</li>
     <li id=\"farmerMenuItem\">Be a farmer from Illinois</li>

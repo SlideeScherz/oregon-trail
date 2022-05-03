@@ -1,0 +1,11 @@
+<div id="setup-content">
+  <p>Choose your start month: </p>
+  <ol id="month-content" >
+    <li id="month-option">March</li>
+    <li id="month-option">April</li>
+    <li id="month-option">May</li>
+    <li id="month-option">June</li>
+    <li id="month-option">July</li>
+  </ol>
+  <div id="selectedOption">What is your choice?</div>
+</div>
