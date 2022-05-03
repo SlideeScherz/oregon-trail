@@ -5,13 +5,11 @@ var trailStats = function () {
       return;
     }
 
-    //this trailstats is struggling to fetch miles traveled and health
     response.json().then(function (data) {
-
-      // move this back to bottom later
       document.getElementById("pace").innerHTML = data.currentPace.name;
       document.getElementById("days").innerHTML = data.daysOnTrail;
-      document.getElementById("terrainImage").innerHTML = data.currentTerrain.image;
+      document.getElementById("terrainImage").innerHTML =
+        data.currentTerrain.image;
       document.getElementById("money").innerHTML = data.playerMoney;
       document.getElementById("profession").innerHTML = data.playerProfession;
       document.getElementById("miles").innerHTML = data.milesTraveled;
@@ -63,9 +61,7 @@ function changePace(id) {
     body: id,
   }).then(function (response) {
     if (response.status !== 200) {
-      console.log(
-        "problem with ajax call! " + response.status + " msg: " + response.value
-      );
+      console.error(`changePace => ${response.status}`);
       return;
     }
   });
