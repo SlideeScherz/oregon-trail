@@ -1,17 +1,13 @@
 var fs = require("fs");
 
-const professionPath = "server/models/setup/profession.txt";
-const leaderPath = "server/models/setup/leader.txt";
-const membersPath = "server/models/setup/members.txt";
-const monthPath = "server/models/setup/month.txt";
-const confirmSetupPath = "server/models/setup/confirmSetup.txt";
+const pathDir = "server/models/setup";
 
 var startGameScreens = [
-  { id: 1, path: professionPath, data: "" },
-  { id: 2, path: leaderPath, data: "" },
-  { id: 3, path: membersPath, data: "" },
-  { id: 4, path: monthPath, data: "" },
-  { id: 5, path: confirmSetupPath, data: "" },
+  { id: 1, path: `${pathDir}/profession.txt`, data: "" },
+  { id: 2, path: `${pathDir}/leader.txt`, data: "" },
+  { id: 3, path: `${pathDir}/members.txt`, data: "" },
+  { id: 4, path: `${pathDir}/month.txt`, data: "" },
+  { id: 5, path: `${pathDir}/confirmSetup.txt`, data: "" },
 ];
 
 startGameScreens.map((element) => {
