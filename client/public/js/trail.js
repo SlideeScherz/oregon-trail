@@ -1,13 +1,11 @@
-var trailStats = function () {
-  fetch("/api/game/data").then(function (res) {
-    if (res.status !== 200) {
-      console.error(`${res.url} => ${res.status}`);
-      return;
-    }
 
-    console.log(`${res.url} => ${res.status}`);
+//TODO: combine these two
 
-    res.json().then(function (data) {
+const trailStats = () => {
+  fetch("/api/game/data").then((res) => {
+    if (!resOk(res)) return;
+
+    res.json().then((data) => {
       document.getElementById("pace").innerHTML = data.currentPace.name;
       document.getElementById("days").innerHTML = data.daysOnTrail;
       document.getElementById("terrainImage").innerHTML =
@@ -25,18 +23,14 @@ var trailStats = function () {
 };
 
 // calls update game
-function nextDay() {
-  fetch("/api/game/advanceDay").then(function (res) {
-    if (res.status !== 200) {
-      console.error(`${res.url} => ${res.status}`);
-      return;
-    }
-    console.log(`${res.url} => ${res.status}`);
+const nextDay = () => {
+  fetch("/api/game/advanceDay").then((res) => {
+    if (!resOk(res)) return;
   });
-}
+};
 
 // in game user control
-window.addEventListener("keydown", function trailInput(event) {
+window.addEventListener("keydown", (event) => {
   if (event.code === "Delete") {
     window.location.href = "/mainmenu";
   } else if (event.code === "Digit1" || event.code === "Numpad1") {
@@ -54,17 +48,14 @@ window.addEventListener("keydown", function trailInput(event) {
 });
 
 // all we need to export is the number pressed.
-function changePace(id) {
-  fetch(`/api/game/data/pace/${id}`, {
+const changePace = (args) => {
+  fetch(`/api/game/data/pace/${args}`, {
     method: "post",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-    body: id,
-  }).then(function (res) {
-    if (res.status !== 200) {
-      console.error(`${res.url} => ${res.status}`);
-      return;
-    }
+    body: args,
+  }).then((res) => {
+    if (!resOk(res)) return;
   });
-}
+};
