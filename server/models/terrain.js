@@ -21,8 +21,4 @@ const terrain = [
   },
 ];
 
-const getTerrain = () => {
-  return terrain;
-};
-
-module.exports = { getTerrain };
+module.exports = { terrain };

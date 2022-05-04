@@ -13,8 +13,4 @@ const gameDataObj = {
   daysOnTrail: 0,
 };
 
-const getGameDataObj = () => {
-  return gameDataObj;
-};
-
-module.exports = { getGameDataObj };
+module.exports = { gameDataObj };

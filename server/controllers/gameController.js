@@ -4,10 +4,10 @@ const paceModel = require("../models/pace");
 const weatherModel = require("../models/weather");
 
 //create gamestats object
-const gameStats = gameDataModel.getGameDataObj();
-const paces = paceModel.getPaces();
-const terrains = terrainModel.getTerrain();
-const weathers = weatherModel.getWeather();
+const gameStats = gameDataModel.gameDataObj;
+const paces = paceModel.pace;
+const terrains = terrainModel.terrain;
+const weathers = weatherModel.weather;
 
 /**
  * Init all gameData back to default
@@ -15,8 +15,6 @@ const weathers = weatherModel.getWeather();
  * @param {*} res
  */
 const resetGame = (req, res) => {
-  console.log(`Resetting Game`);
-
   gameStats.startMonth = null;
   gameStats.currentWeather = weathers[2];
   gameStats.currentTerrain = terrains[0];
@@ -28,49 +26,35 @@ const resetGame = (req, res) => {
   res.sendStatus(200);
 };
 
-/**
- * Pick a weather based on probability
- * @returns new weather
- */
-const simulateWeather = (randomFloat) => {
+const simulateWeather = (args) => {
   var threshold = 0;
 
   for (let i = 0; i < weathers.length; i++) {
     threshold += parseFloat(weathers[i].probability);
-    if (threshold > randomFloat) {
+    if (threshold > args) {
       return weathers[i];
     }
   }
 };
 
-/**
- * Pick a random terrain with no probability
- * @returns new terrain
- */
-const simulateTerrain = (randomFloat) =>
-  terrains[Math.floor(randomFloat * terrains.length)];
+const simulateTerrain = (args) => terrains[Math.floor(args * terrains.length)];
 
-//TODO: Read the halth, and decide if a player should die
-/**
- * Update health based on the current gameData
- * @param {number} paceFx gameData.currentPace.healthEffect
- * @param {number} weatherFx gameData.currentWeather.healthEffect
- * @returns new group health
- */
-const updateHealth = (health, paceFx, weatherFx) =>
-  (health += weatherFx + paceFx);
+const updateHealth = (health, paceFx, weatherFx) => {
+  return (health += weatherFx + paceFx);
+};
 
 /**
  * Update the miles traveled reading from gameData object
+ * if resting, return 0
  * @param {number} miles gameStats.milesTravelled
  * @param {number} speed gameStats.currentPace.mileage
+ * @param {number} weatherFx gameStats.currentWeather.weatherFx
  * @returns {number} new milesTraveled
  */
 const updateDistance = (miles, speed, weatherFx) => {
   // if resting, you didnt travel anywhere.
-  if (speed === 0) {
-    return miles;
-  }
+  if (speed === 0) return miles;
+
   return (miles += speed * weatherFx);
 };
 
@@ -85,17 +69,26 @@ const setCurrentPace = (req, res) => {
   res.json(gameStats.currentPace);
 };
 
+/**
+ * Respond with whole obj because we also select the money
+ * @param {*} req 
+ * @param {*} res 
+ */
 const pickProfession = (req, res) => {
   gameStats.playerProfession = req.params.profession;
-  if (gameStats.playerProfession === "Banker") {
-    gameStats.playerMoney = 2000;
-  } else if (gameStats.playerProfession === "Carpenter") {
-    gameStats.playerMoney = 1800;
-  } else if (gameStats.playerProfession === "Farmer") {
-    gameStats.playerMoney = 1500;
-  }
+  gameStats.playerMoney = assignMoney(req.params.profession);
   res.setHeader("Content-Type", "application/json");
-  res.json(gameStats.playerProfession);
+  res.json(gameStats);
+};
+
+const assignMoney = (args) => {
+  if (args === "Banker") {
+    return 2000;
+  } else if (args === "Carpenter") {
+    return 1800;
+  } else if (args === "Farmer") {
+    return 1500;
+  }
 };
 
 const setMembers = (req, res) => {
@@ -108,15 +101,15 @@ const setMembers = (req, res) => {
 };
 
 const setLeader = (req, res) => {
-  gameStats.playerNames[0] = req.params.name1;
+  gameStats.playerNames[0] = req.params.name;
   res.setHeader("Content-Type", "application/json");
-  res.sendStatus(200);
+  res.json(gameStats.playerNames[0]);
 };
 
 const setMonth = (req, res) => {
   gameStats.startMonth = req.params.month;
   res.setHeader("Content-Type", "application/json");
-  res.sendStatus(200);
+  res.json(gameStats.startMonth);
 };
 
 /**

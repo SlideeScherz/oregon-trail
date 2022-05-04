@@ -12,8 +12,4 @@ const weather = [
   { name: "Heavy Fog", healthEffect: -3, mileEffect: 0.5, probability: 0.05 },
 ];
 
-const getWeather = () => {
-  return weather;
-};
-
-module.exports = { getWeather };
+module.exports = { weather };
