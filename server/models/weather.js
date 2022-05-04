@@ -9,10 +9,9 @@ const weather = [
   { name: "Heavy Rain", healthEffect: -8, mileEffect: 0.4, probability: 0.05 },
   { name: "Snow", healthEffect: -15, mileEffect: 0.3, probability: 0.05 },
   { name: "Blizzard", healthEffect: -30, mileEffect: 0.1, probability: 0.05 },
-  { name: "Heavy Fog", healthEffect: -3, mileEffect: 0.5, probability: 0.05 }
+  { name: "Heavy Fog", healthEffect: -3, mileEffect: 0.5, probability: 0.05 },
 ];
-
 
 exports.getWeather = () => {
   return weather;
-}
+};

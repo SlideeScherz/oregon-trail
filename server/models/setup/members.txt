@@ -1,8 +1,6 @@
-<div id="setup-content"> 
-  <p>What are the first names of the other members of your party?</p>
-  Player Name: <input value = 'player 1' id="player1" /> <br/>
-  Player Name: <input value = 'player 2' id="player2" /> <br/>
-  Player Name: <input value = 'player 3' id="player3" /> <br/>
-  Player Name: <input value = 'player 4' id="player4" /> <br/>
-  <input type="button" class="button-1" id="members-submit" value="Next" onclick = saveWagonMembers() />
-</div>
+<p>What are the first names of the other members of your party?</p>
+Player Name: <input value = 'player 1' id="player1" /> <br/>
+Player Name: <input value = 'player 2' id="player2" /> <br/>
+Player Name: <input value = 'player 3' id="player3" /> <br/>
+Player Name: <input value = 'player 4' id="player4" /> <br/>
+<input type="button" class="button-1" id="members-submit" value="Next" onclick = saveWagonMembers() />

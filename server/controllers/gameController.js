@@ -4,10 +4,23 @@ const paceModel = require("../models/pace");
 const weatherModel = require("../models/weather");
 
 //create gamestats object
-const gameStats = gameDataModel.getGameDataModel();
+const gameStats = gameDataModel.getGameDataObj();
 const paces = paceModel.getPaces();
-const terrains = terrainModel.getTerrain();
-const weathers = weatherModel.getWeather();
+const terrain = terrainModel.getTerrain();
+const weather = weatherModel.getWeather();
+
+// init all gameData back to default
+exports.resetGame = function (req, res) {
+  gameStats.startMonth = null;
+  gameStats.currentWeather = weather[2];
+  gameStats.currentTerrain = terrain[0];
+  gameStats.playerProfession = null;
+  gameStats.groupHealth = 100;
+  gameStats.milesTraveled = 0;
+  gameStats.currentPace = paces[3];
+  res.setHeader("Content-Type", "application/json");
+  res.sendStatus(200);
+};
 
 /**
  * Pick a weather based on probability
@@ -16,10 +29,10 @@ const weathers = weatherModel.getWeather();
 const simulateWeather = (randomFloat) => {
   var threshold = 0;
 
-  for (let i = 0; i < weathers.length; i++) {
-    threshold += parseFloat(weathers[i].probability);
+  for (let i = 0; i < weather.length; i++) {
+    threshold += parseFloat(weather[i].probability);
     if (threshold > randomFloat) {
-      return weathers[i];
+      return weather[i];
     }
   }
 };
@@ -29,7 +42,7 @@ const simulateWeather = (randomFloat) => {
  * @returns new terrain
  */
 const simulateTerrain = (randomFloat) =>
-  terrains[Math.floor(randomFloat * terrains.length)];
+  terrain[Math.floor(randomFloat * terrain.length)];
 
 /**
  * Update health based on the current gameData
@@ -70,25 +83,6 @@ const updateMesseges = (health) => {
 };
 
 /**
- * Init all gameData back to default
- * @param {*} req
- * @param {*} res
- */
-exports.resetGame = function (req, res) {
-  console.log(`Resetting Game`);
-
-  gameStats.startMonth = null;
-  gameStats.currentWeather = weathers[2];
-  gameStats.currentTerrain = terrains[0];
-  gameStats.playerProfession = "";
-  gameStats.groupHealth = 100;
-  gameStats.milesTraveled = 0;
-  gameStats.currentPace = paces[3];
-  res.setHeader("Content-Type", "application/json");
-  res.sendStatus(200);
-};
-
-/**
  * update the pace from trail.js via POST
  * @param {string} req name of pace
  * @param {json} res currentPace
@@ -96,48 +90,6 @@ exports.resetGame = function (req, res) {
 exports.setCurrentPace = function (req, res) {
   gameStats.currentPace = paces[req.params.id];
   res.setHeader("Content-Type", "application/json");
-  res.sendStatus(200);
-};
-
-/**
- * called from setup.js
- * @param {*} req profession plain text
- * @param {*} res
- */
-exports.pickProfession = function (req, res) {
-  gameStats.playerProfession = req.params.profession;
-  if (gameStats.playerProfession === "Banker") {
-    gameStats.playerMoney = 2000;
-  } else if (gameStats.playerProfession === "Carpenter") {
-    gameStats.playerMoney = 1800;
-  } else if (gameStats.playerProfession === "Farmer") {
-    gameStats.playerMoney = 1500;
-  }
-  res.setHeader("Content-Type", "text/plain");
-  res.sendStatus(200);
-};
-
-// receive gamedata from setup.js
-exports.setMembers = function (req, res) {
-  gameStats.playerNames[1] = req.params.name2;
-  gameStats.playerNames[2] = req.params.name3;
-  gameStats.playerNames[3] = req.params.name4;
-  gameStats.playerNames[4] = req.params.name5;
-  res.setHeader("Content-Type", "text/plain");
-  res.sendStatus(200);
-};
-
-// receive gamedata from setup.js
-exports.setLeader = function (req, res) {
-  gameStats.playerNames[0] = req.params.name1;
-  res.setHeader("Content-Type", "text/plain");
-  res.sendStatus(200);
-};
-
-// receive gamedata from setup.js
-exports.setMonth = function (req, res) {
-  gameStats.startMonth = req.params.month;
-  res.setHeader("Content-Type", "text/plain");
   res.sendStatus(200);
 };
 

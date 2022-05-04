@@ -26,8 +26,21 @@ app.get("/trail", function (req, res) {
 
 /** setup routes */
 
-// send json data from setupController to setup.js
 app.route("/api/setup/screen/:id").get(setupController.getGameScreen);
+
+app
+  .route("/api/setup/leader/:name")
+  .post(setupController.newLeader);
+
+app
+  .route("/api/setup/member/:id")
+  .post(setupController.newPlayer);
+
+app
+  .route("/api/setup/profession/:profession")
+  .post(setupController.newProfession);
+
+app.route("/api/setup/month/:month").post(setupController.newMonth);
 
 /** game routes */
 
@@ -37,23 +50,11 @@ app.route("/api/game/data").get(gameController.getGameData);
 // simulate all game components and send updates data to trail.js
 app.route("/api/game/advanceDay").get(gameController.advanceDay);
 
+// update pace from trail.js
 app.route("/api/game/data/pace/:id").post(gameController.setCurrentPace);
 
 // reset game from client
 app.route("/api/game/reset").get(gameController.resetGame);
-
-//send setup info to game controller
-app.route("/api/setup/wagonLeader/:name1").post(gameController.setLeader);
-
-app
-  .route("/api/setup/member/:name2/:name3/:name4/:name5")
-  .post(gameController.setMembers);
-
-app
-  .route("/api/setup/profession/:profession")
-  .post(gameController.pickProfession);
-
-app.route("/api/setup/month/:month").post(gameController.setMonth);
 
 // deploy server
 app.listen(PORT, (err) => {

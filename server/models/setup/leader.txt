@@ -1,5 +1,3 @@
-<div id="setup-content">
-  <p>What is the first name of the wagon leader?</p>
-  Leader Name: <input type="text" value = 'leader name' id="player0"/>
-  <input type="button" class="button-1" id="leader-submit" value="next" onclick = saveWagonLeader() />
-</div>  
+<p>What is the name of the wagon leader?</p>
+Leader Name: <input type="text" value = 'leader name' id="leader"/>
+<input type="button" class="button-1" id="leader-submit" value="next" onclick = saveWagonLeader() />

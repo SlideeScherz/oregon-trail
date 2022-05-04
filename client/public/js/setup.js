@@ -1,58 +1,40 @@
-/**
- * init stepCpunt to zero, Inc every time user advances in menu
- * 0: profession
- * 1: leader
- * 2: members
- * 3: start month
- * 4: show selections
- */
-var stepCount = 0;
-
-window.onload = function () {
-  // load first screen by default
-  getScreen(0);
-};
+// load first screen by default
+window.onload = () => getScreen(0);
 
 /**
  * API Manager for getting screen data from setupController
- * @param {string} screenId number (1-5)
+ * @param {string} id number (1-5)
  */
-function getScreen(screenId) {
-  console.log(`fetching => ${screenId}`);
-
-  fetch("/api/setup/screen/" + screenId).then(function (response) {
-    if (response.status !== 200) {
-      console.error(`getScreen => ${response.status}`);
-      return;
-    }
-    response.text().then(function (data) {
-      console.log(`getScreen => ${response.status} step: ${stepCount}`);
-
+function getScreen(id) {
+  fetch("/api/setup/screen/" + id).then((res) => {
+    res.json().then((data) => {
       updateDiv(data);
 
-      if (screenId === 4) {
-        confirmSetup();
-      }
+      if (id === 4) confirmSetup();
     });
   });
 }
 
 // change the DOM with new data
-function updateDiv(strData) {
+function updateDiv(req) {
   const setupDiv = document.getElementById("setup-content");
-  setupDiv.innerHTML = strData;
+  setupDiv.innerHTML = req;
 }
 
-window.addEventListener("keydown", function (event) {
+// read user input and call setup API
+window.addEventListener("keydown", (event) => {
   if (stepCount === 0) {
-    if (event.code === "Digit1" || event.code === "Numpad1") {
+    if (keyOnePressed(event)) {
       saveProfession("Banker");
     } else if (event.code === "Digit2" || event.code === "Numpad2") {
       saveProfession("Carpenter");
     } else if (event.code === "Digit3" || event.code === "Numpad3") {
       saveProfession("Farmer");
     }
-  } else if (stepCount === 3) {
+  }
+
+  // steps 1 and 2 handled by getElementById
+  else if (stepCount === 3) {
     if (event.code === "Digit1" || event.code === "Numpad1") {
       saveMonth("March");
     } else if (event.code === "Digit2" || event.code === "Numpad2") {
@@ -70,22 +52,29 @@ window.addEventListener("keydown", function (event) {
 });
 
 /**
- * Read html input and send to gameData
- * @param {string} playerProfession value from HTML field
+ * Helper to shorten post requests
+ * @param {*} bodyParams
+ * @returns
  */
-function saveProfession(playerProfession) {
-  fetch("/api/setup/profession/" + playerProfession, {
-    method: "post",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: '{"profession": "' + playerProfession + '"}',
-  }).then(function (response) {
-    if (response.status !== 200) {
-      console.error(`saveProfession => ${response.status}`);
-      return;
-    }
-    console.log(`saveProfession => ${response.status}`);
+const postOptions = (bodyParams) => ({
+  method: "post",
+  headers: {
+    "Content-type": "application/json; charset=UTF-8",
+  },
+  body: JSON.stringify(bodyParams),
+});
+
+/**
+ * Read html input and send to gameData
+ * @param {string} professionName value from HTML field
+ */
+function saveProfession(professionName) {
+  fetch(
+    `/api/setup/profession/${professionName}`,
+    postOptions(professionName)
+  ).then((res) => {
+    console.log(res);
+
     stepCount++;
     getScreen(stepCount);
   });
@@ -93,20 +82,15 @@ function saveProfession(playerProfession) {
 
 // read html input and send to gameData
 function saveWagonLeader() {
-  var name1 = document.getElementById("player0").value;
+  const player = document.getElementById("leader").value;
 
-  fetch("/api/setup/wagonLeader/" + name1, {
-    method: "post",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: '{"name1": "' + name1 + '"}',
-  }).then(function (response) {
-    if (response.status !== 200) {
-      console.error(`saveWagonLeader => ${response.status}`);
-      return;
-    }
-    console.log(`saveWagonLeader => ${response.status}`);
+  fetch(`/api/setup/leader/${player}`).then((res) => {
+    console.log("lead");
+
+    console.log(res);
+    console.log(res.json());
+    console.log(res.text());
+
     stepCount++;
     getScreen(stepCount);
   });
@@ -114,45 +98,27 @@ function saveWagonLeader() {
 
 // read html input and send to gameData
 function saveWagonMembers() {
-  var name1 = document.getElementById("player1").value;
-  var name2 = document.getElementById("player2").value;
-  var name3 = document.getElementById("player3").value;
-  var name4 = document.getElementById("player4").value;
+  const players = [
+    { id: 1, name: document.getElementById("player1").value },
+    { id: 2, name: document.getElementById("player2").value },
+    { id: 3, name: document.getElementById("player3").value },
+    { id: 4, name: document.getElementById("player4").value },
+  ];
 
-  fetch(
-    "/api/setup/member/" + name1 + "/" + name2 + "/" + name3 + "/" + name4,
-    {
-      method: "post",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }
-  ).then(function (response) {
-    if (response.status !== 200) {
-      console.error(`saveWagonMembers => ${response.status}`);
-      return;
-    }
-    console.log(`saveWagonMembers => ${response.status}`);
-    stepCount++;
-    getScreen(stepCount);
+  players.forEach((player) => {
+    fetch(`/api/setup/member/${player.id}`).then((res) => {
+      console.log("prof");
+      console.log(res);
+      console.log(res.json());
+      console.log(res.text());
+    });
   });
+  stepCount++;
+  getScreen(stepCount);
 }
 
-function saveMonth(startMonth) {
-  //send data to setup
-  fetch("/api/setup/month/" + startMonth, {
-    method: "post",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: startMonth,
-  }).then(function (response) {
-    if (response.status !== 200) {
-      console.error(`saveMonth => ${response.status}`);
-      return;
-    }
-
-    console.log(`saveMonth => ${response.status}`);
+function saveMonth(month) {
+  fetch(`/api/setup/month/${month}`).then(function (res) {
     stepCount++;
     getScreen(stepCount);
   });
@@ -162,17 +128,19 @@ function startGame() {
   window.location.href = "/trail";
 }
 
+/**
+ * Get data from gameController
+ * Send a json response back
+ */
 function confirmSetup() {
-  fetch("/api/game/data/").then(function (response) {
-    if (response.status !== 200) {
-      console.error(`confirmSetup => ${response.status}`);
-      return;
-    }
+  fetch("/api/game/data/").then((res) => {
+    console.log("Confirm setup");
+    console.log(res);
+    console.log(res.json());
 
-    console.log(`confirmSetup => ${response.status}`);
-
-    //display the data the user has entered
-    response.json().then(function (data) {
+    // sends a JSON response. This method sends a response (with the correct content-type) that is the parameter converted to a JSON string using JSON.stringify().
+    // the parameter can be any JSON type, including object, array, string, Boolean, number, or null, and you can also use it to convert other values to JSON.
+    res.json().then((data) => {
       document.getElementById(
         "rProfession"
       ).innerHTML = `<p> Your Profession: </p>${data.playerProfession}`;
@@ -197,3 +165,11 @@ function confirmSetup() {
     });
   });
 }
+
+const checkAPICall = (resStatus) => {
+  if (resStatus !== 200) {
+    console.error(`${res.url} => ${resStatus}`);
+    return;
+  }
+  console.log(`${res.url} => ${resStatus}`);
+};
