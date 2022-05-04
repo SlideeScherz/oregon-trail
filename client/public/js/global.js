@@ -6,13 +6,13 @@ window.onload = async function () {
   fadeout();
 };
 
-audio.onpause = (event) => {
+audio.onpause = () => {
   console.log(`paused at ${audio.currentTime}`);
 };
 
-audio.addEventListener("ended",
-  function () {
-    this.currentTime = 0;
+audio.addEventListener(
+  "ended",
+  () => {
     this.play();
     console.log(`music looping`);
   },
@@ -23,29 +23,44 @@ audio.addEventListener("ended",
 const musicPlaying = () => audio.paused;
 
 /**
+ * Check that the API call was successful.
+ * @param {json} res api response object
+ * @returns
+ */
+ const resOk = (res) => {
+  if (res.status === 200) {
+    console.log(`${res.url} => ${res.status}`);
+    return true;
+  } else {
+    console.error(`${res.url} => ${res.status}`);
+    return false;
+  }
+};
+
+/**
  * global.js
  * control audio which will later be acessed with keypress event
  */
-function toggleAudio() {
+const toggleAudio = () => {
   // music element to reference DOM
   const audioText = document.getElementById("audioText");
 
-  //if sound is on (true) turn it off
+  // if sound is on (true) turn it off
   if (!audio.paused) {
     audio.pause();
     audioText.innerHTML = "3. Turn Sound (On)";
   }
-  //if sound is off turn it on!
+  // if sound is off turn it on!
   else if (audio.paused) {
     audio.play();
     audioText.innerHTML = "3. Turn Sound (Off)";
   }
-}
+};
 
 // global.js method for a fading text
-function sleep(ms) {
+const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
+};
 
 async function fadein() {
   document.getElementById("fade").style.opacity = "1";
