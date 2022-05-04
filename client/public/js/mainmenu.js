@@ -1,5 +1,5 @@
 // function to navigate the mainmenu
-window.addEventListener("keydown",(event) => {
+window.addEventListener("keydown", (event) => {
   // navigate to setup if we press 1 (travel the trail)
   if (event.code === "Digit1" || event.code === "Numpad1") {
     window.location.href = "/setup";

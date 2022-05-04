@@ -21,6 +21,8 @@ const terrain = [
   },
 ];
 
-exports.getTerrain = () => {
+const getTerrain = () => {
   return terrain;
 };
+
+module.exports = { getTerrain };

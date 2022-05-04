@@ -20,7 +20,9 @@ startGameScreens.map((element) => {
  * @param {number} req screen id (1-5)
  * @param {json} res json data to manipulate the DOM of setup.html
  */
-exports.getGameScreen = function (req, res) {
+const getGameScreen = (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.send(startGameScreens[req.params.id].data);
 };
+
+module.exports = { getGameScreen };

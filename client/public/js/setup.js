@@ -88,12 +88,11 @@ const saveProfession = (args) => {
 const saveWagonLeader = () => {
   const leader = document.getElementById("leader").value;
 
-  fetch(`/api/setup/wagonLeader/${leader}`, {
+  fetch(`/api/setup/leader/${leader}`, {
     method: "post",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-    body: '{"name1": "' + leader + '"}',
   }).then((res) => {
     if (!resOk(res)) return;
 
@@ -129,7 +128,6 @@ const saveMonth = (args) => {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-    body: args,
   }).then((res) => {
     if (!resOk(res)) return;
     stepCount++;
@@ -147,7 +145,8 @@ const confirmSetup = () => {
 
     // json format response to go in div
     res.json().then((data) => {
-      document.getElementById("rProfession"
+      document.getElementById(
+        "rProfession"
       ).innerHTML = `<p> Your Profession: </p>${data.playerProfession}`;
       document.getElementById(
         "rMoney"

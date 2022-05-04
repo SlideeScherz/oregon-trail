@@ -1,6 +1,6 @@
 <h1>Congratulations! You are ready to start the mission</h1> 
 <h2>Here are settings you selected for the game</h2> 
-<div id="returnData"> 
+<div id="confirm-setup-content"> 
   <span id="rPlayer1Name"></span> 
   <span id="rPlayer2Name"></span> 
   <span id="rPlayer3Name"></span> 

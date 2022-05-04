@@ -27,7 +27,7 @@ const musicPlaying = () => audio.paused;
  * @param {json} res api response object
  * @returns
  */
- const resOk = (res) => {
+const resOk = (res) => {
   if (res.status === 200) {
     console.log(`${res.url} => ${res.status}`);
     return true;

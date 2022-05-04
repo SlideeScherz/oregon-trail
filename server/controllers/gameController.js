@@ -10,6 +10,25 @@ const terrains = terrainModel.getTerrain();
 const weathers = weatherModel.getWeather();
 
 /**
+ * Init all gameData back to default
+ * @param {*} req
+ * @param {*} res
+ */
+const resetGame = (req, res) => {
+  console.log(`Resetting Game`);
+
+  gameStats.startMonth = null;
+  gameStats.currentWeather = weathers[2];
+  gameStats.currentTerrain = terrains[0];
+  gameStats.playerProfession = "";
+  gameStats.groupHealth = 100;
+  gameStats.milesTraveled = 0;
+  gameStats.currentPace = paces[3];
+  res.setHeader("Content-Type", "application/json");
+  res.sendStatus(200);
+};
+
+/**
  * Pick a weather based on probability
  * @returns new weather
  */
@@ -31,9 +50,9 @@ const simulateWeather = (randomFloat) => {
 const simulateTerrain = (randomFloat) =>
   terrains[Math.floor(randomFloat * terrains.length)];
 
+//TODO: Read the halth, and decide if a player should die
 /**
  * Update health based on the current gameData
- * TODO: Read the halth, and decide if a player should die
  * @param {number} paceFx gameData.currentPace.healthEffect
  * @param {number} weatherFx gameData.currentWeather.healthEffect
  * @returns new group health
@@ -55,55 +74,18 @@ const updateDistance = (miles, speed, weatherFx) => {
   return (miles += speed * weatherFx);
 };
 
-// check status of players and add messeges
-const updateMesseges = (health) => {
-  var msg = "";
-
-  if (health > 80) msg = "Your team is healthy! Proceed on!";
-  else if (health > 50) msg = `player has died`;
-  else if (health > 20) msg = `player has died`;
-  else if (health <= 0) msg = "all players have died. Game Over";
-  else msg = "Press Space to advance day!";
-
-  gameStats.messages.push(msg);
-};
-
-/**
- * Init all gameData back to default
- * @param {*} req
- * @param {*} res
- */
-exports.resetGame = function (req, res) {
-  console.log(`Resetting Game`);
-
-  gameStats.startMonth = null;
-  gameStats.currentWeather = weathers[2];
-  gameStats.currentTerrain = terrains[0];
-  gameStats.playerProfession = "";
-  gameStats.groupHealth = 100;
-  gameStats.milesTraveled = 0;
-  gameStats.currentPace = paces[3];
-  res.setHeader("Content-Type", "application/json");
-  res.sendStatus(200);
-};
-
 /**
  * update the pace from trail.js via POST
  * @param {string} req name of pace
  * @param {json} res currentPace
  */
-exports.setCurrentPace = function (req, res) {
+const setCurrentPace = (req, res) => {
   gameStats.currentPace = paces[req.params.id];
   res.setHeader("Content-Type", "application/json");
-  res.sendStatus(200);
+  res.json(gameStats.currentPace);
 };
 
-/**
- * called from setup.js
- * @param {*} req profession plain text
- * @param {*} res
- */
-exports.pickProfession = function (req, res) {
+const pickProfession = (req, res) => {
   gameStats.playerProfession = req.params.profession;
   if (gameStats.playerProfession === "Banker") {
     gameStats.playerMoney = 2000;
@@ -112,31 +94,28 @@ exports.pickProfession = function (req, res) {
   } else if (gameStats.playerProfession === "Farmer") {
     gameStats.playerMoney = 1500;
   }
-  res.setHeader("Content-Type", "text/plain");
-  res.sendStatus(200);
+  res.setHeader("Content-Type", "application/json");
+  res.json(gameStats.playerProfession);
 };
 
-// receive gamedata from setup.js
-exports.setMembers = function (req, res) {
+const setMembers = (req, res) => {
   gameStats.playerNames[1] = req.params.name2;
   gameStats.playerNames[2] = req.params.name3;
   gameStats.playerNames[3] = req.params.name4;
   gameStats.playerNames[4] = req.params.name5;
-  res.setHeader("Content-Type", "text/plain");
+  res.setHeader("Content-Type", "application/json");
   res.sendStatus(200);
 };
 
-// receive gamedata from setup.js
-exports.setLeader = function (req, res) {
+const setLeader = (req, res) => {
   gameStats.playerNames[0] = req.params.name1;
-  res.setHeader("Content-Type", "text/plain");
+  res.setHeader("Content-Type", "application/json");
   res.sendStatus(200);
 };
 
-// receive gamedata from setup.js
-exports.setMonth = function (req, res) {
+const setMonth = (req, res) => {
   gameStats.startMonth = req.params.month;
-  res.setHeader("Content-Type", "text/plain");
+  res.setHeader("Content-Type", "application/json");
   res.sendStatus(200);
 };
 
@@ -145,7 +124,7 @@ exports.setMonth = function (req, res) {
  * @param {*} req null
  * @param {json} res gameStats object
  */
-exports.advanceDay = function (req, res) {
+const advanceDay = (req, res) => {
   //TODO: add checkStatus
   //first check status. If people are alive procees
   if (gameStats.groupHealth <= 0) {
@@ -168,16 +147,27 @@ exports.advanceDay = function (req, res) {
     gameStats.currentPace.healthEffect,
     gameStats.currentWeather.healthEffect
   );
-
-  updateMesseges(gameStats.groupHealth);
-
-  //TODO: needed?
-  res.setHeader("Content-Type", "application/json");
-  res.sendStatus(200);
-};
-
-// send gameStats to oregonTrail.js
-exports.getGameData = function (req, res) {
   res.setHeader("Content-Type", "application/json");
   res.send(gameStats);
+};
+
+/**
+ * Send game data to client side
+ * @param {*} req null
+ * @param {json} res gameData object
+ */
+const getGameData = (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(gameStats);
+};
+
+module.exports = {
+  getGameData,
+  advanceDay,
+  setMonth,
+  setMembers,
+  setLeader,
+  setCurrentPace,
+  pickProfession,
+  resetGame,
 };

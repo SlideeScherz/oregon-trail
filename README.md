@@ -21,3 +21,10 @@ of days you finish ahead of schedule. If you do not complete the journey of 500 
 days your party will be lost in the snowy mountains and eat each other.
 You can change your pace (steady, strenuous, grueling, resting) by pressing spacebar during
 the game play and choosing a new pace.
+
+## TODO
+
+fix routing
+Model Implementation
+Remove aliased data
+Front end

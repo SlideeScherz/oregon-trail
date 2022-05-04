@@ -1,11 +1,10 @@
-
-//TODO: combine these two
-
-const trailStats = () => {
-  fetch("/api/game/data").then((res) => {
+const nextDay = () => {
+  fetch("/api/game/advanceDay").then((res) => {
     if (!resOk(res)) return;
 
     res.json().then((data) => {
+      console.log(data);
+
       document.getElementById("pace").innerHTML = data.currentPace.name;
       document.getElementById("days").innerHTML = data.daysOnTrail;
       document.getElementById("terrainImage").innerHTML =
@@ -19,13 +18,6 @@ const trailStats = () => {
       document.getElementById("members").innerHTML = data.playerStatus;
       document.getElementById("messeges").innerHTML = data.messeges;
     });
-  });
-};
-
-// calls update game
-const nextDay = () => {
-  fetch("/api/game/advanceDay").then((res) => {
-    if (!resOk(res)) return;
   });
 };
 
@@ -43,7 +35,6 @@ window.addEventListener("keydown", (event) => {
     changePace(3);
   } else if (event.code == "Space") {
     nextDay();
-    trailStats();
   }
 });
 
@@ -54,7 +45,6 @@ const changePace = (args) => {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-    body: args,
   }).then((res) => {
     if (!resOk(res)) return;
   });

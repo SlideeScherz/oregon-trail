@@ -2,25 +2,27 @@ const express = require("express");
 const app = express();
 const setupController = require("./controllers/setupController");
 const gameController = require("./controllers/gameController");
-//const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 // required to parse the body of a post request
-//app.use(bodyParser.json({ type: 'application/json' }));
+app.use(bodyParser.json({ type: "application/json" }));
 app.use(express.static("./client/public"));
 
-const PORT = 1337;
+const port = 1337;
+
+//const fileOptions = { root: "./client/views" };
 
 // serve HTML pages
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "./client/views" });
 });
-app.get("/mainmenu", function (req, res) {
+app.get("/mainmenu", (req, res) => {
   res.sendFile("mainmenu.html", { root: "./client/views" });
 });
-app.get("/setup", function (req, res) {
+app.get("/setup", (req, res) => {
   res.sendFile("setup.html", { root: "./client/views" });
 });
-app.get("/trail", function (req, res) {
+app.get("/trail", (req, res) => {
   res.sendFile("trail.html", { root: "./client/views" });
 });
 
@@ -31,11 +33,10 @@ app.route("/api/setup/screen/:id").get(setupController.getGameScreen);
 
 /** game routes */
 
-// fetch gameData from server
-app.route("/api/game/data").get(gameController.getGameData);
-
 // simulate all game components and send updates data to trail.js
 app.route("/api/game/advanceDay").get(gameController.advanceDay);
+
+app.route("/api/game/data/").get(gameController.getGameData);
 
 app.route("/api/game/data/pace/:id").post(gameController.setCurrentPace);
 
@@ -43,7 +44,7 @@ app.route("/api/game/data/pace/:id").post(gameController.setCurrentPace);
 app.route("/api/game/reset").get(gameController.resetGame);
 
 //send setup info to game controller
-app.route("/api/setup/wagonLeader/:name1").post(gameController.setLeader);
+app.route("/api/setup/leader/:name").post(gameController.setLeader);
 
 app
   .route("/api/setup/member/:name2/:name3/:name4/:name5")
@@ -56,7 +57,7 @@ app
 app.route("/api/setup/month/:month").post(gameController.setMonth);
 
 // deploy server
-app.listen(PORT, (err) => {
-  if (err) return console.log(`${err} Cannot Listen on PORT: ${PORT}`);
-  console.log(`Server is Listening on: http://localhost:${PORT}/`);
+app.listen(port, (err) => {
+  if (err) return console.log(`${err} Cannot Listen on port: ${port}`);
+  console.log(`Server is Listening on: http://localhost:${port}/`);
 });

@@ -6,6 +6,8 @@ const paces = [
   { name: "Resting", healthEffect: +5, mileage: 0 },
 ];
 
-exports.getPaces = () => {
+const getPaces = () => {
   return paces;
 };
+
+module.exports = { getPaces };
