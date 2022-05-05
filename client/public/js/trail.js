@@ -3,17 +3,15 @@ const nextDay = () => {
     if (!resOk(res)) return;
 
     res.json().then((data) => {
-
-      document.getElementById("pace").innerHTML = data.currentPace.name;
+      document.getElementById("pace").innerHTML = data.pace.name;
       document.getElementById("days").innerHTML = data.daysOnTrail;
-      document.getElementById("terrainImg").innerHTML =
-        data.currentTerrain.image;
-      document.getElementById("money").innerHTML = data.playerMoney;
-      document.getElementById("profession").innerHTML = data.playerProfession;
+      document.getElementById("terrainImg").innerHTML = data.terrain.image;
+      document.getElementById("money").innerHTML = data.money;
+      document.getElementById("profession").innerHTML = data.profession;
       document.getElementById("miles").innerHTML = data.milesTraveled;
-      document.getElementById("weather").innerHTML = data.currentWeather.name;
+      document.getElementById("weather").innerHTML = data.weather.name;
       document.getElementById("health").innerHTML = data.groupHealth;
-      document.getElementById("terrain").innerHTML = data.currentTerrain.name;
+      document.getElementById("terrain").innerHTML = data.terrain.name;
       document.getElementById("members").innerHTML = data.playerStatus;
       document.getElementById("messeges").innerHTML = data.messeges;
     });

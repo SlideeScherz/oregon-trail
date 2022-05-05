@@ -68,7 +68,7 @@ window.addEventListener("keydown", (event) => {
 
 /**
  * Read html input and send to gameData
- * @param {string} playerProfession value from HTML field
+ * @param {string} profession value from HTML field
  */
 const saveProfession = (args) => {
   fetch(`/api/setup/profession/${args}`, {
@@ -145,8 +145,8 @@ const confirmSetup = () => {
 
     // json format response to go in div
     res.json().then((data) => {
-      document.getElementById("rProfession").innerHTML = data.playerProfession;
-      document.getElementById("rMoney").innerHTML = data.playerMoney;
+      document.getElementById("rProfession").innerHTML = data.profession;
+      document.getElementById("rMoney").innerHTML = data.money;
       document.getElementById("rPlayer1Name").innerHTML = data.playerNames[0];
       document.getElementById("rPlayer2Name").innerHTML = data.playerNames[1];
       document.getElementById("rPlayer3Name").innerHTML = data.playerNames[2];

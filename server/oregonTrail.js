@@ -32,20 +32,20 @@ app.get("/trail", (req, res) => {
 app.route("/api/setup/screen/:id").get(setupController.getGameScreen);
 
 // gameController <-> setup
-app.route("/api/setup/leader/:name").post(gameController.setLeader);
+app.route("/api/setup/leader/:name").post(gameController.newLeader);
 
 // gameController <-> setup
 app
   .route("/api/setup/member/:name2/:name3/:name4/:name5")
-  .post(gameController.setMembers);
+  .post(gameController.newMembers);
 
 // gameController <-> setup
 app
   .route("/api/setup/profession/:profession")
-  .post(gameController.pickProfession);
+  .post(gameController.newProfession);
 
 // gameController <-> setup  
-app.route("/api/setup/month/:month").post(gameController.setMonth);
+app.route("/api/setup/month/:month").post(gameController.newMonth);
 
 /** game routes */
 
@@ -54,7 +54,7 @@ app.route("/api/game/advanceDay").get(gameController.advanceDay);
 
 app.route("/api/game/data/").get(gameController.getGameData);
 
-app.route("/api/game/data/pace/:id").post(gameController.setCurrentPace);
+app.route("/api/game/data/pace/:id").post(gameController.updatePace);
 
 // reset game from client
 app.route("/api/game/reset").get(gameController.resetGame);

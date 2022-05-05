@@ -3,25 +3,26 @@ const gameDataModel = require("../models/gameData");
 const paceModel = require("../models/pace");
 const weatherModel = require("../models/weather");
 
-//create gamestats object
+// import models
 const gameStats = gameDataModel.gameDataObj;
 const paces = paceModel.pace;
 const terrains = terrainModel.terrain;
 const weathers = weatherModel.weather;
 
-/**
- * Init all gameData back to default
- * @param {*} req
- * @param {*} res
- */
+// reset all to null
 const resetGame = (req, res) => {
-  gameStats.startMonth = null;
-  gameStats.currentWeather = weathers[2];
-  gameStats.currentTerrain = terrains[0];
-  gameStats.playerProfession = "";
-  gameStats.groupHealth = 100;
+  gameStats.pace = paces[3];
+  gameStats.weather = weathers[2];
+  gameStats.terrain = terrains[0];
+  gameStats.messages = [""];
+  gameStats.playerNames = [""];
+  gameStats.playerStatus = [""];
+  gameStats.profession = "";
+  gameStats.money = 0;
+  gameStats.startMonth = "";
   gameStats.milesTraveled = 0;
-  gameStats.currentPace = paces[3];
+  gameStats.groupHealth = 100;
+  gameStats.daysOnTrail = 0;
   res.setHeader("Content-Type", "application/json");
   res.sendStatus(200);
 };
@@ -40,15 +41,15 @@ const simulateWeather = (args) => {
 const simulateTerrain = (args) => terrains[Math.floor(args * terrains.length)];
 
 const updateHealth = (health, paceFx, weatherFx) => {
-  return (health += weatherFx + paceFx);
+  return health + (weatherFx + paceFx);
 };
 
 /**
  * Update the miles traveled reading from gameData object
  * if resting, return 0
  * @param {number} miles gameStats.milesTravelled
- * @param {number} speed gameStats.currentPace.mileage
- * @param {number} weatherFx gameStats.currentWeather.weatherFx
+ * @param {number} speed gameStats.pace.mileage
+ * @param {number} weatherFx gameStats.weather.weatherFx
  * @returns {number} new milesTraveled
  */
 const updateDistance = (miles, speed, weatherFx) => {
@@ -61,22 +62,28 @@ const updateDistance = (miles, speed, weatherFx) => {
 /**
  * update the pace from trail.js via POST
  * @param {string} req name of pace
- * @param {json} res currentPace
+ * @param {json} res pace
  */
-const setCurrentPace = (req, res) => {
-  gameStats.currentPace = paces[req.params.id];
+const updatePace = (req, res) => {
+  if (gameStats.pace === paces[req.params.id]) {
+    res.setHeader("Content-Type", "application/json");
+    res.sendStatus(200);
+    return;
+  }
+
+  gameStats.pace = paces[req.params.id];
   res.setHeader("Content-Type", "application/json");
-  res.json(gameStats.currentPace);
+  res.json(gameStats.pace);
 };
 
 /**
  * Respond with whole obj because we also select the money
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
-const pickProfession = (req, res) => {
-  gameStats.playerProfession = req.params.profession;
-  gameStats.playerMoney = assignMoney(req.params.profession);
+const newProfession = (req, res) => {
+  gameStats.profession = req.params.profession;
+  gameStats.money = assignMoney(req.params.profession);
   res.setHeader("Content-Type", "application/json");
   res.json(gameStats);
 };
@@ -91,7 +98,7 @@ const assignMoney = (args) => {
   }
 };
 
-const setMembers = (req, res) => {
+const newMembers = (req, res) => {
   gameStats.playerNames[1] = req.params.name2;
   gameStats.playerNames[2] = req.params.name3;
   gameStats.playerNames[3] = req.params.name4;
@@ -100,13 +107,13 @@ const setMembers = (req, res) => {
   res.sendStatus(200);
 };
 
-const setLeader = (req, res) => {
+const newLeader = (req, res) => {
   gameStats.playerNames[0] = req.params.name;
   res.setHeader("Content-Type", "application/json");
   res.json(gameStats.playerNames[0]);
 };
 
-const setMonth = (req, res) => {
+const newMonth = (req, res) => {
   gameStats.startMonth = req.params.month;
   res.setHeader("Content-Type", "application/json");
   res.json(gameStats.startMonth);
@@ -120,26 +127,24 @@ const setMonth = (req, res) => {
 const advanceDay = (req, res) => {
   //TODO: add checkStatus
   //first check status. If people are alive procees
-  if (gameStats.groupHealth <= 0) {
-    return;
-  }
+  if (gameStats.groupHealth <= 0) return;
 
-  const tempRandomFloat = Math.random();
+  const randN = Math.random();
 
   // call weather and terrain options first!
   gameStats.daysOnTrail++;
-  gameStats.currentWeather = simulateWeather(tempRandomFloat);
-  gameStats.currentTerrain = simulateTerrain(tempRandomFloat);
+  gameStats.weather = simulateWeather(randN);
+  gameStats.terrain = simulateTerrain(randN);
   gameStats.milesTraveled = updateDistance(
     gameStats.milesTraveled,
-    gameStats.currentPace.mileage,
-    gameStats.currentWeather.mileEffect
+    gameStats.pace.mileage,
+    gameStats.weather.mileEffect
   );
   gameStats.groupHealth = updateHealth(
     gameStats.groupHealth,
-    gameStats.currentPace.healthEffect,
-    gameStats.currentWeather.healthEffect
-  );
+    gameStats.pace.healthEffect,
+    gameStats.weather.healthEffect
+  ); 
   res.setHeader("Content-Type", "application/json");
   res.send(gameStats);
 };
@@ -157,10 +162,10 @@ const getGameData = (req, res) => {
 module.exports = {
   getGameData,
   advanceDay,
-  setMonth,
-  setMembers,
-  setLeader,
-  setCurrentPace,
-  pickProfession,
+  newMonth,
+  newMembers,
+  newLeader,
+  updatePace,
+  newProfession,
   resetGame,
 };
