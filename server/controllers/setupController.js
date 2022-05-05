@@ -1,18 +1,14 @@
 var fs = require("fs");
 
-const pathDir = "server/models/setup";
+const setupDir = "server/models/setup/";
 
-var startGameScreens = [
-  { id: 1, path: `${pathDir}/profession.txt`, data: "" },
-  { id: 2, path: `${pathDir}/leader.txt`, data: "" },
-  { id: 3, path: `${pathDir}/members.txt`, data: "" },
-  { id: 4, path: `${pathDir}/month.txt`, data: "" },
-  { id: 5, path: `${pathDir}/confirmSetup.txt`, data: "" },
-];
+// get all filenames in the setup directory
+const setupPaths = fs.readdirSync(setupDir);
 
-startGameScreens.map((element) => {
-  const txtBuffer = fs.readFileSync(element.path);
-  element.data = txtBuffer.toString();
+// add DOM data to element member of screens
+const setupScreens = setupPaths.map((path, index) => {
+  const txtBuffer = fs.readFileSync(`${setupDir}${path}`);
+  return { id: index, data: txtBuffer.toString() };
 });
 
 /**
@@ -22,7 +18,7 @@ startGameScreens.map((element) => {
  */
 const getGameScreen = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.send(startGameScreens[req.params.id].data);
+  res.send(setupScreens[req.params.id].data);
 };
 
 module.exports = { getGameScreen };
