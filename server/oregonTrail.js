@@ -28,8 +28,24 @@ app.get("/trail", (req, res) => {
 
 /** setup routes */
 
-// send json data from setupController to setup.js
+// setupController <-> setup
 app.route("/api/setup/screen/:id").get(setupController.getGameScreen);
+
+// gameController <-> setup
+app.route("/api/setup/leader/:name").post(gameController.setLeader);
+
+// gameController <-> setup
+app
+  .route("/api/setup/member/:name2/:name3/:name4/:name5")
+  .post(gameController.setMembers);
+
+// gameController <-> setup
+app
+  .route("/api/setup/profession/:profession")
+  .post(gameController.pickProfession);
+
+// gameController <-> setup  
+app.route("/api/setup/month/:month").post(gameController.setMonth);
 
 /** game routes */
 
@@ -42,19 +58,6 @@ app.route("/api/game/data/pace/:id").post(gameController.setCurrentPace);
 
 // reset game from client
 app.route("/api/game/reset").get(gameController.resetGame);
-
-//send setup info to game controller
-app.route("/api/setup/leader/:name").post(gameController.setLeader);
-
-app
-  .route("/api/setup/member/:name2/:name3/:name4/:name5")
-  .post(gameController.setMembers);
-
-app
-  .route("/api/setup/profession/:profession")
-  .post(gameController.pickProfession);
-
-app.route("/api/setup/month/:month").post(gameController.setMonth);
 
 // deploy server
 app.listen(port, (err) => {
