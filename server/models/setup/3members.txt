@@ -1,0 +1,21 @@
+<h2>What are the first names of the other members of your party?</h2>
+<form>
+  <label for="player1">Member 1:</label>
+  <input type="text" id="player1" value="name" name="player1" /><br />
+
+  <label for="player2">Member 2:</label>
+  <input type="text" id="player2" value="name" name="player2" /><br />
+
+  <label for="player3">Member 3:</label>
+  <input type="text" id="player3" value="name" name="player3" /><br />
+
+  <label for="player4">Member 4:</label>
+  <input type="text" id="player4" value="name" name="player4" /><br />
+</form>
+
+<input
+  type="button"
+  id="submit-btn"
+  value="Next"
+  onclick="saveWagonMembers()"
+/>

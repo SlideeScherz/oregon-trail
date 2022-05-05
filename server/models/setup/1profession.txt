@@ -1,0 +1,11 @@
+<h2>Many kinds of people made the trip trip to Oregon</h2>
+<h3>You may:</h3>
+
+<ol id="profession-content">
+  <li>Be a banker from Boston</li>
+  <li>Be a carpenter from Ohio</li>
+  <li>Be a farmer from Illinois</li>
+  <li>Find out the differences between the choices</li>
+</ol>
+
+<h3>What is your choice?</h3>

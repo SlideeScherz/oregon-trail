@@ -145,27 +145,13 @@ const confirmSetup = () => {
 
     // json format response to go in div
     res.json().then((data) => {
-      document.getElementById(
-        "rProfession"
-      ).innerHTML = `<p> Your Profession: </p>${data.playerProfession}`;
-      document.getElementById(
-        "rMoney"
-      ).innerHTML = `<p> Bank Account: </p>${data.playerMoney}`;
-      document.getElementById(
-        "rPlayer1Name"
-      ).innerHTML = `<p> Wagon Leader: </p>${data.playerNames[0]}`;
-      document.getElementById(
-        "rPlayer2Name"
-      ).innerHTML = `<p> Wagon Member 1: </p>${data.playerNames[1]}`;
-      document.getElementById(
-        "rPlayer3Name"
-      ).innerHTML = `<p> Wagon Member 2: </p>${data.playerNames[2]}`;
-      document.getElementById(
-        "rPlayer4Name"
-      ).innerHTML = `<p> Wagon Member 3: </p>${data.playerNames[3]}`;
-      document.getElementById(
-        "rMonth"
-      ).innerHTML = `<p> Start Month: </p>${data.startMonth}`;
+      document.getElementById("rProfession").innerHTML = data.playerProfession;
+      document.getElementById("rMoney").innerHTML = data.playerMoney;
+      document.getElementById("rPlayer1Name").innerHTML = data.playerNames[0];
+      document.getElementById("rPlayer2Name").innerHTML = data.playerNames[1];
+      document.getElementById("rPlayer3Name").innerHTML = data.playerNames[2];
+      document.getElementById("rPlayer4Name").innerHTML = data.playerNames[3];
+      document.getElementById("rMonth").innerHTML = data.startMonth;
     });
   });
 };

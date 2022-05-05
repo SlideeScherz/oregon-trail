@@ -3,11 +3,10 @@ const nextDay = () => {
     if (!resOk(res)) return;
 
     res.json().then((data) => {
-      console.log(data);
 
       document.getElementById("pace").innerHTML = data.currentPace.name;
       document.getElementById("days").innerHTML = data.daysOnTrail;
-      document.getElementById("terrainImage").innerHTML =
+      document.getElementById("terrainImg").innerHTML =
         data.currentTerrain.image;
       document.getElementById("money").innerHTML = data.playerMoney;
       document.getElementById("profession").innerHTML = data.playerProfession;

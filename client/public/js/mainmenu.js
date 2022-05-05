@@ -9,6 +9,6 @@ window.addEventListener("keydown", (event) => {
 
   // toggle audio
   else if (event.code === "Digit3" || event.code === "Numpad3") {
-    toggleAudio(musicPlaying());
+    toggleAudio();
   }
 });

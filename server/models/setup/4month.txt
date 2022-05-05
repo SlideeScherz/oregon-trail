@@ -1,0 +1,10 @@
+<h2>Choose your start month:</h2>
+<ol id="month-content">
+  <li>March</li>
+  <li>April</li>
+  <li>May</li>
+  <li>June</li>
+  <li>July</li>
+</ol>
+
+<h3>What is your choice?</h3>

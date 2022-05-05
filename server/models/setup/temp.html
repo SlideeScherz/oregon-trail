@@ -1,0 +1,39 @@
+<h2>Congratulations! You are ready to start the mission</h2>
+<h3>Here are settings you selected for the game</h3>
+<div id="confirm-setup-content">
+  <h3>Your profession</h3>
+  <div id="rProfession"></div>
+
+  <h3>Bank Account</h3>
+  <div id="rMoney"></div>
+
+  <h3>Wagon Leader</h3>
+  <div id="rPlayer1Name"></div>
+
+  <h3>Wagon Members</h3>
+  <div id="rPlayer2Name"></div>
+  <div id="rPlayer3Name"></div>
+  <div id="rPlayer4Name"></div>
+
+  <h3>Start Month</h3>
+  <div id="rMonth"></div>
+
+  <br />
+
+  <div id="fade">
+    <h3>Press the space to go to trail.</h3>
+  </div>
+  <input
+    type="button"
+    id="submit-btn"
+    value="Start Game"
+    onclick="startGame()"
+  />
+
+  <input
+    type="button"
+    id="edit-btn"
+    value="edit settings"
+    onclick="saveWagonLeader()"
+  />
+</div>

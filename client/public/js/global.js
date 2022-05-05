@@ -1,6 +1,5 @@
 const audioURL = "/music/trail.mp3";
 var audio = new Audio(audioURL);
-audio.autoplay = true;
 
 window.onload = async function () {
   fadeout();
@@ -18,9 +17,6 @@ audio.addEventListener(
   },
   false
 );
-
-// access music obj externally
-const musicPlaying = () => audio.paused;
 
 /**
  * Check that the API call was successful.
