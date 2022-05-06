@@ -1,28 +1,14 @@
-const terrainModel = require("../models/terrain");
-const gameDataModel = require("../models/gameData");
-const paceModel = require("../models/pace");
-const weatherModel = require("../models/weather");
+const gameData = require("../models/gameData");
 
 // import models
-const gameStats = gameDataModel.gameDataObj;
-const paces = paceModel.paces;
-const terrains = terrainModel.terrain;
-const weathers = weatherModel.weather;
+var gameStats = gameData.gameDataObj;
+const paces = gameData.paces;
+const terrains = gameData.terrain;
+const weathers = gameData.weather;
 
 // reset all to null
 const resetGame = (req, res) => {
-  gameStats.pace = paceModel.defaultPace;
-  gameStats.weather = weathers[2];
-  gameStats.terrain = terrains[0];
-  gameStats.messages = [""];
-  gameStats.playerNames = [""];
-  gameStats.playerStatus = [""];
-  gameStats.profession = "";
-  gameStats.money = 0;
-  gameStats.startMonth = "";
-  gameStats.milesTraveled = 0;
-  gameStats.groupHealth = 100;
-  gameStats.daysOnTrail = 0;
+  gameStats = gameData.defaultGameDataObj;
   res.setHeader("Content-Type", "application/json");
   res.json(gameStats)
 };
