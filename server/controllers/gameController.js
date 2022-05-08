@@ -2,16 +2,23 @@ const gameData = require("../models/gameData");
 
 // import models
 var gameStats = gameData.gameDataObj;
+
+// containers
 const paces = gameData.paces;
-const terrains = gameData.terrain;
-const weathers = gameData.weather;
+const terrains = gameData.terrains;
+const weathers = gameData.weathers;
 
 // reset all to null
 const resetGame = (req, res) => {
   gameStats = gameData.defaultGameDataObj;
   res.setHeader("Content-Type", "application/json");
-  res.json(gameStats)
+  res.json(gameStats);
 };
+
+// util
+
+// random number
+const rNum = () => Math.random();
 
 // speed and distance
 const miles = () => gameStats.milesTraveled;
@@ -20,7 +27,7 @@ const pSpeed = () => gameStats.pace.mileage;
 
 const wSpeed = () => gameStats.weather.mileEffect;
 
-const speedEff = (arg1, arg2) => arg1 + arg2;
+const speedEff = (arg1, arg2) => arg1 * arg2;
 
 const updateMiles = () => miles() + speedEff(pSpeed(), wSpeed());
 
@@ -37,18 +44,18 @@ const healthEff = (arg1, arg2) => arg1 + arg2;
 
 const updateHealth = () => health() + healthEff(pHealth(), wHealth());
 
-// weather 
-const simulateWeather = (args) => {
-  var threshold = 0;
+/**
+ * Get a random result with weighted odds
+ * @param {number} n random integer
+ * @returns {weather} new weather obj-
+ */
+const simulateWeather = (n) => weathers.find((el) => n >= el.probability);
 
-  for (let i = 0; i < weathers.length; i++) {
-    threshold += parseFloat(weathers[i].probability);
-    if (threshold > args) {
-      return weathers[i];
-    }
-  }
-};
-
+/**
+ * Randomly pick without probability
+ * @param {number} args
+ * @returns {terrain} new terrain
+ */
 const simulateTerrain = (args) => terrains[Math.floor(args * terrains.length)];
 
 /**
@@ -70,13 +77,9 @@ const newProfession = (req, res) => {
 };
 
 const assignMoney = (args) => {
-  if (args === "Banker") {
-    return 2000;
-  } else if (args === "Carpenter") {
-    return 1800;
-  } else if (args === "Farmer") {
-    return 1500;
-  }
+  if (args === "Banker") return 2000;
+  else if (args === "Carpenter") return 1800;
+  else if (args === "Farmer") return 1500;
 };
 
 const newMembers = (req, res) => {
@@ -106,15 +109,12 @@ const newMonth = (req, res) => {
  * @param {json} res gameStats object
  */
 const advanceDay = (req, res) => {
-  
   if (!alive(health())) return;
-
-  const randN = Math.random();
 
   // call weather and terrain options first!
   gameStats.daysOnTrail++;
-  gameStats.weather = simulateWeather(randN);
-  gameStats.terrain = simulateTerrain(randN);
+  gameStats.weather = simulateWeather(rNum());
+  gameStats.terrain = simulateTerrain(rNum());
   gameStats.milesTraveled = updateMiles();
   gameStats.groupHealth = updateHealth();
   res.setHeader("Content-Type", "application/json");

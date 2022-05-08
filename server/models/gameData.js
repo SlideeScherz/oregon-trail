@@ -11,7 +11,7 @@ const defaultPace = {
   mileage: 0,
 };
 
-const terrain = [
+const terrains = [
   {
     name: "Mountains",
     image: '<img src="/images/mountains.jpeg" width="200px" height="200px">',
@@ -39,7 +39,7 @@ const defaultTerrain = {
   image: '<img src="/images/plains.jpeg" width="200px" height="200px">',
 };
 
-const weather = [
+const weathers = [
   { name: "Very Hot", healthEffect: -8, mileEffect: 0.7, probability: 0.1 },
   { name: "Hot", healthEffect: -3, mileEffect: 0.9, probability: 0.1 },
   { name: "Warm", healthEffect: 1, mileEffect: 1, probability: 0.2 },
@@ -54,10 +54,10 @@ const weather = [
 ];
 
 const defaultWeather = {
-  name: "Very Hot",
-  healthEffect: -8,
-  mileEffect: 0.7,
-  probability: 0.1,
+  name: "",
+  healthEffect: 0,
+  mileEffect: 0,
+  probability: 0.5,
 };
 
 const defaultGameDataObj = {
@@ -75,6 +75,4 @@ const defaultGameDataObj = {
   daysOnTrail: 0,
 };
 
-var gameDataObj; 
-
-module.exports = { gameDataObj, defaultGameDataObj, paces, terrain, weather };
+module.exports = { defaultGameDataObj, paces, terrains, weathers };
