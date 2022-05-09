@@ -5,10 +5,12 @@ const setupDir = "server/models/setup/";
 // get all filenames in the setup directory
 const setupPaths = fs.readdirSync(setupDir);
 
+// return file data as text
+const rwData = (filePath) => fs.readFileSync(`${setupDir}${filePath}`);
+
 // add DOM data to element member of screens
 const setupScreens = setupPaths.map((path, index) => {
-  const txtBuffer = fs.readFileSync(`${setupDir}${path}`);
-  return { id: index, data: txtBuffer.toString() };
+  return { id: index, data: rwData(path) };
 });
 
 /**

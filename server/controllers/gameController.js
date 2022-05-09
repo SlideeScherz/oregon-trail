@@ -49,14 +49,14 @@ const updateHealth = () => health() + healthEff(pHealth(), wHealth());
  * @param {number} n random integer
  * @returns {weather} new weather obj-
  */
-const simulateWeather = (n) => weathers.find((el) => n >= el.probability);
+const simulateWeather = (n) => weathers.find((el) => el.probability >= n);
 
 /**
  * Randomly pick without probability
- * @param {number} args
+ * @param {number} n random integer
  * @returns {terrain} new terrain
  */
-const simulateTerrain = (args) => terrains[Math.floor(args * terrains.length)];
+const simulateTerrain = (n) => terrains[Math.floor(n * terrains.length)];
 
 /**
  * update the pace from trail.js via POST
