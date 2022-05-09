@@ -72,5 +72,12 @@ async function fadeout() {
   });
 }
 
+// fetch api to reset the game
+const resetGame = () => {
+  fetch("/api/game/reset").then((res) => {
+    if (!resOk(res)) return;
+  });
+};
+
 const keyOnePressed = (k) => k === "Digit1" || k === "Numpad1";
 const keyTwoPressed = (k) => k === "Digit2" || k === "Numpad2";
