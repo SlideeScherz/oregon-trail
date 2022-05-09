@@ -26,9 +26,7 @@ const getScreen = (args) => {
     res.text().then((data) => {
       updateDiv(data);
 
-      if (args === 4) {
-        confirmSetup();
-      }
+      if (args === 4) confirmSetup();
     });
   });
 };
@@ -42,24 +40,40 @@ const updateDiv = (args) => {
 
 window.addEventListener("keydown", (event) => {
   if (stepCount === 0) {
-    if (event.code === "Digit1" || event.code === "Numpad1") {
-      saveProfession("Banker");
-    } else if (event.code === "Digit2" || event.code === "Numpad2") {
-      saveProfession("Carpenter");
-    } else if (event.code === "Digit3" || event.code === "Numpad3") {
-      saveProfession("Farmer");
+    switch (event.code) {
+      case "Digit1" || "Numpad1":
+        saveProfession("Banker");
+        break;
+
+      case "Digit2" || "Numpad2":
+        saveProfession("Carpenter");
+        break;
+
+      case "Digit3" || "Numpad3":
+        saveProfession("Farmer");
+        break;
     }
   } else if (stepCount === 3) {
-    if (event.code === "Digit1" || event.code === "Numpad1") {
-      saveMonth("March");
-    } else if (event.code === "Digit2" || event.code === "Numpad2") {
-      saveMonth("April");
-    } else if (event.code === "Digit3" || event.code === "Numpad3") {
-      saveMonth("May");
-    } else if (event.code === "Digit4" || event.code === "Numpad4") {
-      saveMonth("June");
-    } else if (event.code === "Digit5" || event.code === "Numpad5") {
-      saveMonth("July");
+    switch (event.code) {
+      case "Digit1" || "Numpad1":
+        saveMonth("March");
+        break;
+
+      case "Digit2" || "Numpad2":
+        saveMonth("April");
+        break;
+
+      case "Digit3" || "Numpad3":
+        saveMonth("May");
+        break;
+
+      case "Digit4" || "Numpad4":
+        saveMonth("June");
+        break;
+
+      case "Digit5" || "Numpad5":
+        saveMonth("July");
+        break;
     }
   } else if (stepCount === 4 && event.code == "Space") {
     startGame();

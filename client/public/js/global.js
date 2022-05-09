@@ -78,6 +78,3 @@ const resetGame = () => {
     if (!resOk(res)) return;
   });
 };
-
-const keyOnePressed = (k) => k === "Digit1" || k === "Numpad1";
-const keyTwoPressed = (k) => k === "Digit2" || k === "Numpad2";

@@ -1,14 +1,16 @@
 // function to navigate the mainmenu
 window.addEventListener("keydown", (event) => {
-  // navigate to setup if we press 1 (travel the trail)
-  if (event.code === "Digit1" || event.code === "Numpad1") {
-    window.location.href = "/setup";
-  } else if (event.code === "Digit2" || event.code === "Numpad2") {
-    console.log("Coming soon");
-  }
+  switch (event.code) {
+    case "Digit1" || "Numpad1":
+      window.location.href = "/setup";
+      break;
 
-  // toggle audio
-  else if (event.code === "Digit3" || event.code === "Numpad3") {
-    toggleAudio();
+    case "Digit2" || "Numpad2":
+      console.log("Coming soon");
+      break;
+
+    case "Digit3" || "Numpad3":
+      toggleAudio();
+      break;
   }
 });

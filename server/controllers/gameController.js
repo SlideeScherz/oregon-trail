@@ -47,7 +47,7 @@ const updateHealth = () => health() + healthEff(pHealth(), wHealth());
 /**
  * Get a random result with weighted odds
  * @param {number} n random integer
- * @returns {weather} new weather obj-
+ * @returns {weather} new weather obj
  */
 const simulateWeather = (n) => weathers.find((el) => el.probability >= n);
 
