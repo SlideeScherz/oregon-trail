@@ -1,23 +1,23 @@
 <h1>Congratulations! You are ready to start the mission</h1>
-<h2>Your profession</h2>
-<h3 id="rProfession"></h3>
+<h3>Your profession</h3>
+<p id="rProfession"></p>
 
-<h2>Bank Account</h2>
-<h3 id="rMoney"></h3>
+<h3>Bank Account</h3>
+<p id="rMoney"></p>
 
-<h2>Wagon Leader</h2>
-<h3 id="rLeaderName"></h3>
+<h3>Wagon Leader</h3>
+<p id="rLeaderName"></p>
 
-<h2>Wagon Members</h2>
-<h3 id="rPlayer1Name"></h3>
-<h3 id="rPlayer2Name"></h3>
-<h3 id="rPlayer3Name"></h3>
-<h3 id="rPlayer4Name"></h3>
+<h3>Wagon Members</h3>
+<p id="rPlayer1Name"></p>
+<p id="rPlayer2Name"></p>
+<p id="rPlayer3Name"></p>
+<p id="rPlayer4Name"></p>
 
-<h2>Start Month</h2>
-<h3 id="rMonth"></h3>
+<h3>Start Month</h3>
+<p id="rMonth"></p>
 
-<h2 id="fade">Press the space to go to trail.</h2>
+<h3 id="fade">Press the space to go to trail.</h3>
 
 <input
   type="button"

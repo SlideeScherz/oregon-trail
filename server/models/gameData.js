@@ -5,11 +5,7 @@ const paces = [
   { name: 'Grueling', healthEffect: -8, mileage: 35 },
 ];
 
-const defaultPace = {
-  name: 'Select A Pace (1-4)',
-  healthEffect: 0,
-  mileage: 0,
-};
+// def 0
 
 const terrains = [
   {
@@ -34,10 +30,7 @@ const terrains = [
   },
 ];
 
-const defaultTerrain = {
-  name: 'Plains',
-  image: '<img src="/images/plains.jpeg" width="200px" height="200px">',
-};
+// def plains
 
 const weathers = [
   { name: 'Very Hot', healthEffect: -8, mileEffect: 0.7, probability: 0.1 },
@@ -53,13 +46,6 @@ const weathers = [
   { name: 'Heavy Fog', healthEffect: -3, mileEffect: 0.5, probability: 0.05 },
 ];
 
-const defaultWeather = {
-  name: '',
-  healthEffect: 0,
-  mileEffect: 0,
-  probability: 0.5,
-};
-
 const gameDataObj = {
   pace: null,
   weather: null,
@@ -73,12 +59,17 @@ const gameDataObj = {
   milesTraveled: null,
   groupHealth: null,
   daysOnTrail: null,
+  // boolean switch for when the game has began
+  hasGameBegan: false,
 };
 
+/**
+ * default values if the game is reset
+ */
 const defaultGameDataObj = {
-  pace: defaultPace,
-  weather: defaultWeather,
-  terrain: defaultTerrain,
+  pace: paces[0],
+  weather: weathers[2],
+  terrain: terrains[2],
   messages: [''],
   playerNames: [''],
   playerStatus: [''],
@@ -88,6 +79,7 @@ const defaultGameDataObj = {
   milesTraveled: 0,
   groupHealth: 100,
   daysOnTrail: 0,
+  hasGameBegan: false,
 };
 
 module.exports = { gameDataObj, defaultGameDataObj, paces, terrains, weathers };

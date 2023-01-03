@@ -45,7 +45,7 @@ audio.addEventListener(
  * @param {json} res api response object
  * @returns
  */
-function resOk(res) {
+function responseIsValid(res) {
   if (res.status === 200) {
     console.log(`${res.url} => ${res.status}`);
     return true;
@@ -80,7 +80,7 @@ function sleep(ms) {
 // fetch api to reset the game
 function resetGame() {
   fetch('/api/game/reset').then((res) => {
-    if (!resOk(res)) return;
+    if (!responseIsValid(res)) return;
 
     // success
     console.log('reset game');

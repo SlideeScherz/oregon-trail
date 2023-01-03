@@ -39,7 +39,7 @@ h2 {
   font-size: 36px;
 }
 h3 {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 #disabled-link {
@@ -167,7 +167,8 @@ h3 {
 #setup-content h2,
 h3,
 label,
-input {
+input,
+p {
   padding: 12px 16px;
 }
 
@@ -185,8 +186,27 @@ input {
 #trail-container {
   display: flex;
   flex-direction: column;
-  height: 60vh;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   color: var(--textOnBackground);
   margin: 20px;
+}
+
+#stat-cards-container {
+  display: grid;
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-content: space-evenly;
+  grid-template-columns: auto auto auto auto;
+}
+
+.stat-card {
+  padding: 10px 10px;
+  width: 300px;
+  height: 300px;
+  background-color: #b00020;
+}
+
+#player-info {
+  background-color: var(--surface);
 }

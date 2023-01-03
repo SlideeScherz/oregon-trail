@@ -21,7 +21,7 @@ window.onload = () => {
  */
 const getScreen = (args) => {
   fetch(`/api/setup/screen/${args}`).then((res) => {
-    if (!resOk(res)) return;
+    if (!responseIsValid(res)) return;
 
     res.text().then((data) => {
       updateDiv(data);
@@ -96,7 +96,7 @@ const saveProfession = (args) => {
     },
     body: '{"profession": "' + args + '"}',
   }).then((res) => {
-    if (!resOk(res)) return;
+    if (!responseIsValid(res)) return;
 
     stepCount++;
     getScreen(stepCount);
@@ -112,7 +112,7 @@ const saveWagonLeader = () => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then((res) => {
-    if (!resOk(res)) return;
+    if (!responseIsValid(res)) return;
 
     stepCount++;
     getScreen(stepCount);
@@ -134,7 +134,7 @@ const saveWagonMembers = () => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then((res) => {
-    if (!resOk(res)) return;
+    if (!responseIsValid(res)) return;
     stepCount++;
     getScreen(stepCount);
   });
@@ -147,7 +147,7 @@ const saveMonth = (args) => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then((res) => {
-    if (!resOk(res)) return;
+    if (!responseIsValid(res)) return;
     stepCount++;
     getScreen(stepCount);
   });
@@ -159,7 +159,7 @@ const startGame = () => {
 
 const confirmSetup = () => {
   fetch('/api/game/data/').then((res) => {
-    if (!resOk(res)) return;
+    if (!responseIsValid(res)) return;
 
     // json format response to go in div
     res.json().then((data) => {

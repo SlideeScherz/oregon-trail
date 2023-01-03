@@ -1,5 +1,8 @@
 const gameData = require('../models/gameData');
 
+// hack: cycles thru array
+var weatherIndex;
+
 // import models
 var gameStats = gameData.gameDataObj;
 
@@ -10,8 +13,14 @@ const weathers = gameData.weathers;
 
 // reset all to null
 const resetGame = (req, res) => {
+  if (gameStats.hasGameBegan) {
+    console.log('game is being played');
+  } else {
+    console.log('game is NOT being played');
+  }
   console.log('Game reset');
   gameStats = gameData.defaultGameDataObj;
+  weatherIndex = 0;
   res.setHeader('Content-Type', 'application/json');
   res.json(gameStats);
 };
@@ -22,41 +31,51 @@ const resetGame = (req, res) => {
 const rNum = () => Math.random();
 
 // speed and distance
-const miles = () => gameStats.milesTraveled;
+const distance = () => gameStats.milesTraveled;
 
-const pSpeed = () => gameStats.pace.mileage;
+const paceSpeed = () => gameStats.pace.mileage;
 
 // weather
-const wSpeed = () => gameStats.weather.mileEffect;
+const weatherSpeed = () => gameStats.weather.mileEffect;
 
-const speedEff = (arg1, arg2) => arg1 * arg2;
+// speed effect, constant args always pace and weather speed
+const netSpeedEffect = () => paceSpeed() * weatherSpeed();
 
-const updateMiles = () => miles() + speedEff(pSpeed(), wSpeed());
+const updateMiles = () => distance() + netSpeedEffect();
 
 // health
 const alive = (args) => args > 0;
 
 const health = () => gameStats.groupHealth;
 
-const pHealth = () => gameStats.pace.healthEffect;
+const paceHealth = () => gameStats.pace.healthEffect;
 
-const wHealth = () => gameStats.weather.healthEffect;
+const weatherHealth = () => gameStats.weather.healthEffect;
 
-const healthEff = (arg1, arg2) => arg1 + arg2;
+const netHealthEffect = () => paceHealth() + weatherHealth();
 
-const updateHealth = () => health() + healthEff(pHealth(), wHealth());
+const updateHealth = () => health() + netHealthEffect();
 
 /**
  * Get a random result with weighted odds
- * @param {number} n random integer
- * @returns {weather} new weather obj
+ * @returns {Object} new weather obj
  */
-const simulateWeather = (n) => weathers.find((el) => el.probability >= n);
+const simulateWeather = () => {
+  if (weatherIndex > weathers.length - 1) {
+    weatherIndex = 0;
+  }
+  // inc
+  else {
+    weatherIndex++;
+  }
+
+  return weathers[weatherIndex];
+};
 
 /**
  * Randomly pick without probability
  * @param {number} n random integer
- * @returns {terrain} new terrain
+ * @returns {Object} new terrain
  */
 const simulateTerrain = (n) => terrains[Math.floor(n * terrains.length)];
 
@@ -111,11 +130,23 @@ const newMonth = (req, res) => {
  * @param {json} res gameStats object
  */
 const advanceDay = (req, res) => {
-  if (!alive(health())) return;
+  console.log(gameStats);
+
+  if (!alive(health())) {
+    console.warn('All players have died');
+    //return null;
+  }
+
+  /*
+  if (!gameStats.hasGameBegan) {
+    console.warn('Select a pace before starting');
+  }
+  */
 
   // call weather and terrain options first!
   gameStats.daysOnTrail++;
-  gameStats.weather = simulateWeather(rNum());
+  //gameStats.weather = simulateWeather(rNum());
+  gameStats.weather = simulateWeather();
   gameStats.terrain = simulateTerrain(rNum());
   gameStats.milesTraveled = updateMiles();
   gameStats.groupHealth = updateHealth();
