@@ -7,7 +7,7 @@
   --primary: #4a90e2;
   --secondary: #a7d0ff;
 
-  --textOnBackground: #121212;
+  --textOnBackground: #ffffff;
   --textOnIndexBackground: #ffffff;
   --textOnPrimary: #ffffff;
   --textOnSecondary: #121212;
@@ -31,6 +31,17 @@ body {
 }
 
 /* global */
+
+h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 16px;
+}
+
 #disabled-link {
   opacity: 50%;
   pointer-events: none;
@@ -137,4 +148,25 @@ body {
   transition: 0.3s ease;
   transform: scale(1.025);
   cursor: pointer;
+}
+
+/* setup */
+#setup-container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  color: var(--textOnBackground);
+  margin: 20px;
+}
+
+#setup-content {
+  width: 100%;
+  color: var(--textOnBackground);
+  margin: 20px;
+  padding: 20px;
+}
+
+.no-bullet-list {
+  list-style-type: none;
 }

@@ -1,5 +1,4 @@
-<h3>What is the name of the wagon leader?</h3>
+<h2>What is the name of the wagon leader?</h2>
 <label for="leader">Member 1:</label>
 <input type="text" id="leader" value="name" name="leader" /><br />
-
 <input type="button" id="submit-btn" value="next" onclick="saveWagonLeader()" />

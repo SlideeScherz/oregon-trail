@@ -1,10 +1,10 @@
 <h2>Choose your start month:</h2>
-<ol id="month-content">
-  <li>March</li>
-  <li>April</li>
-  <li>May</li>
-  <li>June</li>
-  <li>July</li>
-</ol>
+<ul id="month-content" class="no-bullet-list">
+  <li>1. March</li>
+  <li>2. April</li>
+  <li>3. May</li>
+  <li>4. June</li>
+  <li>5. July</li>
+</ul>
 
 <h3>What is your choice?</h3>
