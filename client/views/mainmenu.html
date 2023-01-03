@@ -13,13 +13,27 @@
     <div id="menu-container">
       <div class="header">
         <h1 class="logo" id="header-logo">The Oregon Trail</h1>
-        <div class="menu">
-          <a href="/setup">1. Travel the trail</a>
-          <a href="/setup">2. Learn about the trail</a>
-          <a id="audioText"> 3. Turn Sound (Off/On)</a>
+        <div class="header-items">
+          <a id="disabled-link" href="/setup">Home</a>
+          <a href="/setup">Leaderboard</a>
+          <a id="audioText">Settings</a>
+          <!-- Open a link in a new tab -->
+          <a href="https://github.com/SlideeScherz/oregon-trail" target="_blank" rel="noopener noreferrer"
+            >Repository</a
+          >
         </div>
       </div>
-      <img id="wagon-img" src="/images/wagon.jpeg" />
+      <div id="main-menu-content-container">
+        <div class="game-menu">
+          <h1 id="game-menu-logo">Main Menu</h1>
+          <div class="game-menu-items">
+            <a href="/setup">1. Travel the trail</a>
+            <a href="/setup">2. Learn about the trail</a>
+            <a id="audioText">3. Turn Sound (Off/On)</a>
+          </div>
+        </div>
+        <img id="wagon-img" src="/images/wagon.jpeg" />
+      </div>
     </div>
   </body>
 </html>

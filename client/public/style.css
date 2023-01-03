@@ -31,6 +31,11 @@ body {
   font-style: normal;
 }
 
+/* global */
+#disabled-link {
+  pointer-events: none;
+}
+
 #index-container {
   padding: 50px;
   display: block;
@@ -57,22 +62,68 @@ body {
   color: var(--textOnPrimary);
 }
 
-.menu {
+.header-items {
   display: flex;
   gap: 2em;
   font-size: 18px;
   padding: 5px 14px;
 }
 
-.menu a {
+.header-items a {
   color: var(--textOnPrimary);
   /* remove underline */
   text-decoration: none;
 }
 
-.menu :hover {
+.header-items :hover {
   color: var(--secondary);
   transition: 0.3s ease;
   transform: scale(1.075);
+  cursor: pointer;
+}
+
+#main-menu-content-container {
+  padding: 50px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--background);
+  height: 100%;
+}
+
+.game-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background-color: var(--surface);
+  width: 40%;
+  height: 200px;
+}
+
+#game-menu-logo {
+  color: var(--textOnSurface);
+}
+
+.game-menu-items {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  padding: 5px 14px;
+  text-align: left;
+}
+
+.game-menu-items a {
+  color: var(--textOnSurface);
+  /* remove underline */
+  text-decoration: none;
+}
+
+.game-menu-items :hover {
+  /*color: var(--shadowColor);*/
+  transition: 0.3s ease;
+  transform: scale(1.025);
   cursor: pointer;
 }
