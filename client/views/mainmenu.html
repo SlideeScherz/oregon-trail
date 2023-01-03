@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main Menu</title>
     <link rel="stylesheet" href="/style.css" />
+    <script src="/js/global.js"></script>
+    <script src="/js/mainmenu.js"></script>
   </head>
   <body>
     <div id="menu-container">
-      <div id="fade">
-        <h1>Main Menu</h1>
-      </div>
-      <div id="actions-container">
-        <a href="/setup">1. Travel the trail</a>
-        <a href="/setup">2. Learn about the trail</a>
-        <a id="audioText"> 3. Turn Sound (Off/On)</a>
+      <div class="header">
+        <h1 class="logo" id="header-logo">The Oregon Trail</h1>
+        <div class="menu">
+          <a href="/setup">1. Travel the trail</a>
+          <a href="/setup">2. Learn about the trail</a>
+          <a id="audioText"> 3. Turn Sound (Off/On)</a>
+        </div>
       </div>
       <img id="wagon-img" src="/images/wagon.jpeg" />
     </div>
-    <script src="/js/global.js"></script>
-    <script src="/js/mainmenu.js"></script>
   </body>
 </html>

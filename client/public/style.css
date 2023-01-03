@@ -1,0 +1,78 @@
+:root {
+  --indexBackground: #000000;
+  --background: ##eeeeee;
+  --surface: #cccccc;
+  --darkSurface: #78909c;
+  --error: #b00020;
+  --shadowColor: #bbbbbb;
+  --primary: #4a90e2;
+  --secondary: #a7d0ff;
+
+  --textOnBackground: #121212;
+  --textOnIndexBackground: #ffffff;
+  --textOnPrimary: #ffffff;
+  --textOnSecondary: #121212;
+  --textOnSurface: #121212;
+  --textOnError: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Kumbh Sans', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  font-size: 12pt;
+  font-weight: normal;
+  font-style: normal;
+}
+
+#index-container {
+  padding: 50px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--indexBackground);
+  height: 100vh;
+}
+
+.begin-prompt {
+  color: var(--textOnIndexBackground);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px;
+  background-color: var(--primary);
+}
+
+.logo {
+  color: var(--textOnPrimary);
+}
+
+.menu {
+  display: flex;
+  gap: 2em;
+  font-size: 18px;
+  padding: 5px 14px;
+}
+
+.menu a {
+  color: var(--textOnPrimary);
+  /* remove underline */
+  text-decoration: none;
+}
+
+.menu :hover {
+  color: var(--secondary);
+  transition: 0.3s ease;
+  transform: scale(1.075);
+  cursor: pointer;
+}
