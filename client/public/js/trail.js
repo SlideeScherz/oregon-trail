@@ -1,3 +1,16 @@
+window.onload = () => {
+  fetch('/api/game/data/').then((res) => {
+    if (!responseIsValid(res)) return;
+
+    res.json().then((data) => {
+      document.getElementById('p1-name').innerHTML = data.playerNames[1];
+      document.getElementById('p2-name').innerHTML = data.playerNames[2];
+      document.getElementById('p3-name').innerHTML = data.playerNames[3];
+      document.getElementById('p4-name').innerHTML = data.playerNames[4];
+    });
+  });
+};
+
 /**
  * Send a next day request to the server
  * @param req null
@@ -19,8 +32,8 @@ const nextDay = () => {
       document.getElementById('health').innerHTML = data.groupHealth;
       document.getElementById('health-bar').value = data.groupHealth;
       document.getElementById('terrain').innerHTML = data.terrain.name;
-      document.getElementById('members').innerHTML = data.playerStatus;
-      document.getElementById('messeges').innerHTML = data.messeges;
+      //document.getElementById('members').innerHTML = data.playerStatus;
+      document.getElementById('messeges').innerHTML = data.messeges[0];
     });
   });
 };

@@ -61,7 +61,7 @@ const updateHealth = () => health() + netHealthEffect();
  * @returns {Object} new weather obj
  */
 const simulateWeather = () => {
-  if (weatherIndex > weathers.length - 1) {
+  if (weatherIndex >= weathers.length - 1) {
     weatherIndex = 0;
   }
   // inc
