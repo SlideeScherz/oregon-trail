@@ -34,48 +34,48 @@ const getScreen = (args) => {
 // todo pass in elem ID
 // change the DOM with new data
 const updateDiv = (args) => {
-  const setupDiv = document.getElementById("setup-content");
+  const setupDiv = document.getElementById('setup-content');
   setupDiv.innerHTML = args;
 };
 
-window.addEventListener("keydown", (event) => {
+window.addEventListener('keydown', (event) => {
   if (stepCount === 0) {
     switch (event.code) {
-      case "Digit1" || "Numpad1":
-        saveProfession("Banker");
+      case 'Digit1' || 'Numpad1':
+        saveProfession('Banker');
         break;
 
-      case "Digit2" || "Numpad2":
-        saveProfession("Carpenter");
+      case 'Digit2' || 'Numpad2':
+        saveProfession('Carpenter');
         break;
 
-      case "Digit3" || "Numpad3":
-        saveProfession("Farmer");
+      case 'Digit3' || 'Numpad3':
+        saveProfession('Farmer');
         break;
     }
   } else if (stepCount === 3) {
     switch (event.code) {
-      case "Digit1" || "Numpad1":
-        saveMonth("March");
+      case 'Digit1' || 'Numpad1':
+        saveMonth('March');
         break;
 
-      case "Digit2" || "Numpad2":
-        saveMonth("April");
+      case 'Digit2' || 'Numpad2':
+        saveMonth('April');
         break;
 
-      case "Digit3" || "Numpad3":
-        saveMonth("May");
+      case 'Digit3' || 'Numpad3':
+        saveMonth('May');
         break;
 
-      case "Digit4" || "Numpad4":
-        saveMonth("June");
+      case 'Digit4' || 'Numpad4':
+        saveMonth('June');
         break;
 
-      case "Digit5" || "Numpad5":
-        saveMonth("July");
+      case 'Digit5' || 'Numpad5':
+        saveMonth('July');
         break;
     }
-  } else if (stepCount === 4 && event.code == "Space") {
+  } else if (stepCount === 4 && event.code == 'Space') {
     startGame();
   }
 });
@@ -86,9 +86,9 @@ window.addEventListener("keydown", (event) => {
  */
 const saveProfession = (args) => {
   fetch(`/api/setup/profession/${args}`, {
-    method: "post",
+    method: 'post',
     headers: {
-      "Content-type": "application/json; charset=UTF-8",
+      'Content-type': 'application/json; charset=UTF-8',
     },
     body: '{"profession": "' + args + '"}',
   }).then((res) => {
@@ -100,12 +100,12 @@ const saveProfession = (args) => {
 };
 
 const saveWagonLeader = () => {
-  const leader = document.getElementById("leader").value;
+  const leader = document.getElementById('leader').value;
 
   fetch(`/api/setup/leader/${leader}`, {
-    method: "post",
+    method: 'post',
     headers: {
-      "Content-type": "application/json; charset=UTF-8",
+      'Content-type': 'application/json; charset=UTF-8',
     },
   }).then((res) => {
     if (!resOk(res)) return;
@@ -117,17 +117,17 @@ const saveWagonLeader = () => {
 
 // read html input and send to gameData
 const saveWagonMembers = () => {
-  const player1 = document.getElementById("player1").value;
-  const player2 = document.getElementById("player2").value;
-  const player3 = document.getElementById("player3").value;
-  const player4 = document.getElementById("player4").value;
+  const player1 = document.getElementById('player1').value;
+  const player2 = document.getElementById('player2').value;
+  const player3 = document.getElementById('player3').value;
+  const player4 = document.getElementById('player4').value;
 
   const membersURL = `/api/setup/member/${player1}/${player2}/${player3}/${player4}`;
 
   fetch(membersURL, {
-    method: "post",
+    method: 'post',
     headers: {
-      "Content-type": "application/json; charset=UTF-8",
+      'Content-type': 'application/json; charset=UTF-8',
     },
   }).then((res) => {
     if (!resOk(res)) return;
@@ -138,9 +138,9 @@ const saveWagonMembers = () => {
 
 const saveMonth = (args) => {
   fetch(`/api/setup/month/${args}`, {
-    method: "post",
+    method: 'post',
     headers: {
-      "Content-type": "application/json; charset=UTF-8",
+      'Content-type': 'application/json; charset=UTF-8',
     },
   }).then((res) => {
     if (!resOk(res)) return;
@@ -150,22 +150,23 @@ const saveMonth = (args) => {
 };
 
 const startGame = () => {
-  window.location.href = "/trail";
+  window.location.href = '/trail';
 };
 
 const confirmSetup = () => {
-  fetch("/api/game/data/").then((res) => {
+  fetch('/api/game/data/').then((res) => {
     if (!resOk(res)) return;
 
     // json format response to go in div
     res.json().then((data) => {
-      document.getElementById("rProfession").innerHTML = data.profession;
-      document.getElementById("rMoney").innerHTML = data.money;
-      document.getElementById("rPlayer1Name").innerHTML = data.playerNames[0];
-      document.getElementById("rPlayer2Name").innerHTML = data.playerNames[1];
-      document.getElementById("rPlayer3Name").innerHTML = data.playerNames[2];
-      document.getElementById("rPlayer4Name").innerHTML = data.playerNames[3];
-      document.getElementById("rMonth").innerHTML = data.startMonth;
+      document.getElementById('rProfession').innerHTML = data.profession;
+      document.getElementById('rMoney').innerHTML = data.money;
+      document.getElementById('rPlayer1Name').innerHTML = data.playerNames[0];
+      document.getElementById('rPlayer1Name').innerHTML = data.playerNames[0];
+      document.getElementById('rPlayer2Name').innerHTML = data.playerNames[1];
+      document.getElementById('rPlayer3Name').innerHTML = data.playerNames[2];
+      document.getElementById('rPlayer4Name').innerHTML = data.playerNames[3];
+      document.getElementById('rMonth').innerHTML = data.startMonth;
     });
   });
 };

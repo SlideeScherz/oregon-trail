@@ -1,5 +1,26 @@
 const audio = new Audio('/music/trail.mp3');
 
+// for fade fx
+const fadeDuration = 10;
+var opacity = 0;
+var intervalID = 0;
+
+function fadeout() {
+  setInterval(hide, fadeDuration);
+}
+
+function hide() {
+  var fadeEl = document.getElementById('fade');
+  opacity = Number(window.getComputedStyle(fadeEl).getPropertyValue('opacity'));
+
+  if (opacity > 0) {
+    opacity = opacity - 0.01;
+    fadeEl.style.opacity = opacity;
+  } else {
+    clearInterval(intervalID);
+  }
+}
+
 audio.onpause = () => {
   console.log(`paused at ${audio.currentTime}`);
 };

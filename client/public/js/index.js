@@ -1,21 +1,4 @@
-var opacity = 0;
-var intervalID = 0;
-window.onload = fadeIn;
-
-function fadeIn() {
-  setInterval(show, 100);
-}
-
-function show() {
-  var fadeEl = document.getElementById('fade');
-  opacity = Number(window.getComputedStyle(fadeEl).getPropertyValue('opacity'));
-  if (opacity < 1) {
-    opacity = opacity + 0.1;
-    fadeEl.style.opacity = opacity;
-  } else {
-    clearInterval(intervalID);
-  }
-}
+window.onload = fadeout;
 
 // if the user presses space redirect to mainmenu
 window.addEventListener('keydown', (event) => {

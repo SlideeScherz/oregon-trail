@@ -1,39 +1,34 @@
-<h2>Congratulations! You are ready to start the mission</h2>
-<h3>Here are settings you selected for the game</h3>
-<div id="confirm-setup-content">
-  <h3>Your profession</h3>
-  <div id="rProfession"></div>
+<h1>Congratulations! You are ready to start the mission</h1>
+<h2>Your profession</h2>
+<h3 id="rProfession"></h3>
 
-  <h3>Bank Account</h3>
-  <div id="rMoney"></div>
+<h2>Bank Account</h2>
+<h3 id="rMoney"></h3>
 
-  <h3>Wagon Leader</h3>
-  <div id="rPlayer1Name"></div>
+<h2>Wagon Leader</h2>
+<h3 id="rPlayer1Name"></h3>
 
-  <h3>Wagon Members</h3>
-  <div id="rPlayer2Name"></div>
-  <div id="rPlayer3Name"></div>
-  <div id="rPlayer4Name"></div>
+<h2>Wagon Members</h2>
+<h3 id="rPlayer1Name"></h3>
+<h3 id="rPlayer2Name"></h3>
+<h3 id="rPlayer3Name"></h3>
+<h3 id="rPlayer4Name"></h3>
 
-  <h3>Start Month</h3>
-  <div id="rMonth"></div>
+<h2>Start Month</h2>
+<h3 id="rMonth"></h3>
 
-  <br />
+<h2 id="fade">Press the space to go to trail.</h2>
 
-  <div id="fade">
-    <h3>Press the space to go to trail.</h3>
-  </div>
-  <input
-    type="button"
-    id="submit-btn"
-    value="Start Game"
-    onclick="startGame()"
-  />
+<input
+  type="button"
+  id="submit-btn"
+  value="Start Game"
+  onclick="startGame()"
+/>
 
-  <input
-    type="button"
-    id="edit-btn"
-    value="edit settings"
-    onclick="saveWagonLeader()"
-  />
-</div>
+<input
+  type="button"
+  id="edit-btn"
+  value="edit settings"
+  onclick="saveWagonLeader()"
+/>
