@@ -8,7 +8,8 @@ const nextDay = () => {
     if (!responseIsValid(res)) return;
 
     res.json().then((data) => {
-      document.getElementById('pace').innerHTML = data.pace.name;
+      // note: handled in changePace()
+      //document.getElementById('pace').innerHTML = data.pace.name;
       document.getElementById('days').innerHTML = data.daysOnTrail;
       document.getElementById('terrainImg').innerHTML = data.terrain.image;
       document.getElementById('money').innerHTML = data.money;
@@ -16,6 +17,7 @@ const nextDay = () => {
       document.getElementById('miles').innerHTML = data.milesTraveled;
       document.getElementById('weather').innerHTML = data.weather.name;
       document.getElementById('health').innerHTML = data.groupHealth;
+      document.getElementById('health-bar').value = data.groupHealth;
       document.getElementById('terrain').innerHTML = data.terrain.name;
       document.getElementById('members').innerHTML = data.playerStatus;
       document.getElementById('messeges').innerHTML = data.messeges;
@@ -25,17 +27,32 @@ const nextDay = () => {
 
 // in game user control
 window.addEventListener('keydown', (event) => {
+  // go home
   if (event.code === 'Delete') {
     window.location.href = '/mainmenu';
-  } else if (event.code === 'Digit1' || event.code === 'Numpad1') {
+  }
+  // pace
+  else if (event.code === 'Digit1' || event.code === 'Numpad1') {
     changePace(0);
-  } else if (event.code === 'Digit2' || event.code === 'Numpad2') {
+    document.getElementById('pace').innerHTML = 'Resting';
+  }
+  // pace
+  else if (event.code === 'Digit2' || event.code === 'Numpad2') {
     changePace(1);
-  } else if (event.code === 'Digit3' || event.code === 'Numpad3') {
+    document.getElementById('pace').innerHTML = 'Steady';
+  }
+  // pace
+  else if (event.code === 'Digit3' || event.code === 'Numpad3') {
     changePace(2);
-  } else if (event.code === 'Digit4' || event.code === 'Numpad4') {
+    document.getElementById('pace').innerHTML = 'Strenuous';
+  }
+  // pace
+  else if (event.code === 'Digit4' || event.code === 'Numpad4') {
     changePace(3);
-  } else if (event.code == 'Space') {
+    document.getElementById('pace').innerHTML = 'Grueling';
+  }
+  // pace
+  else if (event.code === 'Space') {
     nextDay();
   }
 });
