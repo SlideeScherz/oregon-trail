@@ -1,8 +1,7 @@
 :root {
   --indexBackground: #000000;
-  --background: ##eeeeee;
-  --surface: #cccccc;
-  --darkSurface: #78909c;
+  --background: #2a2d34;
+  --surface: #78909c;
   --error: #b00020;
   --shadowColor: #bbbbbb;
   --primary: #4a90e2;
@@ -33,7 +32,12 @@ body {
 
 /* global */
 #disabled-link {
+  opacity: 50%;
   pointer-events: none;
+}
+
+#fade {
+  opacity: 0;
 }
 
 #index-container {

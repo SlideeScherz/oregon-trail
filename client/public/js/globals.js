@@ -1,16 +1,11 @@
-const audioURL = "/music/trail.mp3";
-var audio = new Audio(audioURL);
-
-window.onload = async function () {
-  fadeout();
-};
+const audio = new Audio('/music/trail.mp3');
 
 audio.onpause = () => {
   console.log(`paused at ${audio.currentTime}`);
 };
 
 audio.addEventListener(
-  "ended",
+  'ended',
   () => {
     this.play();
     console.log(`music looping`);
@@ -38,18 +33,15 @@ const resOk = (res) => {
  * control audio which will later be acessed with keypress event
  */
 const toggleAudio = () => {
-  // music element to reference DOM
-  const audioText = document.getElementById("audioText");
-
   // if sound is on (true) turn it off
   if (!audio.paused) {
     audio.pause();
-    audioText.innerHTML = "3. Turn Sound (On)";
+    document.getElementById('audioText').innerHTML = '3. Turn Sound (On)';
   }
   // if sound is off turn it on!
   else if (audio.paused) {
     audio.play();
-    audioText.innerHTML = "3. Turn Sound (Off)";
+    document.getElementById('audioText').innerHTML = '3. Turn Sound (Off)';
   }
 };
 
@@ -58,23 +50,12 @@ const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-async function fadein() {
-  document.getElementById("fade").style.opacity = "1";
-  sleep(1000).then(() => {
-    fadeout();
-  });
-}
-
-async function fadeout() {
-  document.getElementById("fade").style.opacity = "0";
-  sleep(1000).then(() => {
-    fadein();
-  });
-}
-
 // fetch api to reset the game
 const resetGame = () => {
-  fetch("/api/game/reset").then((res) => {
+  fetch('/api/game/reset').then((res) => {
     if (!resOk(res)) return;
+
+    // success
+    console.log('reset game');
   });
 };

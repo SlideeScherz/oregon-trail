@@ -1,4 +1,4 @@
-const gameData = require("../models/gameData");
+const gameData = require('../models/gameData');
 
 // import models
 var gameStats = gameData.gameDataObj;
@@ -11,7 +11,7 @@ const weathers = gameData.weathers;
 // reset all to null
 const resetGame = (req, res) => {
   gameStats = gameData.defaultGameDataObj;
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.json(gameStats);
 };
 
@@ -65,21 +65,21 @@ const simulateTerrain = (n) => terrains[Math.floor(n * terrains.length)];
  */
 const updatePace = (req, res) => {
   gameStats.pace = paces[req.params.id];
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.json(gameStats.pace);
 };
 
 const newProfession = (req, res) => {
   gameStats.profession = req.params.profession;
   gameStats.money = assignMoney(req.params.profession);
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.json(gameStats.profession);
 };
 
 const assignMoney = (args) => {
-  if (args === "Banker") return 2000;
-  else if (args === "Carpenter") return 1800;
-  else if (args === "Farmer") return 1500;
+  if (args === 'Banker') return 2000;
+  else if (args === 'Carpenter') return 1800;
+  else if (args === 'Farmer') return 1500;
 };
 
 const newMembers = (req, res) => {
@@ -87,19 +87,19 @@ const newMembers = (req, res) => {
   gameStats.playerNames[2] = req.params.name3;
   gameStats.playerNames[3] = req.params.name4;
   gameStats.playerNames[4] = req.params.name5;
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.json(gameStats.playerNames);
 };
 
 const newLeader = (req, res) => {
   gameStats.playerNames[0] = req.params.name;
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.json(gameStats.playerNames[0]);
 };
 
 const newMonth = (req, res) => {
   gameStats.startMonth = req.params.month;
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.json(gameStats.startMonth);
 };
 
@@ -117,7 +117,7 @@ const advanceDay = (req, res) => {
   gameStats.terrain = simulateTerrain(rNum());
   gameStats.milesTraveled = updateMiles();
   gameStats.groupHealth = updateHealth();
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.send(gameStats);
 };
 
@@ -127,7 +127,7 @@ const advanceDay = (req, res) => {
  * @param {json} res gameData object
  */
 const getGameData = (req, res) => {
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.send(gameStats);
 };
 
