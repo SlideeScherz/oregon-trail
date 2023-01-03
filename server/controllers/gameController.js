@@ -82,19 +82,19 @@ const assignMoney = (args) => {
   else if (args === 'Farmer') return 1500;
 };
 
-const newMembers = (req, res) => {
-  gameStats.playerNames[1] = req.params.name2;
-  gameStats.playerNames[2] = req.params.name3;
-  gameStats.playerNames[3] = req.params.name4;
-  gameStats.playerNames[4] = req.params.name5;
-  res.setHeader('Content-Type', 'application/json');
-  res.json(gameStats.playerNames);
-};
-
 const newLeader = (req, res) => {
   gameStats.playerNames[0] = req.params.name;
   res.setHeader('Content-Type', 'application/json');
   res.json(gameStats.playerNames[0]);
+};
+
+const newMembers = (req, res) => {
+  gameStats.playerNames[1] = req.params.name1;
+  gameStats.playerNames[2] = req.params.name2;
+  gameStats.playerNames[3] = req.params.name3;
+  gameStats.playerNames[4] = req.params.name4;
+  res.setHeader('Content-Type', 'application/json');
+  res.json(gameStats.playerNames);
 };
 
 const newMonth = (req, res) => {

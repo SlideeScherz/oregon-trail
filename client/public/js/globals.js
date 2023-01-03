@@ -1,3 +1,9 @@
+/**
+ * @file globals.js
+ * Do not use arrow functions since this project was from 2015 and does
+ * not support >=ES5
+ */
+
 const audio = new Audio('/music/trail.mp3');
 
 // for fade fx
@@ -39,7 +45,7 @@ audio.addEventListener(
  * @param {json} res api response object
  * @returns
  */
-const resOk = (res) => {
+function resOk(res) {
   if (res.status === 200) {
     console.log(`${res.url} => ${res.status}`);
     return true;
@@ -47,13 +53,13 @@ const resOk = (res) => {
     console.error(`${res.url} => ${res.status}`);
     return false;
   }
-};
+}
 
 /**
  * global.js
  * control audio which will later be acessed with keypress event
  */
-const toggleAudio = () => {
+function toggleAudio() {
   // if sound is on (true) turn it off
   if (!audio.paused) {
     audio.pause();
@@ -64,19 +70,19 @@ const toggleAudio = () => {
     audio.play();
     document.getElementById('audioText').innerHTML = '3. Turn Sound (Off)';
   }
-};
+}
 
 // global.js method for a fading text
-const sleep = (ms) => {
+function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
-};
+}
 
 // fetch api to reset the game
-const resetGame = () => {
+function resetGame() {
   fetch('/api/game/reset').then((res) => {
     if (!resOk(res)) return;
 
     // success
     console.log('reset game');
   });
-};
+}

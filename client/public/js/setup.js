@@ -53,7 +53,9 @@ window.addEventListener('keydown', (event) => {
         saveProfession('Farmer');
         break;
     }
-  } else if (stepCount === 3) {
+  }
+  // step 2 requires typing and button
+  else if (stepCount === 3) {
     switch (event.code) {
       case 'Digit1' || 'Numpad1':
         saveMonth('March');
@@ -75,7 +77,9 @@ window.addEventListener('keydown', (event) => {
         saveMonth('July');
         break;
     }
-  } else if (stepCount === 4 && event.code == 'Space') {
+  }
+  // confirm setup
+  else if (stepCount === 4 && event.code == 'Space') {
     startGame();
   }
 });
@@ -161,11 +165,11 @@ const confirmSetup = () => {
     res.json().then((data) => {
       document.getElementById('rProfession').innerHTML = data.profession;
       document.getElementById('rMoney').innerHTML = data.money;
-      document.getElementById('rPlayer1Name').innerHTML = data.playerNames[0];
-      document.getElementById('rPlayer1Name').innerHTML = data.playerNames[0];
-      document.getElementById('rPlayer2Name').innerHTML = data.playerNames[1];
-      document.getElementById('rPlayer3Name').innerHTML = data.playerNames[2];
-      document.getElementById('rPlayer4Name').innerHTML = data.playerNames[3];
+      document.getElementById('rLeaderName').innerHTML = data.playerNames[0];
+      document.getElementById('rPlayer1Name').innerHTML = data.playerNames[1];
+      document.getElementById('rPlayer2Name').innerHTML = data.playerNames[2];
+      document.getElementById('rPlayer3Name').innerHTML = data.playerNames[3];
+      document.getElementById('rPlayer4Name').innerHTML = data.playerNames[4];
       document.getElementById('rMonth').innerHTML = data.startMonth;
     });
   });

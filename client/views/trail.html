@@ -1,36 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Play Game</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/js/globals.js"></script>
+    <script src="/js/trail.js"></script>
   </head>
   <body>
+    <div id="container">
+      <div class="header">
+        <h1 class="logo" id="header-logo">The Oregon Trail</h1>
+        <div class="header-items">
+          <a href="/mainmenu">Home</a>
+          <a>Leaderboard</a>
+          <a>Settings</a>
+          <!-- Open a link in a new tab -->
+          <a href="https://github.com/SlideeScherz/oregon-trail" target="_blank" rel="noopener noreferrer"
+            >Repository</a
+          >
+        </div>
+      </div>
 
-    <h1>Main Menu (delete)<h1>
-    <h2>Play Game (spacebar)<h2>
-    <h3>Change Pace: 1. for Resting, 2. for Steady, 3. for Strenuous, 4. for Grueling<h3>
+      <div id="trail-container">
+        <h2>Play Game (spacebar)</h2>
+        <h2>Change Pace: 1. for Resting, 2. for Steady, 3. for Strenuous, 4. for Grueling</h2>
 
-    <div id="trail">
-      <h3>Current Profession: <span id="profession"></span></h3>
-      <h3>Current Bank Account: <span id="money"></span></h3>
-      <h3>Days in the trail: <span id="days"></span></h3>
-      <h3>Miles Traveled: <span id="miles"></span></h3>
-      <h3>Current Weather: <span id="weather"></span></h3>
-      <h3>Current Health: <span id="health"></span></h3>
-      <h3>Current Pace: <span id="pace"></span></h3>
-      <h3>Current Terrain: <span id="terrain"></span></h3>
-      <h3># of Party Members: <span id="members"></span></h3>
-      <h3>Alerts: <span id="messeges"></span></h3>
+        <div id="trail">
+          <h3>Current Profession: <span id="profession"></span></h3>
+          <h3>Current Bank Account: <span id="money"></span></h3>
+          <h3>Days in the trail: <span id="days"></span></h3>
+          <h3>Miles Traveled: <span id="miles"></span></h3>
+          <h3>Current Weather: <span id="weather"></span></h3>
+          <h3>Current Health: <span id="health"></span></h3>
+          <h3>Current Pace: <span id="pace"></span></h3>
+          <h3>Current Terrain: <span id="terrain"></span></h3>
+          <h3># of Party Members: <span id="members"></span></h3>
+          <h3>Alerts: <span id="messeges"></span></h3>
+        </div>
+
+        <div id="terrainImg"></div>
+        <input type="button" id="submit-btn" value="Reset Game" onclick="resetGame()" />
+      </div>
     </div>
-
-    <div id="terrainImg"></div>
-
-    <input type="button" id="submit-btn" value="Reset Game" onclick="resetGame()" />
-
-    <script src="/js/globals.js"> </script>
-    <script src="/js/trail.js"> </script>
   </body>
 </html>

@@ -33,13 +33,13 @@ body {
 /* global */
 
 h1 {
-  font-size: 32px;
+  font-size: 48px;
 }
 h2 {
-  font-size: 24px;
+  font-size: 36px;
 }
 h3 {
-  font-size: 16px;
+  font-size: 24px;
 }
 
 #disabled-link {
@@ -178,4 +178,15 @@ input {
 
 .no-bullet-list li {
   padding: 10px 20px;
+}
+
+/* trail */
+
+#trail-container {
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  width: 90%;
+  color: var(--textOnBackground);
+  margin: 20px;
 }

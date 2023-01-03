@@ -6,7 +6,7 @@
 <h3 id="rMoney"></h3>
 
 <h2>Wagon Leader</h2>
-<h3 id="rPlayer1Name"></h3>
+<h3 id="rLeaderName"></h3>
 
 <h2>Wagon Members</h2>
 <h3 id="rPlayer1Name"></h3>
