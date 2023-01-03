@@ -54,7 +54,18 @@ const weatherHealth = () => gameStats.weather.healthEffect;
 
 const netHealthEffect = () => paceHealth() + weatherHealth();
 
-const updateHealth = () => health() + netHealthEffect();
+const updateHealth = () => {
+  // handle death
+  if (health() <= 0) {
+    return 0;
+  }
+  // handle max
+  else if (health() > 100) {
+    return 100;
+  }
+
+  return health() + netHealthEffect();
+};
 
 /**
  * Get a random result with weighted odds
@@ -130,18 +141,18 @@ const newMonth = (req, res) => {
  * @param {json} res gameStats object
  */
 const advanceDay = (req, res) => {
-  console.log(gameStats);
+  //console.log(gameStats);
 
   if (!alive(health())) {
     console.warn('All players have died');
     //return null;
   }
 
-  /*
   if (!gameStats.hasGameBegan) {
-    console.warn('Select a pace before starting');
+    console.log('Start');
+    gameStats.messages.push('Good luck!');
+    gameStats.hasGameBegan = true;
   }
-  */
 
   // call weather and terrain options first!
   gameStats.daysOnTrail++;

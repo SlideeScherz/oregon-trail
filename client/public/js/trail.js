@@ -21,8 +21,8 @@ const nextDay = () => {
     if (!responseIsValid(res)) return;
 
     res.json().then((data) => {
-      // note: handled in changePace()
-      //document.getElementById('pace').innerHTML = data.pace.name;
+      // note: handled in changePace() but needed if starting without pressing num
+      document.getElementById('pace').innerHTML = data.pace.name;
       document.getElementById('days').innerHTML = data.daysOnTrail;
       document.getElementById('terrainImg').innerHTML = data.terrain.image;
       document.getElementById('money').innerHTML = data.money;
@@ -32,8 +32,10 @@ const nextDay = () => {
       document.getElementById('health').innerHTML = data.groupHealth;
       document.getElementById('health-bar').value = data.groupHealth;
       document.getElementById('terrain').innerHTML = data.terrain.name;
-      //document.getElementById('members').innerHTML = data.playerStatus;
-      document.getElementById('messeges').innerHTML = data.messeges[0];
+      // temp: document.getElementById('messeges').innerHTML = data.messeges[0];
+
+      if (data.weather.name === 'Snow') {
+      }
     });
   });
 };
