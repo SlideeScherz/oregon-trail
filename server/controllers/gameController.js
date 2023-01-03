@@ -10,6 +10,7 @@ const weathers = gameData.weathers;
 
 // reset all to null
 const resetGame = (req, res) => {
+  console.log('Game reset');
   gameStats = gameData.defaultGameDataObj;
   res.setHeader('Content-Type', 'application/json');
   res.json(gameStats);
@@ -25,6 +26,7 @@ const miles = () => gameStats.milesTraveled;
 
 const pSpeed = () => gameStats.pace.mileage;
 
+// weather
 const wSpeed = () => gameStats.weather.mileEffect;
 
 const speedEff = (arg1, arg2) => arg1 * arg2;
