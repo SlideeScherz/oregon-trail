@@ -24,7 +24,6 @@ const nextDay = () => {
     if (!responseIsValid(res)) return;
 
     res.json().then((data) => {
-      // note: handled in changePace() but needed if starting without pressing num
       document.getElementById('pace').innerHTML = data.pace.name;
       document.getElementById('pace-health-effect').innerHTML = data.pace.healthEffect;
       document.getElementById('pace-mileage-effect').innerHTML = data.pace.mileage;
@@ -41,6 +40,7 @@ const nextDay = () => {
       // temp: document.getElementById('messeges').innerHTML = data.messeges[0];
 
       if (data.weather.name === 'Snow') {
+        console.log('Snow');
       }
     });
   });
@@ -55,22 +55,18 @@ window.addEventListener('keydown', (event) => {
   // pace
   else if (event.code === 'Digit1' || event.code === 'Numpad1') {
     changePace(0);
-    document.getElementById('pace').innerHTML = 'Resting';
   }
   // pace
   else if (event.code === 'Digit2' || event.code === 'Numpad2') {
     changePace(1);
-    document.getElementById('pace').innerHTML = 'Steady';
   }
   // pace
   else if (event.code === 'Digit3' || event.code === 'Numpad3') {
     changePace(2);
-    document.getElementById('pace').innerHTML = 'Strenuous';
   }
   // pace
   else if (event.code === 'Digit4' || event.code === 'Numpad4') {
     changePace(3);
-    document.getElementById('pace').innerHTML = 'Grueling';
   }
   // pace
   else if (event.code === 'Space') {
@@ -87,5 +83,12 @@ const changePace = (args) => {
     },
   }).then((res) => {
     if (!responseIsValid(res)) return;
+
+    res.json().then((data) => {
+      console.log(`Changing pace to ${JSON.stringify(data)}`);
+      document.getElementById('pace').innerHTML = data.name;
+      document.getElementById('pace-health-effect').innerHTML = data.healthEffect;
+      document.getElementById('pace-mileage-effect').innerHTML = data.mileage;
+    });
   });
 };

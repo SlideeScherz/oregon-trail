@@ -84,5 +84,7 @@ function resetGame() {
 
     // success
     console.log('reset game');
+
+    //window.location.reload();
   });
 }

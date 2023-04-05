@@ -192,6 +192,15 @@ p {
   margin-top: 20px;
 }
 
+#button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+  /* background-color: #4a90e2; */
+}
+
 #stat-cards-container {
   display: grid;
   column-gap: 10px;
