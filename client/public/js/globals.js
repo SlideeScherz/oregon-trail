@@ -11,6 +11,8 @@ const fadeDuration = 10;
 var opacity = 0;
 var intervalID = 0;
 
+const MILE_GOAL = 500;
+
 function fadeout() {
   setInterval(hide, fadeDuration);
 }

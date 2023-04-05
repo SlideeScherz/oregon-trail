@@ -25,96 +25,116 @@
       </div>
 
       <div id="trail-container">
-        <div id="stat-cards-container">
-          <div id="controls-info" class="stat-card">
-            <h2>Controls</h2>
-            <div class="card-content">
-              <h3>Play Game (spacebar)</h3>
-              <h3>Select Pace</h3>
-              <ul class="no-bullet-list">
-                <li>1 Resting</li>
-                <li>2 Steady</li>
-                <li>3 Strenuous</li>
-                <li>4 Grueling</li>
-              </ul>
-              <br />
-              <div id="button-row">
-                <input type="button" id="submit-btn" value="Reset Game" onclick="resetGame()" />
-                <input type="button" id="submit-btn" value="Advance Day" onclick="nextDay()" />
+        <div id="stat-cards-columns">
+          <div id="stat-cards-row">
+            <div id="controls-info" class="stat-card">
+              <h2>Controls</h2>
+              <div class="card-content">
+                <h3>Play Game (spacebar)</h3>
+                <h3>Select Pace</h3>
+                <ul class="no-bullet-list">
+                  <li>1 Resting</li>
+                  <li>2 Steady</li>
+                  <li>3 Strenuous</li>
+                  <li>4 Grueling</li>
+                </ul>
+                <br />
+                <div id="button-row">
+                  <input type="button" id="submit-btn" value="Reset Game" onclick="resetGame()" />
+                  <input type="button" id="submit-btn" value="Advance Day" onclick="nextDay()" />
+                </div>
+              </div>
+            </div>
+
+            <div id="player-info" class="stat-card">
+              <h2>Wagon Leader</h2>
+              <div class="card-content">
+                <h3>Profession</h3>
+                <p id="profession"></p>
+                <h3>Bank Account</h3>
+                <p id="money"></p>
+              </div>
+            </div>
+
+            <div id="score-info" class="stat-card">
+              <h3>Progress</h3>
+              <div class="card-content">
+                <div id="stat-row">
+                  <h3 id="stat-label">Days on trail:</h3>
+                  <p id="days"></p>
+                </div>
+                <div id="stat-row">
+                  <h3>Miles Traveled</h3>
+                  <p id="miles"></p>
+                </div>
+                <progress id="miles-bar" value="0" max="1"></progress>
+                <div id="stat-row">
+                  <h3>Group Health</h3>
+                  <p id="health"></p>
+                </div>
+                <progress id="health-bar" value="100" max="100"></progress>
               </div>
             </div>
           </div>
 
-          <div id="player-info" class="stat-card">
-            <h2>Wagon Leader</h2>
-            <div class="card-content">
-              <h3>Profession</h3>
-              <p id="profession"></p>
-              <h3>Bank Account</h3>
-              <p id="money"></p>
+          <div id="stat-cards-row">
+            <div id="terrain-info" class="stat-card">
+              <h3>Terrain</h3>
+              <div class="card-content">
+                <p id="terrain"></p>
+                <div id="terrainImg"></div>
+              </div>
             </div>
-          </div>
+            <div id="speed-info" class="stat-card">
+              <h3>Pace</h3>
+              <div id="stat-row">
+                <p id="stat-label">Current Pace:</p>
+                <p id="pace"></p>
+              </div>
+              <div id="stat-row">
+                <p id="stat-label">Pace Health Effect:</p>
+                <p id="pace-health-effect"></p>
+              </div>
+              <div id="stat-row">
+                <p id="stat-label">Mileage:</p>
+                <p id="pace-mileage-effect"></p>
+              </div>
+              <h3>Weather</h3>
+              <div id="stat-row">
+                <p id="stat-label">Current Weather:</p>
+                <p id="weather"></p>
+              </div>
+              <div id="stat-row">
+                <p id="stat-label">Pace Health Effect:</p>
+                <p id="weather-health-effect"></p>
+              </div>
+              <div id="stat-row">
+                <p id="stat-label">Mileage:</p>
+                <p id="weather-mileage-effect"></p>
+              </div>
+            </div>
 
-          <div id="score-info" class="stat-card">
-            <h2>Progress</h2>
-            <div class="card-content">
-              <h3>Days on the trail</h3>
-              <p id="days"></p>
-              <h3>Miles Traveled</h3>
-              <p id="miles"></p>
-              <h3>Health</h3>
-              <p id="health"></p>
-              <progress id="health-bar" value="100" max="100"></progress>
+            <div id="alerts-info" class="stat-card">
+              <h3>Alerts</h3>
+              <p id="messeges"></p>
             </div>
           </div>
+        </div>
+        <!-- end column container -->
+        <div id="oregon-trail-map-img-wrapper">
+          <img
+            src="/images/oregon-trail-map.jpg"
+            alt="oregon trail"
+            usemap="#trail-map-map"
+            width="536.33"
+            height="400"
+          />
 
-          <div id="weather-info" class="stat-card">
-            <h3>Weather</h3>
-            <p id="weather"></p>
-          </div>
-
-          <div id="terrain-info" class="stat-card">
-            <h3>Terrain</h3>
-            <div class="card-content">
-              <p id="terrain"></p>
-              <div id="terrainImg"></div>
-            </div>
-          </div>
-
-          <div id="speed-info" class="stat-card">
-            <h3>Pace</h3>
-            <div id="stat-row">
-              <p id="stat-label">Current Pace:</p>
-              <p id="pace"></p>
-            </div>
-            <div id="stat-row">
-              <p id="stat-label">Pace Health Effect:</p>
-              <p id="pace-health-effect"></p>
-            </div>
-            <div id="stat-row">
-              <p id="stat-label">Mileage:</p>
-              <p id="pace-mileage-effect"></p>
-            </div>
-          </div>
-
-          <div id="team-info" class="stat-card">
-            <h3>Crew Members</h3>
-            <div class="card-content">
-              <p id="p1-name"></p>
-              <progress id="p1-health-bar" value="100" max="100"></progress>
-              <p id="p2-name"></p>
-              <progress id="p2-health-bar" value="100" max="100"></progress>
-              <p id="p3-name"></p>
-              <progress id="p3-health-bar" value="100" max="100"></progress>
-              <p id="p4-name"></p>
-              <progress id="p4-health-bar" value="100" max="100"></progress>
-            </div>
-          </div>
-
-          <div id="alerts-info" class="stat-card">
-            <h3>Alerts</h3>
-            <p id="messeges"></p>
-          </div>
+          <map name="trail-map-map">
+            <area shape="rect" coords="0,0,0,0" alt="Computer" href="computer.htm" />
+            <area shape="rect" coords="290,172,333,250" alt="Phone" href="phone.htm" />
+            <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="coffee.htm" />
+          </map>
         </div>
       </div>
     </div>

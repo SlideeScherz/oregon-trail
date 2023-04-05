@@ -28,3 +28,6 @@ fix routing
 Model Implementation
 Remove aliased data
 Front end
+
+Map image:
+1609 x 1200
