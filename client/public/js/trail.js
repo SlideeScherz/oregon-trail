@@ -1,7 +1,12 @@
-//import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm';
+const renderPaceData = (paceData) => {
+  console.log(`Changing pace to ${JSON.stringify(paceData)}`);
+  const { name, healthEffect, mileage } = paceData;
+  document.getElementById('pace').innerHTML = name;
+  document.getElementById('pace-health-effect').innerHTML = healthEffect;
+  document.getElementById('pace-mileage-effect').innerHTML = mileage;
+};
 
-//const div = d3.selectAll('div');
-
+// initial render. Load setup and default values
 window.onload = () => {
   fetch('/api/game/data/').then((res) => {
     if (!responseIsValid(res)) {
@@ -10,10 +15,10 @@ window.onload = () => {
     }
 
     res.json().then((data) => {
-      document.getElementById('p1-name').innerHTML = data.playerNames[1];
-      document.getElementById('p2-name').innerHTML = data.playerNames[2];
-      document.getElementById('p3-name').innerHTML = data.playerNames[3];
-      document.getElementById('p4-name').innerHTML = data.playerNames[4];
+      renderPaceData(data.pace);
+      // setup data that doesnt render each day
+      document.getElementById('money').innerHTML = data.money;
+      document.getElementById('profession').innerHTML = data.profession;
     });
   });
 };
@@ -29,35 +34,30 @@ const nextDay = () => {
 
     res.json().then((data) => {
       // destruct
-      const { pace, terrain, weather } = data;
+      const { pace, terrain, weather, daysOnTrail, milesTraveled, groupHealth } = data;
 
-      document.getElementById('pace').innerHTML = pace.name;
-      document.getElementById('pace-health-effect').innerHTML = pace.healthEffect;
-      document.getElementById('pace-mileage-effect').innerHTML = pace.mileage;
+      if (!document.getElementById('pace').innerHTML) {
+        console.log('Exception null pace');
+      }
 
-      document.getElementById('days').innerHTML = data.daysOnTrail;
+      document.getElementById('days').innerHTML = daysOnTrail;
 
       document.getElementById('terrain').innerHTML = terrain.name;
       document.getElementById('terrainImg').innerHTML = terrain.image;
 
-      // setup data that doesnt render each day
-      document.getElementById('money').innerHTML = data.money;
-      document.getElementById('profession').innerHTML = data.profession;
-      document.getElementById('miles').innerHTML = data.milesTraveled;
-      document.getElementById('miles-bar').value = data.milesTraveled / MILE_GOAL;
+      document.getElementById('miles').innerHTML = milesTraveled;
+      document.getElementById('miles-bar').value = milesTraveled / MILE_GOAL;
 
       document.getElementById('weather').innerHTML = weather.name;
       document.getElementById('weather-health-effect').innerHTML = weather.healthEffect;
       document.getElementById('weather-mileage-effect').innerHTML = weather.mileEffect;
 
-      document.getElementById('health').innerHTML = data.groupHealth;
-      document.getElementById('health-bar').value = data.groupHealth;
+      document.getElementById('health').innerHTML = groupHealth;
+      document.getElementById('health-bar').value = groupHealth;
 
-      // temp: document.getElementById('messeges').innerHTML = data.messeges[0];
+      // temp: document.getElementById('messeges').innerHTML = messeges[0];
 
-      console.log(`mile status: ${data.milesTraveled / MILE_GOAL}`);
-
-      if (data.weather.name === 'Snow') {
+      if (weather.name === 'Snow') {
         console.log('Snow');
       }
     });
@@ -93,8 +93,8 @@ window.addEventListener('keydown', (event) => {
 });
 
 // all we need to export is the number pressed.
-const changePace = (args) => {
-  fetch(`/api/game/data/pace/${args}`, {
+const changePace = (params) => {
+  fetch(`/api/game/data/pace/${params}`, {
     method: 'post',
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
@@ -102,11 +102,6 @@ const changePace = (args) => {
   }).then((res) => {
     if (!responseIsValid(res)) return;
 
-    res.json().then((data) => {
-      console.log(`Changing pace to ${JSON.stringify(data)}`);
-      document.getElementById('pace').innerHTML = data.name;
-      document.getElementById('pace-health-effect').innerHTML = data.healthEffect;
-      document.getElementById('pace-mileage-effect').innerHTML = data.mileage;
-    });
+    res.json().then((data) => renderPaceData(data));
   });
 };
