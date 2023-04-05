@@ -55,6 +55,8 @@ const nextDay = () => {
       document.getElementById('health').innerHTML = groupHealth;
       document.getElementById('health-bar').value = groupHealth;
 
+      document.getElementById('position-node').style.top = '370px';
+
       // temp: document.getElementById('messeges').innerHTML = messeges[0];
 
       if (weather.name === 'Snow') {

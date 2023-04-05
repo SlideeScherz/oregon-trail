@@ -11,7 +11,12 @@ const fadeDuration = 10;
 var opacity = 0;
 var intervalID = 0;
 
+// todo: move to controllers
 const MILE_GOAL = 500;
+const mapPosition = {
+  x: 355,
+  y: 357,
+};
 
 function fadeout() {
   setInterval(hide, fadeDuration);
