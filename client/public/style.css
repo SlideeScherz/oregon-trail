@@ -217,6 +217,15 @@ p {
   color: var(--textOnPrimary);
 }
 
+#stat-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  /* background-color: #4a90e2; */
+}
+
 #player-info {
   background-color: darkcyan;
 }

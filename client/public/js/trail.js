@@ -1,6 +1,9 @@
 window.onload = () => {
   fetch('/api/game/data/').then((res) => {
-    if (!responseIsValid(res)) return;
+    if (!responseIsValid(res)) {
+      console.log('Invalid res');
+      return;
+    }
 
     res.json().then((data) => {
       document.getElementById('p1-name').innerHTML = data.playerNames[1];
@@ -23,6 +26,9 @@ const nextDay = () => {
     res.json().then((data) => {
       // note: handled in changePace() but needed if starting without pressing num
       document.getElementById('pace').innerHTML = data.pace.name;
+      document.getElementById('pace-health-effect').innerHTML = data.pace.healthEffect;
+      document.getElementById('pace-mileage-effect').innerHTML = data.pace.mileage;
+
       document.getElementById('days').innerHTML = data.daysOnTrail;
       document.getElementById('terrainImg').innerHTML = data.terrain.image;
       document.getElementById('money').innerHTML = data.money;
