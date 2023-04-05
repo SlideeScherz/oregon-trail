@@ -216,21 +216,26 @@ p {
 .trail-map-container {
   position: relative;
   margin-top: 20px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .trail-map-container .bg-image {
-  opacity: 0.5;
-  height: 455px;
-  width: 606px;
-  background: center / contain no-repeat url('./images/oregon-trail-map.jpg');
+  opacity: 0.9;
+  height: 460px;
+  width: 460px;
+  background: center / contain no-repeat url('./images/oregon-trail-map.png');
 }
 
-.trail-map-container div.highlight-region {
+.trail-map-container div.map-node {
   position: absolute;
-  height: 25px;
-  width: 25px;
-  border: 3px solid white;
+  height: 15px;
+  width: 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+#position-node {
+  background-color: var(--primary);
 }
 
 .stat-card {
