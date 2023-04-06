@@ -19,5 +19,8 @@
   "homepage": "https://github.com/SlideeScherz/oregon-trail#readme",
   "dependencies": {
     "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }
