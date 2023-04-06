@@ -105,7 +105,19 @@ const nextDay = () => {
   fetch('/api/game/advanceDay').then((res) => {
     if (!responseIsValid(res)) return;
 
-    res.json().then((data) => renderGameData(data));
+    res.json().then((data) => {
+      if (data.gameState === GameState.ExceededDaysLoss) {
+        window.alert('Game over');
+      }
+      // loss
+      else if (data.gameState === GameState.HealthLoss) {
+        window.alert('Game over. All players have died!');
+      }
+      // render updates for active game
+      else if (data.gameState === GameState.Playing) {
+        renderGameData(data);
+      }
+    });
   });
 };
 

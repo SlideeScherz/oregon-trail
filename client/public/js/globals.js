@@ -11,6 +11,15 @@ const fadeDuration = 10;
 var opacity = 0;
 var intervalID = 0;
 
+// redundant, should fetch from own endpoint. defined in gameController.js
+const GameState = {
+  InSetup: 'InSetup',
+  Playing: 'Playing',
+  HealthLoss: 'HealthLoss',
+  ExceededDaysLoss: 'ExceededDaysLoss',
+  Win: 'Win',
+};
+
 // todo: move to controllers
 const MILE_GOAL = 500;
 const mapPosition = {

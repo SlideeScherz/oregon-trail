@@ -58,6 +58,7 @@ const getGameStats = (setupData) => {
     startMonth: setupData.startMonth,
     // appended
     hasGameBegan: false,
+    gameState: 'Playing',
   };
 };
 

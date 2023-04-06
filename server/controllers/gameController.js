@@ -14,6 +14,45 @@ const weathers = gameData.weathers;
 
 // game logic
 const MAX_DAYS_ON_TRAIL = 45;
+const MILE_GOAL = 500;
+
+const GameState = {
+  InSetup: 'InSetup',
+  Playing: 'Playing',
+  HealthLoss: 'HealthLoss',
+  ExceededDaysLoss: 'ExceededDaysLoss',
+  Win: 'Win',
+};
+
+/**
+ * Get an enum response based on the current game data
+ * @param {GameStats} data pass in `gameStats` object
+ * @returns GameState enum value
+ */
+const getGameState = (data) => {
+  if (data.groupHealth <= 0) {
+    console.log('All players are dead');
+    return GameState.HealthLoss;
+  }
+
+  // max 45 days
+  else if (data.daysOnTrail > MAX_DAYS_ON_TRAIL) {
+    console.log('Exceeded Days');
+    return GameState.ExceededDaysLoss;
+  }
+
+  // if none have excecuted, its a win
+  else if (data.milesTraveled >= MILE_GOAL) {
+    console.log('Win!');
+    return GameState.Win;
+  }
+
+  // none have happened, proceed
+  else {
+    console.log('Playing');
+    return GameState.Playing;
+  }
+};
 
 // reset all to null
 const resetGame = (req, res) => {
@@ -115,30 +154,31 @@ const updatePace = (req, res) => {
  * @param {json} res gameStats object
  */
 const advanceDay = (req, res) => {
-  //console.log(gameStats);
-
-  if (gameStats.groupHealth <= 0) {
-    console.warn('All players have died');
-    gameStats.groupHealth = 0;
-    gameStats.messages.push('All players have died. Game over');
-    res.setHeader('Content-Type', 'application/json');
-    res.send(gameStats);
-    return;
-  }
-
   if (!gameStats.hasGameBegan) {
     console.log('Start');
     gameStats.messages.push('Good luck!');
     gameStats.hasGameBegan = true;
   }
 
-  // call weather and terrain options first!
-  gameStats.daysOnTrail++;
-  //gameStats.weather = simulateWeather(rNum());
-  gameStats.weather = simulateWeather();
-  gameStats.terrain = simulateTerrain(randomInt());
-  gameStats.milesTraveled = updateMiles();
-  gameStats.groupHealth = updateHealth();
+  // only get updates for an active game
+  if (gameStats.gameState === GameState.Playing) {
+    gameStats.daysOnTrail++;
+
+    // call weather and terrain options first!
+
+    //gameStats.weather = simulateWeather(rNum());
+    gameStats.weather = simulateWeather();
+    gameStats.terrain = simulateTerrain(randomInt());
+    gameStats.milesTraveled = updateMiles();
+    gameStats.groupHealth = updateHealth();
+    gameStats.gameState = getGameState(gameStats);
+  }
+
+  // force 0
+  else if (gameStats.gameState === GameState.HealthLoss) {
+    gameStats.groupHealth = 0;
+  }
+
   res.setHeader('Content-Type', 'application/json');
   res.status(201);
   res.send(gameStats);
