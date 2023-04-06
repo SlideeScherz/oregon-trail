@@ -28,7 +28,7 @@
         <div id="stat-cards-columns">
           <div id="stat-cards-row">
             <div id="controls-info" class="stat-card">
-              <h2>Controls</h2>
+              <h3>Controls</h3>
               <div class="card-content">
                 <h3>Play Game (spacebar)</h3>
                 <h3>Select Pace</h3>
@@ -38,7 +38,6 @@
                   <li>3 Strenuous</li>
                   <li>4 Grueling</li>
                 </ul>
-                <br />
                 <div id="button-row">
                   <input type="button" id="submit-btn" value="Reset Game" onclick="resetGame()" />
                   <input type="button" id="submit-btn" value="Advance Day" onclick="nextDay()" />
@@ -47,12 +46,16 @@
             </div>
 
             <div id="player-info" class="stat-card">
-              <h2>Wagon Leader</h2>
+              <h3>Wagon Leader</h3>
               <div class="card-content">
-                <h3>Profession</h3>
-                <p id="profession"></p>
-                <h3>Bank Account</h3>
-                <p id="money"></p>
+                <div id="stat-row">
+                  <h3>Profession:</h3>
+                  <p id="profession"></p>
+                </div>
+                <div id="stat-row">
+                  <h3>Bank Account:</h3>
+                  <p id="money"></p>
+                </div>
               </div>
             </div>
 
@@ -82,7 +85,7 @@
               <h3>Terrain</h3>
               <div class="card-content">
                 <p id="terrain"></p>
-                <div id="terrainImg"></div>
+                <div id="terrain-img"></div>
               </div>
             </div>
             <div id="speed-info" class="stat-card">

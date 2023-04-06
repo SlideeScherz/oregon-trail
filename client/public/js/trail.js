@@ -43,7 +43,7 @@ const nextDay = () => {
       document.getElementById('days').innerHTML = daysOnTrail;
 
       document.getElementById('terrain').innerHTML = terrain.name;
-      document.getElementById('terrainImg').innerHTML = terrain.image;
+      document.getElementById('terrain-img').innerHTML = terrain.image;
 
       document.getElementById('miles').innerHTML = milesTraveled;
       document.getElementById('miles-bar').value = milesTraveled / MILE_GOAL;
@@ -55,7 +55,11 @@ const nextDay = () => {
       document.getElementById('health').innerHTML = groupHealth;
       document.getElementById('health-bar').value = groupHealth;
 
-      document.getElementById('position-node').style.top = '370px';
+      mapPosition.x -= (milesTraveled / MILE_GOAL) * 1;
+      mapPosition.y -= (milesTraveled / MILE_GOAL) * 0.825;
+      document.getElementById('position-node').style.left = `${mapPosition.x}px`;
+      document.getElementById('position-node').style.top = `${mapPosition.y}px`;
+      console.log(mapPosition);
 
       // temp: document.getElementById('messeges').innerHTML = messeges[0];
 

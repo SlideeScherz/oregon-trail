@@ -17,6 +17,10 @@ const mapPosition = {
   x: 355,
   y: 357,
 };
+const goalPosition = {
+  x: 85,
+  y: 134.25,
+};
 
 function fadeout() {
   setInterval(hide, fadeDuration);
@@ -91,7 +95,6 @@ function resetGame() {
 
     // success
     console.log('reset game');
-
     //window.location.reload();
   });
 }
