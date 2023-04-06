@@ -146,6 +146,22 @@ const updatePace = (req, res) => {
   res.json(gameStats.pace);
 };
 
+const updateMessages = (data) => {
+  if (data.daysOnTrail > MAX_DAYS_ON_TRAIL / 2) {
+    return 'Winter is coming! We are running out of time';
+  }
+
+  // health warning
+  else if (data.groupHealth === 50) {
+    return 'We may need to rest. We are losing health';
+  }
+
+  // health warning
+  else if (data.groupHealth === 25) {
+    return 'Our group is weak. Please let there be good weather ahead...';
+  }
+};
+
 /**
  * call all local methods above and send them to oregontrail.js
  * @param {*} req null
@@ -170,6 +186,12 @@ const advanceDay = (req, res) => {
     gameStats.milesTraveled = updateMiles();
     gameStats.groupHealth = updateHealth();
     gameStats.gameState = getGameState(gameStats);
+
+    const msg = updateMessages(gameStats);
+
+    if (typeof msg === 'string') {
+      gameStats.messages.push(msg);
+    }
   }
 
   // force 0

@@ -214,6 +214,11 @@ p {
   /* background-color: #4a90e2; */
 }
 
+#messages-info {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
 .trail-map-container {
   position: relative;
   margin-top: 20px;

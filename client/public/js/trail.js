@@ -59,7 +59,19 @@ const renderGameData = (data) => {
   console.log(mapPosition);
   */
 
-  document.getElementById('messages').innerHTML = messages.toString();
+  /** Id of tgt */
+  var messagesUl = document.getElementById('messages');
+
+  // didComponentUpdate
+  if (messagesUl.children.length !== messages.length) {
+    // clear first
+    messagesUl.innerHTML = '';
+    messages.forEach((item) => {
+      let li = document.createElement('li');
+      li.innerText = item;
+      messagesUl.appendChild(li);
+    });
+  }
 };
 
 /** call all children for easier callback to global reset game */
