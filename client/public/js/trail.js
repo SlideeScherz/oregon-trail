@@ -60,10 +60,6 @@ const renderGameData = (data) => {
   */
 
   document.getElementById('messages').innerHTML = messages.toString();
-
-  if (weather.name === 'Snow') {
-    console.log('Snow');
-  }
 };
 
 /** call all children for easier callback to global reset game */

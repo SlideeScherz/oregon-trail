@@ -1,9 +1,6 @@
 const gameData = require('../models/gameData');
 const SetupData = require('../models/setup/setupData');
 
-// hack: cycles thru array
-var weatherIndex;
-
 // import models
 var gameStats = gameData.getGameStats(SetupData.SetupData);
 
@@ -68,7 +65,6 @@ const resetGame = (req, res) => {
 
   console.log('Game reset');
   gameStats = gameData.getGameStats(SetupData.SetupData);
-  weatherIndex = 0;
 
   if (gameStats.daysOnTrail !== 0) {
     console.error('Days !== 0');
@@ -107,18 +103,20 @@ const updateHealth = () => {
 };
 
 /**
- * Get a random result with weighted odds
- * @returns {Object} new weather obj
+ * thanks to https://gist.github.com/alesmenzel/6164543b3d018df7bcaf6c5f9e6a841e
+ * @returns Weather object based on its weight
  */
 const simulateWeather = () => {
-  if (weatherIndex >= weathers.length - 1) {
-    weatherIndex = 0;
-  }
-  // inc
-  else {
-    weatherIndex++;
-  }
-  return weathers[weatherIndex];
+  const random = randomInt();
+  const result = weathers.find((value, index) => {
+    const sum = weathers.slice(0, index + 1).reduce((accumulator, weather) => {
+      return accumulator + weather.probability;
+    }, 0);
+
+    return random < sum;
+  });
+
+  return result;
 };
 
 /**
