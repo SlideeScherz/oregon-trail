@@ -1,10 +1,8 @@
-const getSetupData = (playerNames, profession, money, startMonth) => {
-  return {
-    playerNames: playerNames,
-    profession: profession,
-    money: money,
-    startMonth: startMonth,
-  };
+const SetupData = {
+  playerNames: ['', '', '', '', ''],
+  profession: 'def',
+  money: 0,
+  startMonth: 'def',
 };
 
-module.exports = { getSetupData };
+module.exports = { SetupData };

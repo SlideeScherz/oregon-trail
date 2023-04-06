@@ -5,8 +5,7 @@ const SetupData = require('../models/setup/setupData');
 var weatherIndex;
 
 // import models
-var setupData = SetupData.getSetupData([''], 'def', 3, 'DEC');
-var gameStats = gameData.getGameStats(setupData);
+var gameStats = gameData.getGameStats(SetupData);
 
 // containers
 const paces = gameData.paces;
@@ -19,6 +18,7 @@ const MAX_DAYS_ON_TRAIL = 45;
 // reset all to null
 const resetGame = (req, res) => {
   if (gameStats.daysOnTrail === 0) {
+    console.warn(`0 days`);
   }
 
   if (gameStats.hasGameBegan) {
@@ -28,7 +28,7 @@ const resetGame = (req, res) => {
   }
 
   console.log('Game reset');
-  gameStats = gameData.getGameStats(setupData);
+  gameStats = gameData.getGameStats(SetupData);
   weatherIndex = 0;
 
   if (gameStats.daysOnTrail !== 0) {
@@ -107,46 +107,6 @@ const updatePace = (req, res) => {
   res.json(gameStats.pace);
 };
 
-const assignMoney = (args) => {
-  if (args === 'Banker') return 2000;
-  else if (args === 'Carpenter') return 1800;
-  else if (args === 'Farmer') return 1500;
-};
-
-const newProfession = (req, res) => {
-  console.log(`newProfession: ${req.params.profession}`);
-
-  setupData.profession = req.params.profession;
-  setupData.money = assignMoney(req.params.profession);
-  res.setHeader('Content-Type', 'application/json');
-  res.status(201);
-  res.json(setupData.profession);
-};
-
-const newLeader = (req, res) => {
-  setupData.playerNames[0] = req.params.name;
-  res.setHeader('Content-Type', 'application/json');
-  res.status(201);
-  res.json(setupData.playerNames[0]);
-};
-
-const newMembers = (req, res) => {
-  setupData.playerNames[1] = req.params.name1;
-  setupData.playerNames[2] = req.params.name2;
-  setupData.playerNames[3] = req.params.name3;
-  setupData.playerNames[4] = req.params.name4;
-  res.setHeader('Content-Type', 'application/json');
-  res.status(201);
-  res.json(setupData.playerNames);
-};
-
-const newMonth = (req, res) => {
-  setupData.startMonth = req.params.month;
-  res.setHeader('Content-Type', 'application/json');
-  res.status(201);
-  res.json(setupData.startMonth);
-};
-
 /**
  * call all local methods above and send them to oregontrail.js
  * @param {*} req null
@@ -191,13 +151,4 @@ const getGameData = (req, res) => {
   res.send(gameStats);
 };
 
-module.exports = {
-  getGameData,
-  advanceDay,
-  newMonth,
-  newMembers,
-  newLeader,
-  updatePace,
-  newProfession,
-  resetGame,
-};
+module.exports = { getGameData, advanceDay, updatePace, resetGame };

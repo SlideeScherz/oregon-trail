@@ -32,16 +32,16 @@ app.get('/trail', (req, res) => {
 app.route('/api/setup/screen/:id').get(setupController.getGameScreen);
 
 // gameController <-> setup
-app.route('/api/setup/leader/:name').post(gameController.newLeader);
+app.route('/api/setup/leader/:name').post(setupController.newLeader);
 
-// gameController <-> setup
-app.route('/api/setup/member/:name1/:name2/:name3/:name4').post(gameController.newMembers);
+// setupController <-> setup
+app.route('/api/setup/member/:name1/:name2/:name3/:name4').post(setupController.newMembers);
 
-// gameController <-> setup
-app.route('/api/setup/profession/:profession').post(gameController.newProfession);
+// setupController <-> setup
+app.route('/api/setup/profession/:profession').post(setupController.newProfession);
 
-// gameController <-> setup
-app.route('/api/setup/month/:month').post(gameController.newMonth);
+// setupController <-> setup
+app.route('/api/setup/month/:month').post(setupController.newMonth);
 
 // setupController <-> setup.js
 app.route('/api/setup/data').get(setupController.getSetupData);
