@@ -5,7 +5,7 @@ const SetupData = require('../models/setup/setupData');
 var weatherIndex;
 
 // import models
-var gameStats = gameData.getGameStats(SetupData);
+var gameStats = gameData.getGameStats(SetupData.SetupData);
 
 // containers
 const paces = gameData.paces;
@@ -28,7 +28,7 @@ const resetGame = (req, res) => {
   }
 
   console.log('Game reset');
-  gameStats = gameData.getGameStats(SetupData);
+  gameStats = gameData.getGameStats(SetupData.SetupData);
   weatherIndex = 0;
 
   if (gameStats.daysOnTrail !== 0) {
@@ -37,6 +37,7 @@ const resetGame = (req, res) => {
 
   console.log(JSON.stringify(gameStats));
   res.setHeader('Content-Type', 'application/json');
+  res.status(201);
   res.json(gameStats);
 };
 
@@ -104,6 +105,7 @@ const updatePace = (req, res) => {
   }
 
   res.setHeader('Content-Type', 'application/json');
+  res.status(201);
   res.json(gameStats.pace);
 };
 
@@ -138,6 +140,7 @@ const advanceDay = (req, res) => {
   gameStats.milesTraveled = updateMiles();
   gameStats.groupHealth = updateHealth();
   res.setHeader('Content-Type', 'application/json');
+  res.status(201);
   res.send(gameStats);
 };
 
