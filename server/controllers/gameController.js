@@ -10,7 +10,7 @@ const terrains = gameData.terrains;
 const weathers = gameData.weathers;
 
 // game logic
-const MAX_DAYS_ON_TRAIL = 45;
+const MAX_DAYS_ON_TRAIL = 50;
 const MILE_GOAL = 500;
 
 const GameState = {
@@ -147,7 +147,7 @@ const updatePace = (req, res) => {
 };
 
 const updateMessages = (data) => {
-  if (data.daysOnTrail > MAX_DAYS_ON_TRAIL / 2) {
+  if (data.daysOnTrail === MAX_DAYS_ON_TRAIL / 2) {
     return 'Winter is coming! We are running out of time';
   }
 

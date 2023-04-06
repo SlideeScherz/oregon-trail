@@ -100,12 +100,3 @@ function toggleAudio() {
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-/** fetch resetGame from gameController.js, and return the response */
-const resetGame = () => {
-  fetch('/api/game/reset').then((res) => {
-    if (!responseIsValid(res)) return;
-
-    return res.json();
-  });
-};

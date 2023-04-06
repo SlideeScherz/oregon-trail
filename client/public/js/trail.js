@@ -37,6 +37,7 @@ const renderGameData = (data) => {
   }
 
   document.getElementById('days').innerHTML = daysOnTrail;
+  document.getElementById('days-bar').value = 50 - daysOnTrail;
 
   document.getElementById('terrain').innerHTML = terrain.name;
   document.getElementById('terrain-img').innerHTML = terrain.image;
@@ -99,9 +100,14 @@ window.onload = () => {
 
 /** access global reset game from /trail, with DOM update */
 const trailReset = () => {
-  const response = resetGame();
-  console.log('Trail Reset');
-  renderTrail(response);
+  fetch('/api/game/reset').then((res) => {
+    if (!responseIsValid(res)) return;
+
+    res.json().then((data) => {
+      console.log('Trail Reset');
+      renderTrail(data);
+    });
+  });
 };
 
 /**

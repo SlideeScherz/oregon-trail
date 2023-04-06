@@ -8,6 +8,13 @@
  */
 var stepCount = 0;
 
+/** access global reset game from /trail, with DOM update */
+const setupReset = () => {
+  fetch('/api/game/reset').then((res) => {
+    if (!responseIsValid(res)) return;
+  });
+};
+
 window.onload = () => {
   // load first screen by default
   getScreen(0);
@@ -158,6 +165,7 @@ const saveMonth = (args) => {
 };
 
 const startGame = () => {
+  setupReset();
   window.location.href = '/trail';
 };
 

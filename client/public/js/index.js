@@ -4,6 +4,5 @@ window.onload = fadeout;
 window.addEventListener('keydown', (event) => {
   if (event.code == 'Space') {
     window.location.replace('/mainmenu');
-    resetGame();
   }
 });

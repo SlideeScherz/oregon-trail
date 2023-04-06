@@ -1,3 +1,7 @@
+/**
+ * note: do not attempt to style progress bars due to browser incompatibilies and render issues
+ */
+
 :root {
   --indexBackground: #000000;
   --background: #2a2d34;
