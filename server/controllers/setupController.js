@@ -1,6 +1,9 @@
-var fs = require("fs");
+var fs = require('fs');
+const SetupData = require('../models/setup/setupData');
 
-const setupDir = "server/models/setup/";
+const setupDir = 'server/models/setup/';
+
+var setupData = SetupData.getSetupData([''], 'def', 3, 'DEC');
 
 // get all filenames in the setup directory
 const setupPaths = fs.readdirSync(setupDir);
@@ -19,8 +22,13 @@ const setupScreens = setupPaths.map((path, index) => {
  * @param {json} res json data to manipulate the DOM of setup.html
  */
 const getGameScreen = (req, res) => {
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader('Content-Type', 'application/json');
   res.send(setupScreens[req.params.id].data);
 };
 
-module.exports = { getGameScreen };
+const getSetupData = (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(setupData);
+};
+
+module.exports = { getGameScreen, getSetupData };

@@ -52,6 +52,10 @@ window.addEventListener('keydown', (event) => {
       case 'Digit3' || 'Numpad3':
         saveProfession('Farmer');
         break;
+
+      default:
+        console.log('Other key pressed');
+        break;
     }
   }
   // step 2 requires typing and button
@@ -158,11 +162,12 @@ const startGame = () => {
 };
 
 const confirmSetup = () => {
-  fetch('/api/game/data/').then((res) => {
+  fetch('/api/setup/data').then((res) => {
     if (!responseIsValid(res)) return;
 
-    // json format response to go in div
     res.json().then((data) => {
+      console.log(JSON.stringify(data));
+
       document.getElementById('rProfession').innerHTML = data.profession;
       document.getElementById('rMoney').innerHTML = data.money;
       document.getElementById('rLeaderName').innerHTML = data.playerNames[0];

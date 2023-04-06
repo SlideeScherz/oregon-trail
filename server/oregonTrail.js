@@ -43,6 +43,9 @@ app.route('/api/setup/profession/:profession').post(gameController.newProfession
 // gameController <-> setup
 app.route('/api/setup/month/:month').post(gameController.newMonth);
 
+// setupController <-> setup.js
+app.route('/api/setup/data').get(setupController.getSetupData);
+
 /** game routes */
 
 // simulate all game components and send updates data to trail.js

@@ -42,19 +42,21 @@ const weathers = [
   { name: 'Heavy Fog', healthEffect: -3, mileEffect: 0.5, probability: 0.05 },
 ];
 
-const getGameStats = () => {
+const getGameStats = (setupData) => {
   return {
     pace: paces[0],
     weather: weathers[2],
     terrain: terrains[2],
     messages: [''],
-    playerNames: [''],
-    profession: '',
-    money: 2,
-    startMonth: '',
     milesTraveled: 0,
     groupHealth: 100,
     daysOnTrail: 0,
+    // setup Data
+    playerNames: setupData.playerNames,
+    profession: setupData.profession,
+    money: setupData.money,
+    startMonth: setupData.startMonth,
+    // appended
     hasGameBegan: false,
   };
 };

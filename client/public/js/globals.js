@@ -64,6 +64,9 @@ function responseIsValid(res) {
   if (res.status === 200) {
     console.log(`${res.url} => ${res.status}`);
     return true;
+  } else if (res.status === 201) {
+    console.log(`${res.url} => ${res.status}`);
+    return true;
   } else {
     console.error(`${res.url} => ${res.status}`);
     return false;

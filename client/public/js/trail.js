@@ -13,7 +13,7 @@ const renderPaceData = (paceData) => {
 // setup data that doesnt render each day
 const renderSetupData = (data) => {
   if (!data) {
-    console.error('No data form renderSetupData');
+    console.error(`No data from renderSetupData: ${data}`);
     document.getElementById('money').innerHTML = '?';
     document.getElementById('profession').innerHTML = '?';
     return;
@@ -25,7 +25,7 @@ const renderSetupData = (data) => {
 
 const renderGameData = (data) => {
   // destruct
-  const { pace, terrain, weather, daysOnTrail, milesTraveled, groupHealth, messages } = data;
+  const { terrain, weather, daysOnTrail, milesTraveled, groupHealth, messages } = data;
 
   // disable if first day
   if (daysOnTrail === 0) {
@@ -34,10 +34,6 @@ const renderGameData = (data) => {
   // remove
   else {
     document.getElementById('reset-btn').removeAttribute('disabled');
-  }
-
-  if (!document.getElementById('pace').innerHTML) {
-    console.error('Exception null pace');
   }
 
   document.getElementById('days').innerHTML = daysOnTrail;
@@ -55,11 +51,13 @@ const renderGameData = (data) => {
   document.getElementById('health').innerHTML = groupHealth;
   document.getElementById('health-bar').value = groupHealth;
 
+  /** todo: get pos for 40 degree angle
   mapPosition.x -= (milesTraveled / MILE_GOAL) * 1;
   mapPosition.y -= (milesTraveled / MILE_GOAL) * 0.825;
   document.getElementById('position-node').style.left = `${mapPosition.x}px`;
   document.getElementById('position-node').style.top = `${mapPosition.y}px`;
   console.log(mapPosition);
+  */
 
   document.getElementById('messages').innerHTML = messages.toString();
 
@@ -70,6 +68,9 @@ const renderGameData = (data) => {
 
 /** call all children for easier callback to global reset game */
 const renderTrail = (data) => {
+  if (!data) {
+    console.error('render trail null args');
+  }
   renderSetupData(data);
   renderGameData(data);
   renderPaceData(data.pace);
@@ -77,10 +78,14 @@ const renderTrail = (data) => {
 
 // initial render. Load setup and default values
 window.onload = () => {
+  console.log('onLoad');
+
   fetch('/api/game/data/').then((res) => {
     if (!responseIsValid(res)) return;
 
-    res.json().then((data) => renderTrail(data));
+    res.json().then((data) => {
+      renderTrail(data);
+    });
   });
 };
 

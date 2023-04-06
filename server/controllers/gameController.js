@@ -1,10 +1,12 @@
 const gameData = require('../models/gameData');
+const SetupData = require('../models/setup/setupData');
 
 // hack: cycles thru array
 var weatherIndex;
 
 // import models
-var gameStats = gameData.getGameStats();
+var setupData = SetupData.getSetupData([''], 'def', 3, 'DEC');
+var gameStats = gameData.getGameStats(setupData);
 
 // containers
 const paces = gameData.paces;
@@ -26,7 +28,7 @@ const resetGame = (req, res) => {
   }
 
   console.log('Game reset');
-  gameStats = gameData.getGameStats();
+  gameStats = gameData.getGameStats(setupData);
   weatherIndex = 0;
 
   if (gameStats.daysOnTrail !== 0) {
@@ -105,38 +107,44 @@ const updatePace = (req, res) => {
   res.json(gameStats.pace);
 };
 
-const newProfession = (req, res) => {
-  gameStats.profession = req.params.profession;
-  gameStats.money = assignMoney(req.params.profession);
-  res.setHeader('Content-Type', 'application/json');
-  res.json(gameStats.profession);
-};
-
 const assignMoney = (args) => {
   if (args === 'Banker') return 2000;
   else if (args === 'Carpenter') return 1800;
   else if (args === 'Farmer') return 1500;
 };
 
-const newLeader = (req, res) => {
-  gameStats.playerNames[0] = req.params.name;
+const newProfession = (req, res) => {
+  console.log(`newProfession: ${req.params.profession}`);
+
+  setupData.profession = req.params.profession;
+  setupData.money = assignMoney(req.params.profession);
   res.setHeader('Content-Type', 'application/json');
-  res.json(gameStats.playerNames[0]);
+  res.status(201);
+  res.json(setupData.profession);
+};
+
+const newLeader = (req, res) => {
+  setupData.playerNames[0] = req.params.name;
+  res.setHeader('Content-Type', 'application/json');
+  res.status(201);
+  res.json(setupData.playerNames[0]);
 };
 
 const newMembers = (req, res) => {
-  gameStats.playerNames[1] = req.params.name1;
-  gameStats.playerNames[2] = req.params.name2;
-  gameStats.playerNames[3] = req.params.name3;
-  gameStats.playerNames[4] = req.params.name4;
+  setupData.playerNames[1] = req.params.name1;
+  setupData.playerNames[2] = req.params.name2;
+  setupData.playerNames[3] = req.params.name3;
+  setupData.playerNames[4] = req.params.name4;
   res.setHeader('Content-Type', 'application/json');
-  res.json(gameStats.playerNames);
+  res.status(201);
+  res.json(setupData.playerNames);
 };
 
 const newMonth = (req, res) => {
-  gameStats.startMonth = req.params.month;
+  setupData.startMonth = req.params.month;
   res.setHeader('Content-Type', 'application/json');
-  res.json(gameStats.startMonth);
+  res.status(201);
+  res.json(setupData.startMonth);
 };
 
 /**
