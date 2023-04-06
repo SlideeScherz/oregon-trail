@@ -1,8 +1,8 @@
 const paces = [
-  { name: 'Resting', healthEffect: +5, mileage: 0 },
+  { name: 'Resting', healthEffect: 10, mileage: 0 },
   { name: 'Steady', healthEffect: 0, mileage: 20 },
   { name: 'Strenuous', healthEffect: -3, mileage: 30 },
-  { name: 'Grueling', healthEffect: -8, mileage: 35 },
+  { name: 'Grueling', healthEffect: -5, mileage: 35 },
 ];
 
 const terrains = [
@@ -42,6 +42,12 @@ const weathers = [
   { name: 'Heavy Fog', healthEffect: -3, mileEffect: 0.5, probability: 0.05 },
 ];
 
+const distanceMessages = [
+  'Finally out of Texas. However they say the worst is ahead of us...',
+  'Halfway there pioneer!',
+  'These trees are getting greener by the mile!',
+];
+
 const getGameStats = (setupData) => {
   return {
     pace: paces[0],
@@ -62,4 +68,4 @@ const getGameStats = (setupData) => {
   };
 };
 
-module.exports = { getGameStats, paces, terrains, weathers };
+module.exports = { getGameStats, paces, terrains, weathers, distanceMessages };

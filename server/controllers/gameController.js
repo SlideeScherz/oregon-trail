@@ -78,28 +78,18 @@ const resetGame = (req, res) => {
 
 const randomInt = () => Math.random();
 
-const updateMiles = () => {
-  if (!gameStats.weather || !gameStats.pace) {
-    console.error('Missing required values');
-    return gameStats.milesTraveled;
-  }
-
-  const weatherSpeedEffect = gameStats.weather.mileEffect;
-  const paceSpeedEffect = gameStats.pace.mileage;
-  const netSpeedEffect = weatherSpeedEffect * paceSpeedEffect;
-  return gameStats.milesTraveled + netSpeedEffect;
+const updateMiles = (data) => {
+  const { weather, pace, milesTraveled } = data;
+  const weatherEffect = weather.mileEffect;
+  const paceEffect = pace.mileage;
+  return milesTraveled + weatherEffect * paceEffect;
 };
 
-const updateHealth = () => {
-  if (!gameStats.weather || !gameStats.pace) {
-    console.error('Missing required values');
-    return 404;
-  }
-  const health = gameStats.groupHealth;
-  const paceHealthEffect = gameStats.pace.healthEffect;
-  const weatherHealthEffect = gameStats.weather.healthEffect;
-  const netHealthEffect = paceHealthEffect + weatherHealthEffect;
-  return health + netHealthEffect;
+const updateHealth = (data) => {
+  const { weather, pace, groupHealth } = data;
+  const paceEffect = pace.healthEffect;
+  const weatherEffect = weather.healthEffect;
+  return groupHealth + paceEffect + weatherEffect;
 };
 
 /**
@@ -126,6 +116,41 @@ const simulateWeather = () => {
  */
 const simulateTerrain = (n) => terrains[Math.floor(n * terrains.length)];
 
+const updateMessages = (data) => {
+  if (data.daysOnTrail === MAX_DAYS_ON_TRAIL / 2) {
+    gameStats.messages.push('Winter is coming! We are running out of time');
+  }
+
+  // health warning
+  else if (data.groupHealth === 50) {
+    gameStats.messages.push('We may need to rest. We are losing health');
+  }
+
+  // health warning
+  else if (data.groupHealth === 25) {
+    gameStats.messages.push('Our group is weak. Please let there be good weather ahead...');
+  }
+
+  // distance msgs.
+  // 1/3rd
+  else if (data.milesTraveled >= 156 && data.milesTraveled <= 176 && gameData.distanceMessages.length === 3) {
+    const msg = gameData.distanceMessages.shift();
+    gameStats.messages.push(msg);
+  }
+
+  // 1/2 way
+  else if (data.milesTraveled >= 240 && data.milesTraveled <= 260 && gameData.distanceMessages.length === 2) {
+    const msg = gameData.distanceMessages.shift();
+    gameStats.messages.push(msg);
+  }
+
+  // 2/3 way
+  else if (data.milesTraveled >= 320 && data.milesTraveled <= 340 && gameData.distanceMessages.length === 1) {
+    const msg = gameData.distanceMessages.shift();
+    gameStats.messages.push(msg);
+  }
+};
+
 /**
  * update the pace from trail.js via POST
  * @param {string} req pace id
@@ -146,22 +171,6 @@ const updatePace = (req, res) => {
   res.json(gameStats.pace);
 };
 
-const updateMessages = (data) => {
-  if (data.daysOnTrail === MAX_DAYS_ON_TRAIL / 2) {
-    return 'Winter is coming! We are running out of time';
-  }
-
-  // health warning
-  else if (data.groupHealth === 50) {
-    return 'We may need to rest. We are losing health';
-  }
-
-  // health warning
-  else if (data.groupHealth === 25) {
-    return 'Our group is weak. Please let there be good weather ahead...';
-  }
-};
-
 /**
  * call all local methods above and send them to oregontrail.js
  * @param {*} req null
@@ -179,24 +188,12 @@ const advanceDay = (req, res) => {
     gameStats.daysOnTrail++;
 
     // call weather and terrain options first!
-
-    //gameStats.weather = simulateWeather(rNum());
     gameStats.weather = simulateWeather();
     gameStats.terrain = simulateTerrain(randomInt());
-    gameStats.milesTraveled = updateMiles();
-    gameStats.groupHealth = updateHealth();
+    gameStats.milesTraveled = updateMiles(gameStats);
+    gameStats.groupHealth = updateHealth(gameStats);
     gameStats.gameState = getGameState(gameStats);
-
-    const msg = updateMessages(gameStats);
-
-    if (typeof msg === 'string') {
-      gameStats.messages.push(msg);
-    }
-  }
-
-  // force 0
-  else if (gameStats.gameState === GameState.HealthLoss) {
-    gameStats.groupHealth = 0;
+    updateMessages(gameStats);
   }
 
   res.setHeader('Content-Type', 'application/json');
