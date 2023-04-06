@@ -44,7 +44,7 @@ const netSpeedEffect = () => paceSpeed() * weatherSpeed();
 const updateMiles = () => distance() + netSpeedEffect();
 
 // health
-const alive = (args) => args > 0;
+const isAlive = (currentHealth) => currentHealth > 0;
 
 const health = () => gameStats.groupHealth;
 
@@ -143,9 +143,13 @@ const newMonth = (req, res) => {
 const advanceDay = (req, res) => {
   //console.log(gameStats);
 
-  if (!alive(health())) {
+  if (!isAlive(health())) {
     console.warn('All players have died');
-    //return null;
+    gameStats.groupHealth = 0;
+    gameStats.messages.push('All players have died. Game over');
+    res.setHeader('Content-Type', 'application/json');
+    res.send(gameStats);
+    return;
   }
 
   if (!gameStats.hasGameBegan) {

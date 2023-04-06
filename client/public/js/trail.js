@@ -34,7 +34,7 @@ const nextDay = () => {
 
     res.json().then((data) => {
       // destruct
-      const { pace, terrain, weather, daysOnTrail, milesTraveled, groupHealth } = data;
+      const { pace, terrain, weather, daysOnTrail, milesTraveled, groupHealth, messages } = data;
 
       if (!document.getElementById('pace').innerHTML) {
         console.log('Exception null pace');
@@ -61,7 +61,7 @@ const nextDay = () => {
       document.getElementById('position-node').style.top = `${mapPosition.y}px`;
       console.log(mapPosition);
 
-      // temp: document.getElementById('messeges').innerHTML = messeges[0];
+      document.getElementById('messages').innerHTML = messages.toString();
 
       if (weather.name === 'Snow') {
         console.log('Snow');
