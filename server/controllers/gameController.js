@@ -1,13 +1,10 @@
-const gameData = require('../models/gameData');
+const GameData = require('../models/gameData');
 const SetupData = require('../models/setup/setupData');
 
-// import models
-var gameStats = gameData.getGameStats(SetupData.SetupData);
-
 // containers
-const paces = gameData.paces;
-const terrains = gameData.terrains;
-const weathers = gameData.weathers;
+const paces = GameData.paces;
+const terrains = GameData.terrains;
+const weathers = GameData.weathers;
 
 // game logic
 const MAX_DAYS_ON_TRAIL = 50;
@@ -53,27 +50,26 @@ const getGameState = (data) => {
 
 // reset all to null
 const resetGame = (req, res) => {
-  if (gameStats.daysOnTrail === 0) {
+  if (GameData.stats.daysOnTrail === 0) {
     console.warn(`0 days`);
   }
 
-  if (gameStats.hasGameBegan) {
+  if (GameData.stats.hasGameBegan) {
     console.log('game is being played');
   } else {
     console.log('game is NOT being played');
   }
 
   console.log('Game reset');
-  gameStats = gameData.getGameStats(SetupData.SetupData);
 
-  if (gameStats.daysOnTrail !== 0) {
+  if (GameData.stats.daysOnTrail !== 0) {
     console.error('Days !== 0');
   }
 
-  console.log(JSON.stringify(gameStats));
+  console.log(JSON.stringify(GameData.stats));
   res.setHeader('Content-Type', 'application/json');
   res.status(201);
-  res.json(gameStats);
+  res.json(GameData.stats);
 };
 
 const randomInt = () => Math.random();
@@ -118,36 +114,36 @@ const simulateTerrain = (n) => terrains[Math.floor(n * terrains.length)];
 
 const updateMessages = (data) => {
   if (data.daysOnTrail === MAX_DAYS_ON_TRAIL / 2) {
-    gameStats.messages.push('Winter is coming! We are running out of time');
+    GameData.stats.messages.push('Winter is coming! We are running out of time');
   }
 
   // health warning
   else if (data.groupHealth === 50) {
-    gameStats.messages.push('We may need to rest. We are losing health');
+    GameData.stats.messages.push('We may need to rest. We are losing health');
   }
 
   // health warning
   else if (data.groupHealth === 25) {
-    gameStats.messages.push('Our group is weak. Please let there be good weather ahead...');
+    GameData.stats.messages.push('Our group is weak. Please let there be good weather ahead...');
   }
 
   // distance msgs.
   // 1/3rd
-  else if (data.milesTraveled >= 156 && data.milesTraveled <= 176 && gameData.distanceMessages.length === 3) {
-    const msg = gameData.distanceMessages.shift();
-    gameStats.messages.push(msg);
+  else if (data.milesTraveled >= 156 && data.milesTraveled <= 176 && GameData.distanceMessages.length === 3) {
+    const msg = GameData.distanceMessages.shift();
+    GameData.stats.messages.push(msg);
   }
 
   // 1/2 way
-  else if (data.milesTraveled >= 240 && data.milesTraveled <= 260 && gameData.distanceMessages.length === 2) {
-    const msg = gameData.distanceMessages.shift();
-    gameStats.messages.push(msg);
+  else if (data.milesTraveled >= 240 && data.milesTraveled <= 260 && GameData.distanceMessages.length === 2) {
+    const msg = GameData.distanceMessages.shift();
+    GameData.stats.messages.push(msg);
   }
 
   // 2/3 way
-  else if (data.milesTraveled >= 320 && data.milesTraveled <= 340 && gameData.distanceMessages.length === 1) {
-    const msg = gameData.distanceMessages.shift();
-    gameStats.messages.push(msg);
+  else if (data.milesTraveled >= 320 && data.milesTraveled <= 340 && GameData.distanceMessages.length === 1) {
+    const msg = GameData.distanceMessages.shift();
+    GameData.stats.messages.push(msg);
   }
 };
 
@@ -157,18 +153,10 @@ const updateMessages = (data) => {
  * @param {json} res updated pace, or 200 if the same
  */
 const updatePace = (req, res) => {
-  if (req.params.id < 0 || req.params.id > 3) {
-    console.error('Illegal param. Providing default');
-    gameStats.pace = paces[0];
-  }
-  // no exception
-  else {
-    gameStats.pace = paces[req.params.id];
-  }
-
+  GameData.stats.pace = paces[req.params.id];
   res.setHeader('Content-Type', 'application/json');
   res.status(201);
-  res.json(gameStats.pace);
+  res.json(GameData.stats.pace);
 };
 
 /**
@@ -177,28 +165,28 @@ const updatePace = (req, res) => {
  * @param {json} res gameStats object
  */
 const advanceDay = (req, res) => {
-  if (!gameStats.hasGameBegan) {
+  if (!GameData.stats.hasGameBegan) {
     console.log('Start');
-    gameStats.messages.push('Good luck!');
-    gameStats.hasGameBegan = true;
+    GameData.stats.messages.push('Good luck!');
+    GameData.stats.hasGameBegan = true;
   }
 
   // only get updates for an active game
-  if (gameStats.gameState === GameState.Playing) {
-    gameStats.daysOnTrail++;
+  if (GameData.stats.gameState === GameState.Playing) {
+    GameData.stats.daysOnTrail++;
 
     // call weather and terrain options first!
-    gameStats.weather = simulateWeather();
-    gameStats.terrain = simulateTerrain(randomInt());
-    gameStats.milesTraveled = updateMiles(gameStats);
-    gameStats.groupHealth = updateHealth(gameStats);
-    gameStats.gameState = getGameState(gameStats);
-    updateMessages(gameStats);
+    GameData.stats.weather = simulateWeather();
+    GameData.stats.terrain = simulateTerrain(randomInt());
+    GameData.stats.milesTraveled = updateMiles(GameData.stats);
+    GameData.stats.groupHealth = updateHealth(GameData.stats);
+    GameData.stats.gameState = getGameState(GameData.stats);
+    updateMessages(GameData.stats);
   }
 
   res.setHeader('Content-Type', 'application/json');
   res.status(201);
-  res.send(gameStats);
+  res.send(GameData.stats);
 };
 
 /**
@@ -208,7 +196,7 @@ const advanceDay = (req, res) => {
  */
 const getGameData = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(gameStats);
+  res.send(GameData.stats);
 };
 
-module.exports = { getGameData, advanceDay, updatePace, resetGame };
+module.exports = { getGameData, advanceDay, updatePace, resetGame, simulateWeather };

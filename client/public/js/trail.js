@@ -11,16 +11,16 @@ const renderPaceData = (paceData) => {
 };
 
 // setup data that doesnt render each day
-const renderSetupData = (data) => {
-  if (!data) {
-    console.error(`No data from renderSetupData: ${data}`);
-    document.getElementById('money').innerHTML = '?';
-    document.getElementById('profession').innerHTML = '?';
-    return;
-  }
+const renderSetupData = () => {
+  fetch('/api/setup/data').then((res) => {
+    if (!responseIsValid(res)) return;
 
-  document.getElementById('money').innerHTML = data.money;
-  document.getElementById('profession').innerHTML = data.profession;
+    res.json().then((data) => {
+      console.log(JSON.stringify(data));
+      document.getElementById('money').innerHTML = data.money;
+      document.getElementById('profession').innerHTML = data.profession;
+    });
+  });
 };
 
 const renderGameData = (data) => {
@@ -75,16 +75,6 @@ const renderGameData = (data) => {
   }
 };
 
-/** call all children for easier callback to global reset game */
-const renderTrail = (data) => {
-  if (!data) {
-    console.error('render trail null args');
-  }
-  renderSetupData(data);
-  renderGameData(data);
-  renderPaceData(data.pace);
-};
-
 // initial render. Load setup and default values
 window.onload = () => {
   console.log('onLoad');
@@ -93,7 +83,8 @@ window.onload = () => {
     if (!responseIsValid(res)) return;
 
     res.json().then((data) => {
-      renderTrail(data);
+      renderGameData(data);
+      renderPaceData(data.pace);
     });
   });
 };
@@ -105,7 +96,8 @@ const trailReset = () => {
 
     res.json().then((data) => {
       console.log('Trail Reset');
-      renderTrail(data);
+      renderGameData(data);
+      renderPaceData(data.pace);
     });
   });
 };
