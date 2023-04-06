@@ -4,67 +4,64 @@ const gameData = require('../models/gameData');
 var weatherIndex;
 
 // import models
-var gameStats = gameData.gameDataObj;
+var gameStats = gameData.getGameStats();
 
 // containers
 const paces = gameData.paces;
 const terrains = gameData.terrains;
 const weathers = gameData.weathers;
 
+// game logic
+const MAX_DAYS_ON_TRAIL = 45;
+
 // reset all to null
 const resetGame = (req, res) => {
+  if (gameStats.daysOnTrail === 0) {
+  }
+
   if (gameStats.hasGameBegan) {
     console.log('game is being played');
   } else {
     console.log('game is NOT being played');
   }
+
   console.log('Game reset');
-  gameStats = gameData.defaultGameDataObj;
+  gameStats = gameData.getGameStats();
   weatherIndex = 0;
+
+  if (gameStats.daysOnTrail !== 0) {
+    console.error('Days !== 0');
+  }
+
+  console.log(JSON.stringify(gameStats));
   res.setHeader('Content-Type', 'application/json');
   res.json(gameStats);
 };
 
-// util
+const randomInt = () => Math.random();
 
-// random number
-const rNum = () => Math.random();
+const updateMiles = () => {
+  if (!gameStats.weather || !gameStats.pace) {
+    console.error('Missing required values');
+    return gameStats.milesTraveled;
+  }
 
-// speed and distance
-const distance = () => gameStats.milesTraveled;
-
-const paceSpeed = () => gameStats.pace.mileage;
-
-// weather
-const weatherSpeed = () => gameStats.weather.mileEffect;
-
-// speed effect, constant args always pace and weather speed
-const netSpeedEffect = () => paceSpeed() * weatherSpeed();
-
-const updateMiles = () => distance() + netSpeedEffect();
-
-// health
-const isAlive = (currentHealth) => currentHealth > 0;
-
-const health = () => gameStats.groupHealth;
-
-const paceHealth = () => gameStats.pace.healthEffect;
-
-const weatherHealth = () => gameStats.weather.healthEffect;
-
-const netHealthEffect = () => paceHealth() + weatherHealth();
+  const weatherSpeedEffect = gameStats.weather.mileEffect;
+  const paceSpeedEffect = gameStats.pace.mileage;
+  const netSpeedEffect = weatherSpeedEffect * paceSpeedEffect;
+  return gameStats.milesTraveled + netSpeedEffect;
+};
 
 const updateHealth = () => {
-  // handle death
-  if (health() <= 0) {
-    return 0;
+  if (!gameStats.weather || !gameStats.pace) {
+    console.error('Missing required values');
+    return 404;
   }
-  // handle max
-  else if (health() > 100) {
-    return 100;
-  }
-
-  return health() + netHealthEffect();
+  const health = gameStats.groupHealth;
+  const paceHealthEffect = gameStats.pace.healthEffect;
+  const weatherHealthEffect = gameStats.weather.healthEffect;
+  const netHealthEffect = paceHealthEffect + weatherHealthEffect;
+  return health + netHealthEffect;
 };
 
 /**
@@ -79,7 +76,6 @@ const simulateWeather = () => {
   else {
     weatherIndex++;
   }
-
   return weathers[weatherIndex];
 };
 
@@ -96,7 +92,15 @@ const simulateTerrain = (n) => terrains[Math.floor(n * terrains.length)];
  * @param {json} res updated pace, or 200 if the same
  */
 const updatePace = (req, res) => {
-  gameStats.pace = paces[req.params.id];
+  if (req.params.id < 0 || req.params.id > 3) {
+    console.error('Illegal param. Providing default');
+    gameStats.pace = paces[0];
+  }
+  // no exception
+  else {
+    gameStats.pace = paces[req.params.id];
+  }
+
   res.setHeader('Content-Type', 'application/json');
   res.json(gameStats.pace);
 };
@@ -143,7 +147,7 @@ const newMonth = (req, res) => {
 const advanceDay = (req, res) => {
   //console.log(gameStats);
 
-  if (!isAlive(health())) {
+  if (gameStats.groupHealth <= 0) {
     console.warn('All players have died');
     gameStats.groupHealth = 0;
     gameStats.messages.push('All players have died. Game over');
@@ -162,7 +166,7 @@ const advanceDay = (req, res) => {
   gameStats.daysOnTrail++;
   //gameStats.weather = simulateWeather(rNum());
   gameStats.weather = simulateWeather();
-  gameStats.terrain = simulateTerrain(rNum());
+  gameStats.terrain = simulateTerrain(randomInt());
   gameStats.milesTraveled = updateMiles();
   gameStats.groupHealth = updateHealth();
   res.setHeader('Content-Type', 'application/json');

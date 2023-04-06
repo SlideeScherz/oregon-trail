@@ -22,6 +22,10 @@ const goalPosition = {
   y: 134.25,
 };
 
+const StoreKey = {
+  DaysOnTrail: 'DaysOnTrail',
+};
+
 function fadeout() {
   setInterval(hide, fadeDuration);
 }
@@ -66,10 +70,7 @@ function responseIsValid(res) {
   }
 }
 
-/**
- * global.js
- * control audio which will later be acessed with keypress event
- */
+/** control audio which will later be acessed with keypress event */
 function toggleAudio() {
   // if sound is on (true) turn it off
   if (!audio.paused) {
@@ -88,13 +89,11 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// fetch api to reset the game
-function resetGame() {
+/** fetch resetGame from gameController.js, and return the response */
+const resetGame = () => {
   fetch('/api/game/reset').then((res) => {
     if (!responseIsValid(res)) return;
 
-    // success
-    console.log('reset game');
-    //window.location.reload();
+    return res.json();
   });
-}
+};

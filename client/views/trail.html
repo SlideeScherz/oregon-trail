@@ -39,8 +39,8 @@
                   <li>4 Grueling</li>
                 </ul>
                 <div id="button-row">
-                  <input type="button" id="submit-btn" value="Reset Game" onclick="resetGame()" />
-                  <input type="button" id="submit-btn" value="Advance Day" onclick="nextDay()" />
+                  <input type="button" id="reset-btn" value="Reset Game" onclick="trailReset()" />
+                  <input type="button" id="next-day-btn" value="Next Day" onclick="nextDay()" />
                 </div>
               </div>
             </div>
@@ -67,12 +67,12 @@
                   <p id="days"></p>
                 </div>
                 <div id="stat-row">
-                  <h3>Miles Traveled</h3>
+                  <h3>Miles Traveled:</h3>
                   <p id="miles"></p>
                 </div>
                 <progress id="miles-bar" value="0" max="1"></progress>
                 <div id="stat-row">
-                  <h3>Group Health</h3>
+                  <h3>Group Health:</h3>
                   <p id="health"></p>
                 </div>
                 <progress id="health-bar" value="100" max="100"></progress>
@@ -95,7 +95,7 @@
                 <p id="pace"></p>
               </div>
               <div id="stat-row">
-                <p id="stat-label">Pace Health Effect:</p>
+                <p id="stat-label">Health Effect:</p>
                 <p id="pace-health-effect"></p>
               </div>
               <div id="stat-row">
@@ -108,7 +108,7 @@
                 <p id="weather"></p>
               </div>
               <div id="stat-row">
-                <p id="stat-label">Pace Health Effect:</p>
+                <p id="stat-label">Health Effect:</p>
                 <p id="weather-health-effect"></p>
               </div>
               <div id="stat-row">
